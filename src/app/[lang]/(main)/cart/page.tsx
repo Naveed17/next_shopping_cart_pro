@@ -23,7 +23,7 @@ export default function CartPage() {
           <p className="text-gray-600 dark:text-gray-400 mb-8">
             Looks like you haven't added any items to your cart yet.
           </p>
-          <Link href="/en/products">
+          <Link href="/products">
             <Button size="lg" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800">Continue Shopping</Button>
           </Link>
         </div>

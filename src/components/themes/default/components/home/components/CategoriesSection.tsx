@@ -55,8 +55,8 @@ export default function CategoriesSection() {
             Discover products across different categories
           </p>
         </div>
-        <Link 
-          href="/en/products" 
+        <Link
+          href="/products"
           className="flex items-center text-primary-600 hover:text-primary-700 font-medium"
         >
           View All <ArrowRight className="ml-1 h-4 w-4" />

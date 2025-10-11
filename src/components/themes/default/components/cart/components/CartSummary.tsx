@@ -61,13 +61,13 @@ export default function CartSummary() {
       )}
 
       <div className="space-y-3">
-        <Link href="/en/checkout" className="block">
+        <Link href="/checkout" className="block">
           <Button className="w-full" size="lg">
             Proceed to Checkout
           </Button>
         </Link>
 
-        <Link href="/en/products" className="block">
+        <Link href="/products" className="block">
           <Button variant="outline" className="w-full">
             Continue Shopping
           </Button>

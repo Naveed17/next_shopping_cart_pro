@@ -242,7 +242,7 @@ export default function TrendingSection() {
             viewport={{ once: true }}
             className="text-center mt-12"
           >
-            <Link href="/en/products">
+            <Link href="/products">
               <Button size="lg" className="bg-blue-600/80 backdrop-blur-md border border-blue-400/30 hover:bg-blue-700/80 text-white font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
                 View All Trending Products
                 <TrendingUp className="ml-2 h-5 w-5" />

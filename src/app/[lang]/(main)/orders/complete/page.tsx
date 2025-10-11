@@ -298,14 +298,14 @@ export default function OrderCompletePage() {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4">
-          <Link href="/en/orders" className="flex-1">
+          <Link href="/orders" className="flex-1">
             <Button className="w-full">
               <Package className="h-4 w-4 mr-2" />
               View All Orders
             </Button>
           </Link>
 
-          <Link href="/en/products" className="flex-1">
+          <Link href="/products" className="flex-1">
             <Button variant="outline" className="w-full">
               Continue Shopping
             </Button>

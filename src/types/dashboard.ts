@@ -1,6 +1,6 @@
-export type UserRole = 'customer' | 'agent' | 'admin' | 'super-admin';
+export type UserRole = 'customer' | 'vendor' | 'admin' | 'super-admin';
 
-export type ModuleId = 'hotels' | 'tours' | 'flights' | 'users';
+export type ModuleId = 'products' | 'orders' | 'categories' | 'users' | 'analytics' | 'inventory';
 
 export interface Module {
   id: ModuleId;
@@ -19,33 +19,49 @@ export interface User {
 }
 
 export interface DashboardStats {
-  totalBookings: number;
+  totalOrders: number;
   totalRevenue: number;
   activeUsers: number;
   conversionRate: number;
+  totalProducts: number;
+  lowStockItems: number;
 }
 
 export const MODULES: Record<ModuleId, Module> = {
-  hotels: {
-    id: 'hotels',
-    name: 'Hotels',
+  products: {
+    id: 'products',
+    name: 'Products',
     enabled: true,
     permissions: ['view', 'create', 'edit', 'delete'],
-    icon: 'Building'
+    icon: 'Package'
   },
-  tours: {
-    id: 'tours',
-    name: 'Tours',
+  orders: {
+    id: 'orders',
+    name: 'Orders',
     enabled: true,
-    permissions: ['view', 'create', 'edit', 'delete'],
-    icon: 'MapPin'
+    permissions: ['view', 'create', 'edit', 'delete', 'fulfill'],
+    icon: 'ShoppingCart'
   },
-  flights: {
-    id: 'flights',
-    name: 'Flights',
+  categories: {
+    id: 'categories',
+    name: 'Categories',
     enabled: true,
     permissions: ['view', 'create', 'edit', 'delete'],
-    icon: 'Plane'
+    icon: 'Grid'
+  },
+  inventory: {
+    id: 'inventory',
+    name: 'Inventory',
+    enabled: true,
+    permissions: ['view', 'edit', 'manage_stock'],
+    icon: 'Archive'
+  },
+  analytics: {
+    id: 'analytics',
+    name: 'Analytics',
+    enabled: true,
+    permissions: ['view', 'export'],
+    icon: 'BarChart'
   },
   users: {
     id: 'users',
@@ -58,19 +74,19 @@ export const MODULES: Record<ModuleId, Module> = {
 
 export const ROLE_PERMISSIONS: Record<UserRole, { modules: ModuleId[]; actions: string[] }> = {
   customer: {
-    modules: ['hotels', 'tours', 'flights'],
-    actions: ['view', 'book']
+    modules: ['products', 'orders'],
+    actions: ['view', 'purchase']
   },
-  agent: {
-    modules: ['hotels', 'tours', 'flights'],
-    actions: ['view', 'create', 'edit', 'manage_bookings']
+  vendor: {
+    modules: ['products', 'orders', 'inventory', 'analytics'],
+    actions: ['view', 'create', 'edit', 'manage_inventory', 'fulfill']
   },
   admin: {
-    modules: ['hotels', 'tours', 'flights', 'users'],
+    modules: ['products', 'orders', 'categories', 'inventory', 'analytics', 'users'],
     actions: ['view', 'create', 'edit', 'delete', 'manage_modules']
   },
   'super-admin': {
-    modules: ['hotels', 'tours', 'flights', 'users'],
+    modules: ['products', 'orders', 'categories', 'inventory', 'analytics', 'users'],
     actions: ['full_access', 'system_config', 'manage_modules']
   }
 };

@@ -134,12 +134,12 @@ export default function HeroSection() {
                 transition={{ delay: 0.8, duration: 0.8 }}
                 className="flex flex-col sm:flex-row gap-4"
               >
-                <Link href="/en/products">
+                <Link href="/products">
                   <Button size="lg" className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold hover:from-yellow-500 hover:to-yellow-600 transform hover:scale-105 transition-all duration-200 shadow-lg">
                     {slides[currentSlide].cta} →
                   </Button>
                 </Link>
-                <Link href="/en/vendors">
+                <Link href="/vendors">
                   <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-black font-semibold backdrop-blur-sm bg-white/10">
                     Browse Vendors
                   </Button>

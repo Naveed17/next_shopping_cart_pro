@@ -29,7 +29,7 @@ export default function CheckoutPage() {
         <p className="text-gray-600 dark:text-gray-400 mb-8">
           Add some items to your cart before checking out.
         </p>
-        <Link href="/en/products">
+        <Link href="/products">
           <Button size="lg">Continue Shopping</Button>
         </Link>
       </div>

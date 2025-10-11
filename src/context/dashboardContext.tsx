@@ -1,6 +1,6 @@
 'use client'
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { ModuleId, Module, User, MODULES } from '@src/types/dashboard';
+import { ModuleId, Module, User, MODULES, ROLE_PERMISSIONS } from '@src/types/dashboard';
 import { useUser } from '@hooks/use-user';
 
 interface DashboardContextType {
@@ -41,12 +41,15 @@ export const DashboardProvider = ({ children }: DashboardProviderProps) => {
 
   const hasPermission = (moduleId: ModuleId, action: string): boolean => {
     if (!user) return false;
-    const module = modules[moduleId];
-    if (!module?.enabled) return false;
+    const moduleConfig = modules[moduleId];
+    if (!moduleConfig?.enabled) return false;
 
     if (user.role === 'super-admin') return true;
 
-    return module.permissions.includes(action);
+    const rolePermissions = ROLE_PERMISSIONS[user.role];
+    if (!rolePermissions.modules.includes(moduleId)) return false;
+
+    return rolePermissions.actions.includes(action) || rolePermissions.actions.includes('full_access');
   };
 
   return (

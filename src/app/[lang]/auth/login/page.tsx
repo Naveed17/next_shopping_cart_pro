@@ -45,7 +45,7 @@ export default function LoginPage() {
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
             Or{' '}
-            <Link href="/en/auth/signup" className="font-medium text-primary-600 hover:text-primary-500">
+            <Link href="/auth/signup" className="font-medium text-primary-600 hover:text-primary-500">
               create a new account
             </Link>
           </p>
@@ -99,7 +99,7 @@ export default function LoginPage() {
               </div>
 
               <div className="text-sm">
-                <Link href="/en/auth/forgot-password" className="font-medium text-primary-600 hover:text-primary-500">
+                <Link href="/auth/forgot-password" className="font-medium text-primary-600 hover:text-primary-500">
                   Forgot your password?
                 </Link>
               </div>
