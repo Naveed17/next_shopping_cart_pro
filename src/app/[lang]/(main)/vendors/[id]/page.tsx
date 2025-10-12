@@ -8,6 +8,7 @@ import { ProductCard } from '@components/themes/default';
 import Button from '@src/components/core/button/button';
 import Card from '@src/components/core/card/card';
 import Image from 'next/image';
+import Container from '@components/core/container';
 
 const mockVendor: Vendor = {
   id: '1',
@@ -64,21 +65,21 @@ export default function VendorPage() {
 
   if (loading) {
     return (
-      <div className="max-w-7xl mx-auto animate-pulse">
+      <Container className="animate-pulse mt-16">
         <div className="bg-gray-200 dark:bg-gray-700 rounded-lg h-64 mb-8"></div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[...Array(4)].map((_, i) => (
             <div key={i} className="bg-gray-200 dark:bg-gray-700 rounded-lg h-96"></div>
           ))}
         </div>
-      </div>
+      </Container>
     );
   }
 
   if (!vendor) return <div>Vendor not found</div>;
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8">
+    <Container className="space-y-8 mt-16">
       <Card className="overflow-hidden">
         <div className="bg-gradient-to-r from-primary-600 to-primary-800 px-8 py-12 text-white">
           <div className="flex flex-col md:flex-row items-start md:items-center space-y-6 md:space-y-0 md:space-x-8">
@@ -129,6 +130,6 @@ export default function VendorPage() {
           ))}
         </div>
       </div>
-    </div>
+    </Container>
   );
 }

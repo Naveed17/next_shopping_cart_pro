@@ -7,6 +7,7 @@ import { ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 import Button from '@src/components/core/button/button';
 import { SetClearCart } from '@lib/redux/cart';
+import Container from '@components/core/container';
 
 export default function CheckoutPage() {
   const { items } = useAppSelector((state) => state.cart);
@@ -39,8 +40,8 @@ export default function CheckoutPage() {
 
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+    <Container>
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-white my-8">
         Checkout
       </h1>
 
@@ -53,6 +54,6 @@ export default function CheckoutPage() {
           <OrderSummary />
         </div>
       </div>
-    </div>
+    </Container>
   );
 }

@@ -1,0 +1,53 @@
+import { FormContextProvider, FormContextConsumer } from './context'
+import classNames from 'classnames'
+import { SIZES, LAYOUT } from '@src/utils/constants'
+import type { FormContextProps } from './context'
+import type { CommonProps, TypeAttributes } from '@src/@types/common'
+
+export interface FormContainerProps extends CommonProps {
+    size?: TypeAttributes.ControlSize
+    layout?: TypeAttributes.FormLayout
+    labelWidth?: string | number
+}
+
+const FormContainer = (props: FormContainerProps) => {
+
+
+    const {
+        children,
+        className,
+        labelWidth = 100,
+        layout = LAYOUT.VERTICAL,
+        size = SIZES.MD,
+    } = props
+
+    const contextValue = {
+        labelWidth,
+        layout,
+        size: size
+    }
+
+    return (
+        <FormContextProvider value={contextValue as FormContextProps}>
+            <FormContextConsumer>
+                {(context) => {
+                    return (
+                        <div
+                            className={classNames(
+                                'form-container',
+                                context?.layout,
+                                className,
+                            )}
+                        >
+                            {children}
+                        </div>
+                    )
+                }}
+            </FormContextConsumer>
+        </FormContextProvider>
+    )
+}
+
+FormContainer.displayName = 'FormContainer'
+
+export default FormContainer

@@ -63,7 +63,7 @@ const Header = () => {
 
               <div className="ml-4 lg:ml-0 flex-1 min-w-0">
                 <h1 className="text-base sm:text-xl md:text-2xl font-bold text-gray-900 truncate">
-                  {user ? user?.role.charAt(0).toUpperCase() + user?.role.slice(1) : 'Admin'} Dashboard
+                  Dashboard
                 </h1>
               </div>
             </div>

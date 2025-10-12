@@ -9,13 +9,13 @@ const Theme = (props: CommonProps) => {
     const locale = useAppSelector(state => state.root.locale);
     const currency = useAppSelector(state => state.root.currency);
     const mode = useAppSelector(state => state.root.mode);
-    
+
     useEffect(() => {
         const root = document.documentElement;
         root.classList.remove('light', 'dark');
         root.classList.add(mode);
     }, [mode]);
-    
+
     return (
         <ConfigProvider
             value={{

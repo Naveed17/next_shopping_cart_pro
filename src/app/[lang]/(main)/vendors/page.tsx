@@ -1,9 +1,10 @@
+import Container from '@components/core/container';
 import { VendorGrid } from '@components/themes/default';
 
 export default function VendorsPage() {
   return (
-    <div className="max-w-6xl mx-auto">
-      <div className="mb-8">
+    <Container>
+      <div className="my-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
           Our Vendors
         </h1>
@@ -13,6 +14,6 @@ export default function VendorsPage() {
       </div>
 
       <VendorGrid />
-    </div>
+    </Container>
   );
 }

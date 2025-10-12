@@ -6,9 +6,10 @@ import { CartItem, CartSummary } from '@components/themes/default';
 import Button from '@src/components/core/button/button';
 import Link from 'next/link';
 import { ShoppingBag } from 'lucide-react';
+import Container from '@components/core/container';
 
 export default function CartPage() {
-  const { items, total } = useSelector((state: RootState) => state.cart);
+  const { items } = useSelector((state: RootState) => state.cart);
 
   if (items.length === 0) {
     return (
@@ -32,8 +33,8 @@ export default function CartPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto">
-      <div className="bg-white/15 dark:bg-gray-800/30 backdrop-blur-lg rounded-2xl border border-white/25 dark:border-gray-700/40 p-6 mb-8 shadow-lg">
+    <Container>
+      <div className="bg-white/15 dark:bg-gray-800/30 backdrop-blur-lg rounded-2xl border border-white/25 dark:border-gray-700/40 p-6 my-8 shadow-lg">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
           Shopping Cart ({items.length} items)
         </h1>
@@ -52,6 +53,6 @@ export default function CartPage() {
           <CartSummary />
         </div>
       </div>
-    </div>
+    </Container>
   );
 }

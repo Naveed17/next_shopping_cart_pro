@@ -9,7 +9,7 @@ export const fetchAppData = async (payload: {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
-    
+
     const response = await fetch(`${siteUrl}/api/mock/app`, {
       method: "POST",
       body: JSON.stringify({
@@ -22,7 +22,7 @@ export const fetchAppData = async (payload: {
       },
       signal: controller.signal,
     });
-    
+
     clearTimeout(timeoutId);
     const data = await response.json().catch(() => null);
     if (!response.ok || data?.status === false) {
@@ -31,7 +31,7 @@ export const fetchAppData = async (payload: {
 
     return data;
   } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
+    if (error instanceof Error && error.name === "AbortError") {
       return { error: "Request timeout - please try again" };
     }
     return { error: (error as Error).message || "An error occurred" };
@@ -47,7 +47,7 @@ export const fetchProducts = async (payload: {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
-    
+
     const response = await fetch(`${siteUrl}/api/mock/products`, {
       method: "POST",
       body: JSON.stringify(payload),
@@ -57,16 +57,16 @@ export const fetchProducts = async (payload: {
       },
       signal: controller.signal,
     });
-    
+
     clearTimeout(timeoutId);
     const data = await response.json().catch(() => null);
     if (!response.ok || data?.status === false) {
       return { error: data?.message || "Something went wrong" };
     }
 
-    return data;
+    return data.data;
   } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
+    if (error instanceof Error && error.name === "AbortError") {
       return { error: "Request timeout - please try again" };
     }
     return { error: (error as Error).message || "An error occurred" };
@@ -77,12 +77,12 @@ export const fetchCategories = async () => {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 8000);
-    
+
     const response = await fetch(`${siteUrl}/api/mock/categories`, {
       method: "GET",
       signal: controller.signal,
     });
-    
+
     clearTimeout(timeoutId);
     const data = await response.json().catch(() => null);
     if (!response.ok || data?.status === false) {
@@ -91,129 +91,7 @@ export const fetchCategories = async () => {
 
     return data;
   } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
-      return { error: "Request timeout - please try again" };
-    }
-    return { error: (error as Error).message || "An error occurred" };
-  }
-};
-
-export const addToCart = async (payload: {
-  productId: string;
-  quantity: number;
-  variant?: string;
-}) => {
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 8000);
-    
-    const response = await fetch(`${siteUrl}/api/mock/cart/add`, {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      signal: controller.signal,
-    });
-    
-    clearTimeout(timeoutId);
-    const data = await response.json().catch(() => null);
-    if (!response.ok || data?.status === false) {
-      return { error: data?.message || "Something went wrong" };
-    }
-
-    return data;
-  } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
-      return { error: "Request timeout - please try again" };
-    }
-    return { error: (error as Error).message || "An error occurred" };
-  }
-};
-
-export const updateCartItem = async (payload: {
-  itemId: string;
-  quantity: number;
-}) => {
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 8000);
-    
-    const response = await fetch(`${siteUrl}/api/mock/cart/update`, {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      signal: controller.signal,
-    });
-    
-    clearTimeout(timeoutId);
-    const data = await response.json().catch(() => null);
-    if (!response.ok || data?.status === false) {
-      return { error: data?.message || "Something went wrong" };
-    }
-
-    return data;
-  } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
-      return { error: "Request timeout - please try again" };
-    }
-    return { error: (error as Error).message || "An error occurred" };
-  }
-};
-
-export const removeFromCart = async (itemId: string) => {
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 8000);
-    
-    const response = await fetch(`${siteUrl}/api/mock/cart/remove`, {
-      method: "POST",
-      body: JSON.stringify({ itemId }),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      signal: controller.signal,
-    });
-    
-    clearTimeout(timeoutId);
-    const data = await response.json().catch(() => null);
-    if (!response.ok || data?.status === false) {
-      return { error: data?.message || "Something went wrong" };
-    }
-
-    return data;
-  } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
-      return { error: "Request timeout - please try again" };
-    }
-    return { error: (error as Error).message || "An error occurred" };
-  }
-};
-
-export const getCart = async () => {
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 8000);
-    
-    const response = await fetch(`${siteUrl}/api/mock/cart`, {
-      method: "GET",
-      signal: controller.signal,
-    });
-    
-    clearTimeout(timeoutId);
-    const data = await response.json().catch(() => null);
-    if (!response.ok || data?.status === false) {
-      return { error: data?.message || "Something went wrong" };
-    }
-
-    return data;
-  } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
+    if (error instanceof Error && error.name === "AbortError") {
       return { error: "Request timeout - please try again" };
     }
     return { error: (error as Error).message || "An error occurred" };
@@ -222,13 +100,13 @@ export const getCart = async () => {
 
 export const createOrder = async (payload: {
   items: Array<{ productId: string; quantity: number; price: number }>;
-  shippingAddress: any;
+  shippingAddress: string;
   paymentMethod: string;
 }) => {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 12000);
-    
+
     const response = await fetch(`${siteUrl}/api/mock/orders/create`, {
       method: "POST",
       body: JSON.stringify(payload),
@@ -238,7 +116,7 @@ export const createOrder = async (payload: {
       },
       signal: controller.signal,
     });
-    
+
     clearTimeout(timeoutId);
     const data = await response.json().catch(() => null);
     if (!response.ok || data?.status === false) {
@@ -247,7 +125,7 @@ export const createOrder = async (payload: {
 
     return data;
   } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
+    if (error instanceof Error && error.name === "AbortError") {
       return { error: "Request timeout - please try again" };
     }
     return { error: (error as Error).message || "An error occurred" };
@@ -258,12 +136,12 @@ export const getOrders = async () => {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
-    
+
     const response = await fetch(`${siteUrl}/api/mock/orders`, {
       method: "GET",
       signal: controller.signal,
     });
-    
+
     clearTimeout(timeoutId);
     const data = await response.json().catch(() => null);
     if (!response.ok || data?.status === false) {
@@ -272,7 +150,7 @@ export const getOrders = async () => {
 
     return data;
   } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
+    if (error instanceof Error && error.name === "AbortError") {
       return { error: "Request timeout - please try again" };
     }
     return { error: (error as Error).message || "An error occurred" };
@@ -293,13 +171,13 @@ export const newsLetter = async ({
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 8000);
-    
+
     const response = await fetch(`${siteUrl}/api/mock/newsletter`, {
       method: "POST",
       body: formData,
       signal: controller.signal,
     });
-    
+
     clearTimeout(timeoutId);
     const data = await response.json().catch(() => null);
 
@@ -309,7 +187,7 @@ export const newsLetter = async ({
 
     return data;
   } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
+    if (error instanceof Error && error.name === "AbortError") {
       return { error: "Request timeout - please try again" };
     }
     return { error: (error as Error).message || "An error occurred" };
@@ -332,7 +210,7 @@ export const sign_up = async (payload: Record<string, any>) => {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
-    
+
     const response = await fetch(`${siteUrl}/api/mock/auth/signup`, {
       method: "POST",
       body: formData,
@@ -347,7 +225,7 @@ export const sign_up = async (payload: Record<string, any>) => {
     }
     return data;
   } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
+    if (error instanceof Error && error.name === "AbortError") {
       return { error: "Request timeout - please try again" };
     }
     return { error: (error as Error).message || "An error occurred" };
@@ -361,7 +239,7 @@ export const signIn = async (payload: { email: string; password: string }) => {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 8000);
-    
+
     const response = await fetch(`${siteUrl}/api/mock/auth/login`, {
       method: "POST",
       body: formData,
@@ -376,7 +254,7 @@ export const signIn = async (payload: { email: string; password: string }) => {
     await createSession(data?.data);
     return { success: "Logged in successfully" };
   } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
+    if (error instanceof Error && error.name === "AbortError") {
       return { error: "Request timeout - please try again" };
     }
     return { error: (error as Error).message || "An error occurred" };
@@ -403,7 +281,7 @@ export const forget_password = async (email: string) => {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 8000);
-    
+
     const response = await fetch(`${siteUrl}/api/mock/auth/forgot`, {
       method: "POST",
       body: formData,
@@ -418,7 +296,7 @@ export const forget_password = async (email: string) => {
 
     return data;
   } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
+    if (error instanceof Error && error.name === "AbortError") {
       return { error: "Request timeout - please try again" };
     }
     return { error: (error as Error).message || "An error occurred" };

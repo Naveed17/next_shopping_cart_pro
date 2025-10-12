@@ -62,7 +62,7 @@ export default function CartSummary() {
 
       <div className="space-y-3">
         <Link href="/checkout" className="block">
-          <Button className="w-full" size="lg">
+          <Button className="w-full" size="lg" variant="primary">
             Proceed to Checkout
           </Button>
         </Link>

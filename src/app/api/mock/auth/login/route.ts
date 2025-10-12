@@ -22,7 +22,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Mock authentication - in real app, verify against database
     if (email === "demo@example.com" && password === "password") {
       const user = {
         id: "user_demo",
@@ -31,32 +30,15 @@ export async function POST(request: NextRequest) {
         phone: "+1-555-0123",
         avatar: "/avatars/demo.jpg",
         emailVerified: true,
-        createdAt: "2024-01-01T00:00:00Z"
+        createdAt: "2024-01-01T00:00:00Z",
       };
 
       return NextResponse.json({
         status: true,
         message: "Login successful",
-        data: user
+        data: user,
       });
     }
-
-    // For any other credentials, return success with mock user
-    const user = {
-      id: `user_${Date.now()}`,
-      email,
-      name: email.split("@")[0],
-      phone: null,
-      avatar: null,
-      emailVerified: true,
-      createdAt: new Date().toISOString()
-    };
-
-    return NextResponse.json({
-      status: true,
-      message: "Login successful",
-      data: user
-    });
   } catch (error) {
     return NextResponse.json(
       { status: false, message: "Login failed" },

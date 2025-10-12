@@ -1,5 +1,6 @@
 'use client';
 
+import Container from '@components/core/container';
 import { motion } from 'framer-motion';
 import { Shield, Truck, CreditCard, Headphones, Award, Globe } from 'lucide-react';
 
@@ -38,7 +39,7 @@ const features = [
 
 export default function WhyChooseUsSection() {
   return (
-    <section className="max-w-7xl mx-auto px-4">
+    <Container>
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
           Why Choose ShopCart?
@@ -61,17 +62,17 @@ export default function WhyChooseUsSection() {
             <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:scale-110 transition-all duration-300">
               <feature.icon className="h-6 w-6 text-blue-600 group-hover:text-white transition-colors duration-300" />
             </div>
-            
+
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
               {feature.title}
             </h3>
-            
+
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
               {feature.description}
             </p>
           </motion.div>
         ))}
       </div>
-    </section>
+    </Container>
   );
 }

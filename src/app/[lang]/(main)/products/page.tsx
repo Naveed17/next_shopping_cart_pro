@@ -1,9 +1,10 @@
+import Container from '@components/core/container';
 import { ProductGrid, ProductFilters } from '@components/themes/default';
 
 export default function ProductsPage() {
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="mb-8">
+    <Container>
+      <div className="my-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
           All Products
         </h1>
@@ -23,6 +24,6 @@ export default function ProductsPage() {
           <ProductGrid />
         </div>
       </div>
-    </div>
+    </Container>
   );
 }

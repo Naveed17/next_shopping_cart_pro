@@ -111,7 +111,7 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto mt-8">
       <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
         Your Orders
       </h1>

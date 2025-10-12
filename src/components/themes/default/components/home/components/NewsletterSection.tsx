@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Gift, Zap, Shield, Bell, Users, Star } from 'lucide-react';
 import Button from '@src/components/core/button/button';
+import Container from '@components/core/container';
 
 export default function NewsletterSection() {
   const [email, setEmail] = useState('');
@@ -29,8 +30,8 @@ export default function NewsletterSection() {
   ];
 
   return (
-    <section className="max-w-7xl mx-auto px-4">
-      <div className="relative bg-blue-50/30 dark:bg-blue-900/10 backdrop-blur-2xl border border-blue-200/40 dark:border-blue-800/40 rounded-3xl p-8 md:p-16 overflow-hidden">
+    <Container>
+      <div className="relative bg-blue-50/30 dark:bg-blue-900/10 backdrop-blur-2xl border border-blue-200/40 dark:border-blue-800/40 rounded-3xl p-8 mb-16 md:p-16 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
@@ -198,6 +199,6 @@ export default function NewsletterSection() {
           </div>
         </div>
       </div>
-    </section>
+    </Container>
   );
 }
