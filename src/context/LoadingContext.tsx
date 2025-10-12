@@ -85,22 +85,21 @@ export const LoadingProvider = ({ children }: { children: React.ReactNode }) => 
                     <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-10 flex flex-col items-center m-4 max-w-sm w-full">
                         {/* Shopping Cart Icon with Animation */}
                         <div className="relative mb-6">
-                            <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
-                                <svg className="w-10 h-10 text-white animate-bounce" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z"/>
-                                    <path d="M9 8V17H11V8H9ZM13 8V17H15V8H13Z"/>
+                            <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+                                <svg className="w-10 h-10 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0h7M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
                                 </svg>
                             </div>
-                            <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center animate-pulse">
-                                <span className="text-xs font-bold text-yellow-900">!</span>
+                            <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center animate-pulse">
+                                <span className="text-xs font-bold text-white">3</span>
                             </div>
                         </div>
 
                         {/* Loading Dots */}
                         <div className="flex space-x-2 mb-6">
                             <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
-                            <div className="w-3 h-3 bg-purple-500 rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
-                            <div className="w-3 h-3 bg-pink-500 rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>
+                            <div className="w-3 h-3 bg-blue-600 rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
+                            <div className="w-3 h-3 bg-blue-700 rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>
                         </div>
 
                         {/* Loading Text */}
