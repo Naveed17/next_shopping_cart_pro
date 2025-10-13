@@ -33,7 +33,7 @@ export default function CheckoutForm({ onOrderComplete }: CheckoutFormProps) {
   const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
