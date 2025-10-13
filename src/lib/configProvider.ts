@@ -6,7 +6,7 @@ export type Config = {
   locale: string;
   currency: string;
   mode: "light" | "dark";
-  controlSize: "default" | "compact";
+  controlSize?: "default" | "compact";
 };
 
 export const defaultConfig: Config = {
