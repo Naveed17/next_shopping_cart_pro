@@ -2,13 +2,25 @@
 
 import { useState } from 'react';
 import ProductCard from '@src/components/core/ProductCard';
-import { Grid3X3, LayoutGrid, ChevronDown } from 'lucide-react';
+import { Grid3X3, LayoutGrid } from 'lucide-react';
 import Card from '@src/components/core/card/card';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from '@src/actions';
 import { Product } from '@src/@types/common';
+import Select from '@src/components/core/select';
 // Mock data - replace with API call
 
+
+const getSortLabel = (value: string) => {
+  const labels: Record<string, string> = {
+    'name': 'Sort by Name',
+    'price-low': 'Price: Low to High',
+    'price-high': 'Price: High to Low',
+    'rating': 'Highest Rated',
+    'newest': 'Newest First'
+  };
+  return labels[value] || 'Sort by Name';
+};
 
 export default function ProductGrid() {
   const [sortBy, setSortBy] = useState('name');
@@ -54,19 +66,21 @@ export default function ProductGrid() {
 
           <div className="flex items-center space-x-4">
             {/* Sort Filter */}
-            <div className="relative">
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="appearance-none bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="name">Sort by Name</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="rating">Highest Rated</option>
-                <option value="newest">Newest First</option>
-              </select>
-              <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+            <div className="w-60">
+              <Select
+                value={{ value: sortBy, label: getSortLabel(sortBy) }}
+                size="sm"
+                onChange={(option: any) => setSortBy(option.value)}
+                options={[
+                  { value: 'name', label: 'Sort by Name' },
+                  { value: 'price-low', label: 'Price: Low to High' },
+                  { value: 'price-high', label: 'Price: High to Low' },
+                  { value: 'rating', label: 'Highest Rated' },
+                  { value: 'newest', label: 'Newest First' }
+                ]}
+                isSearchable={false}
+
+              />
             </div>
 
             {/* Grid Switcher */}

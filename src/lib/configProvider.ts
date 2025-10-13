@@ -6,6 +6,7 @@ export type Config = {
   locale: string;
   currency: string;
   mode: "light" | "dark";
+  controlSize: "default" | "compact";
 };
 
 export const defaultConfig: Config = {
@@ -13,6 +14,7 @@ export const defaultConfig: Config = {
   locale: "en",
   currency: "USD",
   mode: "light",
+  controlSize: "default",
 } as const;
 
 export const ConfigContext = createContext<Config>(defaultConfig);
