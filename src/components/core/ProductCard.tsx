@@ -19,12 +19,15 @@ interface ProductCardProps {
 export default function ProductCard({ product, featured = false, showQuickView = true }: ProductCardProps) {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
   const dispatch = useAppDispatch();
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    setIsAddingToCart(true);
     dispatch(SetAddToCart(product));
+    setTimeout(() => setIsAddingToCart(false), 1500);
   };
 
   const toggleWishlist = (e: React.MouseEvent) => {
@@ -138,11 +141,24 @@ export default function ProductCard({ product, featured = false, showQuickView =
             >
               <Button
                 onClick={handleAddToCart}
-                className="w-full bg-blue-600/90 text-white backdrop-blur-xl hover:bg-blue-700/90 border border-blue-400/30 hover:border-blue-300/50 shadow-lg hover:shadow-blue-500/30 transition-all duration-300"
+                className={`w-full backdrop-blur-xl border shadow-lg transition-all duration-300 ${
+                  isAddingToCart 
+                    ? 'bg-green-600/90 text-white border-green-400/30 hover:border-green-300/50 hover:shadow-green-500/30' 
+                    : 'bg-blue-600/90 text-white hover:bg-blue-700/90 border-blue-400/30 hover:border-blue-300/50 hover:shadow-blue-500/30'
+                }`}
                 size="sm"
+                disabled={isAddingToCart}
               >
-                <ShoppingCart className="h-4 w-4 mr-2" />
-                Quick Add
+                {isAddingToCart ? (
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
+                  />
+                ) : (
+                  <ShoppingCart className="h-4 w-4 mr-2" />
+                )}
+                {isAddingToCart ? 'Adding...' : 'Quick Add'}
               </Button>
             </motion.div>
           </div>
@@ -240,11 +256,23 @@ export default function ProductCard({ product, featured = false, showQuickView =
             >
               <Button
                 onClick={handleAddToCart}
-                disabled={product.stock === 0}
-                className="w-full bg-gradient-to-r from-blue-600/90 to-blue-700/90 hover:from-blue-700/90 hover:to-blue-800/90 text-white font-semibold backdrop-blur-sm border border-blue-500/30 shadow-lg hover:shadow-blue-500/30 transition-all duration-300"
+                disabled={product.stock === 0 || isAddingToCart}
+                className={`w-full font-semibold backdrop-blur-sm border shadow-lg transition-all duration-300 ${
+                  isAddingToCart
+                    ? 'bg-gradient-to-r from-green-600/90 to-green-700/90 hover:from-green-700/90 hover:to-green-800/90 border-green-500/30 hover:shadow-green-500/30'
+                    : 'bg-gradient-to-r from-blue-600/90 to-blue-700/90 hover:from-blue-700/90 hover:to-blue-800/90 border-blue-500/30 hover:shadow-blue-500/30'
+                }`}
               >
-                <ShoppingCart className="h-4 w-4 mr-2" />
-                {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+                {isAddingToCart ? (
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
+                  />
+                ) : (
+                  <ShoppingCart className="h-4 w-4 mr-2" />
+                )}
+                {product.stock === 0 ? 'Out of Stock' : isAddingToCart ? 'Adding to Cart...' : 'Add to Cart'}
               </Button>
             </motion.div>
           </div>

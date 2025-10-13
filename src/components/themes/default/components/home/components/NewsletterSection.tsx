@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Mail, Gift, Zap, Shield, Bell, Users, Star } from 'lucide-react';
 import Button from '@src/components/core/button/button';
 import Container from '@components/core/container';
+import Input from '@src/components/core/input';
 
 export default function NewsletterSection() {
   const [email, setEmail] = useState('');
@@ -119,7 +120,7 @@ export default function NewsletterSection() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="relative">
                     <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-blue-500 h-5 w-5" />
-                    <input
+                    <Input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}

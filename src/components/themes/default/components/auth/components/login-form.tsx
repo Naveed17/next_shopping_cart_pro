@@ -137,7 +137,7 @@ export default function LoginForm() {
 
                         <div className="flex items-center justify-between">
                             <div className="flex items-center">
-                                <input
+                                <Input
                                     id="remember-me"
                                     name="remember-me"
                                     type="checkbox"

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Star } from 'lucide-react';
 import Card from '@src/components/core/card/card';
 import Button from '@src/components/core/button/button';
 
@@ -114,7 +115,7 @@ export default function ProductFilters() {
                 className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300"
               />
               <span className="ml-2 text-sm text-gray-700 dark:text-gray-300 flex items-center">
-                {rating}+ ⭐
+                {rating}+ <Star className="h-4 w-4 ml-1 text-yellow-400 fill-current" />
               </span>
             </label>
           ))}

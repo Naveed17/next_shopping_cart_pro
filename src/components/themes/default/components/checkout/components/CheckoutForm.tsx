@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { CreditCard, MapPin, User, Mail, Phone } from 'lucide-react';
 import Button from '@src/components/core/button/button';
 import Card from '@src/components/core/card/card';
+import Input from '@src/components/core/input';
 
 interface CheckoutFormProps {
   onOrderComplete: () => void;
@@ -94,7 +95,7 @@ export default function CheckoutForm({ onOrderComplete }: CheckoutFormProps) {
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 First Name
               </label>
-              <input
+              <Input
                 type="text"
                 name="firstName"
                 required
@@ -108,7 +109,7 @@ export default function CheckoutForm({ onOrderComplete }: CheckoutFormProps) {
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Last Name
               </label>
-              <input
+              <Input
                 type="text"
                 name="lastName"
                 required
@@ -122,7 +123,7 @@ export default function CheckoutForm({ onOrderComplete }: CheckoutFormProps) {
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Email
               </label>
-              <input
+              <Input
                 type="email"
                 name="email"
                 required
@@ -136,7 +137,7 @@ export default function CheckoutForm({ onOrderComplete }: CheckoutFormProps) {
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Phone
               </label>
-              <input
+              <Input
                 type="tel"
                 name="phone"
                 required
@@ -170,7 +171,7 @@ export default function CheckoutForm({ onOrderComplete }: CheckoutFormProps) {
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Street Address
               </label>
-              <input
+              <Input
                 type="text"
                 name="address"
                 required
@@ -185,7 +186,7 @@ export default function CheckoutForm({ onOrderComplete }: CheckoutFormProps) {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   City
                 </label>
-                <input
+                <Input
                   type="text"
                   name="city"
                   required
@@ -199,7 +200,7 @@ export default function CheckoutForm({ onOrderComplete }: CheckoutFormProps) {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   State
                 </label>
-                <input
+                <Input
                   type="text"
                   name="state"
                   required
@@ -213,7 +214,7 @@ export default function CheckoutForm({ onOrderComplete }: CheckoutFormProps) {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   ZIP Code
                 </label>
-                <input
+                <Input
                   type="text"
                   name="zipCode"
                   required
@@ -251,7 +252,7 @@ export default function CheckoutForm({ onOrderComplete }: CheckoutFormProps) {
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Card Number
               </label>
-              <input
+              <Input
                 type="text"
                 name="cardNumber"
                 required
@@ -267,7 +268,7 @@ export default function CheckoutForm({ onOrderComplete }: CheckoutFormProps) {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Expiry Date
                 </label>
-                <input
+                <Input
                   type="text"
                   name="expiryDate"
                   required
@@ -282,7 +283,7 @@ export default function CheckoutForm({ onOrderComplete }: CheckoutFormProps) {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   CVV
                 </label>
-                <input
+                <Input
                   type="text"
                   name="cvv"
                   required
@@ -298,7 +299,7 @@ export default function CheckoutForm({ onOrderComplete }: CheckoutFormProps) {
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Cardholder Name
               </label>
-              <input
+              <Input
                 type="text"
                 name="cardName"
                 required
