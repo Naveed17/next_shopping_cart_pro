@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@src/hooks/use-user';
-import { UserRole } from '@src/types/dashboard';
+import { UserRole, User } from '@src/types/dashboard';
 
 export interface RoleGuardProps {
   children: React.ReactNode;
@@ -22,7 +22,8 @@ export function RoleGuard({
 
   React.useEffect(() => {
     if (!isLoading && user) {
-      if (!allowedRoles.includes(user.role)) {
+      const typedUser = user as unknown as User;
+      if (!allowedRoles.includes(typedUser.role)) {
         router.replace(redirectTo);
         return;
       }
@@ -34,7 +35,7 @@ export function RoleGuard({
     return null;
   }
 
-  if (!user || !allowedRoles.includes(user.role)) {
+  if (!user || !allowedRoles.includes((user as unknown as User).role)) {
     return null;
   }
 
