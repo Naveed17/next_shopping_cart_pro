@@ -16,7 +16,6 @@ const DashboardRedirect = () => {
       router.push(`/${lang}/dashboard/${user.role}`);
     }
   }, [user, router, lang]);
-
   return (
     <div className="flex items-center justify-center min-h-[60vh]">
       <motion.div

@@ -10,13 +10,15 @@ import {
   Users,
   Settings,
   BarChart3,
-  Shield
+  Grid3X3,
+  Archive,
+  User
 } from 'lucide-react';
 import { useDashboard } from '@src/context/dashboardContext';
 import { UserRole } from '@src/types/dashboard';
 
 const Sidebar = () => {
-  const { user, modules } = useDashboard();
+  const { user, hasPermission } = useDashboard();
   const params = useParams();
   const pathname = usePathname();
   const lang = params?.lang as string || 'en';
@@ -24,63 +26,69 @@ const Sidebar = () => {
   if (!user) return null;
 
   const getNavigationItems = (role: UserRole) => {
-    const baseItems = [
-      { name: 'Dashboard', href: `/dashboard/${role}`, icon: LayoutDashboard }
+    const items = [
+      { name: 'Overview', href: `/dashboard`, icon: LayoutDashboard, section: 'dashboard' }
     ];
 
-    const moduleItems = [];
-    if (modules.products.enabled) {
-      moduleItems.push({ name: 'Products', href: `/dashboard/products`, icon: Package });
+    // Products
+    if (hasPermission('products')) {
+      items.push({ name: 'Products', href: `/dashboard/products`, icon: Package, section: 'products' });
     }
-    if (modules.orders.enabled) {
+
+    // Orders
+    if (hasPermission('orders')) {
       const orderLabel = role === 'customer' ? 'My Orders' : 'Orders';
-      moduleItems.push({ name: orderLabel, href: `/dashboard/orders`, icon: ShoppingCart });
+      items.push({ name: orderLabel, href: `/dashboard/orders`, icon: ShoppingCart, section: 'orders' });
     }
 
-    const roleSpecificItems = [];
-
-    if (role === 'vendor') {
-      if (modules.users.enabled) {
-        roleSpecificItems.push(
-          { name: 'Customers', href: `/dashboard/customers`, icon: Users }
-        );
-      }
-    } else if (role === 'admin') {
-      if (modules.users.enabled) {
-        roleSpecificItems.push(
-          { name: 'Vendors', href: `/dashboard/vendors`, icon: Store }
-        );
-      }
-      if (modules.users.enabled) {
-        roleSpecificItems.push(
-          { name: 'Customers', href: `/dashboard/customers`, icon: Users }
-        );
-      }
-      if (modules.analytics.enabled) {
-        roleSpecificItems.push(
-          { name: 'Analytics', href: `/dashboard/analytics`, icon: BarChart3 }
-        );
-      }
-      roleSpecificItems.push(
-        { name: 'Settings', href: `/dashboard/settings`, icon: Settings }
-      );
+    // Categories (Admin only)
+    if (hasPermission('categories')) {
+      items.push({ name: 'Categories', href: `/dashboard/categories`, icon: Grid3X3, section: 'categories' });
     }
 
-    return [...baseItems, ...moduleItems, ...roleSpecificItems];
+    // Inventory (Vendor & Admin)
+    if (hasPermission('inventory')) {
+      items.push({ name: 'Inventory', href: `/dashboard/inventory`, icon: Archive, section: 'inventory' });
+    }
+
+    // Analytics (Vendor & Admin)
+    if (hasPermission('analytics')) {
+      items.push({ name: 'Analytics', href: `/dashboard/analytics`, icon: BarChart3, section: 'analytics' });
+    }
+
+    // Users Management
+    if (hasPermission('customers')) {
+      items.push({ name: 'Customers', href: `/dashboard/customers`, icon: Users, section: 'customers' });
+    }
+    if (hasPermission('vendors')) {
+      items.push({ name: 'Vendors', href: `/dashboard/vendors`, icon: Store, section: 'vendors' });
+    }
+
+    // Profile
+    if (hasPermission('profile')) {
+      items.push({ name: 'Profile', href: `/dashboard/profile`, icon: User, section: 'profile' });
+    }
+
+    // Settings (Admin only)
+    if (hasPermission('settings')) {
+      items.push({ name: 'Settings', href: `/dashboard/settings`, icon: Settings, section: 'settings' });
+    }
+
+    return items;
   };
 
   const navigationItems = getNavigationItems(user.role);
 
   return (
-    <div className="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg lg:block hidden">
-      <div className="flex h-16 items-center px-6 border-b border-gray-200">
-        <h1 className="text-xl font-bold text-gray-900">Dashboard</h1>
+    <div className="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-900 shadow-lg lg:block hidden border-r border-gray-200 dark:border-gray-700">
+      <div className="flex h-16 items-center px-6 border-b border-gray-200 dark:border-gray-700">
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
       </div>
 
       <nav className="mt-6 px-3">
         <div className="space-y-1">
           {navigationItems.map((item) => {
-            const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+            const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
             const Icon = item.icon;
 
             return (
@@ -88,11 +96,11 @@ const Sidebar = () => {
                 key={item.name}
                 href={item.href}
                 className={`group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${isActive
-                  ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
-                  : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                  ? 'bg-blue-50 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
                   }`}
               >
-                <Icon className={`mr-3 h-5 w-5 ${isActive ? 'text-blue-700' : 'text-gray-400'}`} />
+                <Icon className={`mr-3 h-5 w-5 ${isActive ? 'text-blue-700 dark:text-blue-300' : 'text-gray-400 dark:text-gray-500'}`} />
                 {item.name}
               </Link>
             );
@@ -100,16 +108,16 @@ const Sidebar = () => {
         </div>
       </nav>
 
-      <div className="absolute bottom-0 w-full p-4 border-t border-gray-200">
+      <div className="absolute bottom-0 w-full p-4 border-t border-gray-200 dark:border-gray-700">
         <div className="flex items-center">
-          <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-            <span className="text-sm font-medium text-blue-700">
+          <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+            <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
               {user.name.charAt(0)}
             </span>
           </div>
           <div className="ml-3">
-            <p className="text-sm font-medium text-gray-900">{user.name}</p>
-            <p className="text-xs text-gray-500 capitalize">{user.role}</p>
+            <p className="text-sm font-medium text-gray-900 dark:text-white">{user.name}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">{user.role}</p>
           </div>
         </div>
       </div>

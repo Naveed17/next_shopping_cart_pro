@@ -1,15 +1,5 @@
 export type UserRole = 'customer' | 'vendor' | 'admin' | 'super-admin';
 
-export type ModuleId = 'products' | 'orders' | 'categories' | 'users' | 'analytics' | 'inventory';
-
-export interface Module {
-  id: ModuleId;
-  name: string;
-  enabled: boolean;
-  permissions: string[];
-  icon: string;
-}
-
 export interface User {
   id: string;
   name: string;
@@ -27,66 +17,21 @@ export interface DashboardStats {
   lowStockItems: number;
 }
 
-export const MODULES: Record<ModuleId, Module> = {
-  products: {
-    id: 'products',
-    name: 'Products',
-    enabled: true,
-    permissions: ['view', 'create', 'edit', 'delete'],
-    icon: 'Package'
-  },
-  orders: {
-    id: 'orders',
-    name: 'Orders',
-    enabled: true,
-    permissions: ['view', 'create', 'edit', 'delete', 'fulfill'],
-    icon: 'ShoppingCart'
-  },
-  categories: {
-    id: 'categories',
-    name: 'Categories',
-    enabled: true,
-    permissions: ['view', 'create', 'edit', 'delete'],
-    icon: 'Grid'
-  },
-  inventory: {
-    id: 'inventory',
-    name: 'Inventory',
-    enabled: true,
-    permissions: ['view', 'edit', 'manage_stock'],
-    icon: 'Archive'
-  },
-  analytics: {
-    id: 'analytics',
-    name: 'Analytics',
-    enabled: true,
-    permissions: ['view', 'export'],
-    icon: 'BarChart'
-  },
-  users: {
-    id: 'users',
-    name: 'Users',
-    enabled: true,
-    permissions: ['view', 'create', 'edit', 'delete'],
-    icon: 'Users'
-  }
-};
-
-export const ROLE_PERMISSIONS: Record<UserRole, { modules: ModuleId[]; actions: string[] }> = {
+export const ROLE_PERMISSIONS: Record<UserRole, { sections: string[]; actions: string[] }> = {
   customer: {
-    modules: ['products', 'orders'],
-    actions: ['view', 'purchase']
+    sections: ['orders', 'profile'],
+    actions: ['view', 'edit_profile']
   },
   vendor: {
-    modules: ['products', 'orders', 'inventory', 'analytics'],
-    actions: ['view', 'create', 'edit', 'manage_inventory', 'fulfill']
+    sections: ['products', 'orders', 'inventory', 'analytics', 'profile'],
+    actions: ['view', 'create', 'edit', 'delete', 'manage_inventory']
   },
   admin: {
-    modules: ['products', 'orders', 'categories', 'inventory', 'analytics', 'users'],
-    actions: ['view', 'create', 'edit', 'delete', 'manage_modules']
+    sections: ['products', 'orders', 'categories', 'inventory', 'analytics', 'users', 'vendors', 'customers', 'settings'],
+    actions: ['view', 'create', 'edit', 'delete', 'manage_users']
   },
   'super-admin': {
-    modules: ['products', 'orders', 'categories', 'inventory', 'analytics', 'users'],
-    actions: ['full_access', 'system_config', 'manage_modules']
+    sections: ['products', 'orders', 'categories', 'inventory', 'analytics', 'users', 'vendors', 'customers', 'settings', 'system'],
+    actions: ['full_access']
   }
 };

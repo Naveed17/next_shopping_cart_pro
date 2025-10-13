@@ -31,6 +31,7 @@ export async function POST(request: NextRequest) {
         avatar: "/avatars/demo.jpg",
         emailVerified: true,
         createdAt: "2024-01-01T00:00:00Z",
+        role: "admin",
       };
 
       return NextResponse.json({

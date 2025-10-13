@@ -2,22 +2,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Server, Database, Activity, AlertTriangle, CheckCircle, Settings, Lock } from 'lucide-react';
-import { useDashboard } from '@src/context/dashboardContext';
+import { RoleGuard } from '@src/lib/auth/role-guard';
 import StatsCard from '@src/components/themes/dashboard/shared/widgets/StatsCard';
 
 const SystemPage = () => {
-  const { user } = useDashboard();
-
-  if (!user || user.role !== 'super-admin') {
-    return (
-      <div className="text-center py-12">
-        <p className="text-gray-500">Access denied. Super Admin privileges required.</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="space-y-6">
+    <RoleGuard allowedRoles={['super-admin']}>
+      <div className="space-y-6">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -182,7 +173,8 @@ const SystemPage = () => {
           </button>
         </div>
       </motion.div>
-    </div>
+      </div>
+    </RoleGuard>
   );
 };
 

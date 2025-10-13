@@ -58,8 +58,8 @@ const Drawer = (props: DrawerProps) => {
     }
 
     const renderCloseButton = (
-        <button 
-            type="button" 
+        <button
+            type="button"
             onClick={onCloseClick}
             className="p-1 hover:bg-gray-100 rounded-full transition-colors"
         >
@@ -137,7 +137,7 @@ const Drawer = (props: DrawerProps) => {
                         {title || closable ? (
                             <div className={classNames('drawer-header flex items-center justify-between py-4 px-6 border-b border-gray-200 dark:border-gray-700', headerClass)}>
                                 {typeof title === 'string' ? (
-                                    <h4 className="text-lg font-semibold">{title}</h4>
+                                    <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{title}</h4>
                                 ) : (
                                     <span>{title}</span>
                                 )}

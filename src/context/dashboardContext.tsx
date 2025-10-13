@@ -1,13 +1,11 @@
 'use client'
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { ModuleId, Module, User, MODULES, ROLE_PERMISSIONS } from '@src/types/dashboard';
+import React, { createContext, useContext, ReactNode } from 'react';
+import { User, ROLE_PERMISSIONS } from '@src/types/dashboard';
 import { useUser } from '@hooks/use-user';
 
 interface DashboardContextType {
-  modules: Record<ModuleId, Module>;
   user: User | null;
-  toggleModule: (moduleId: ModuleId) => void;
-  hasPermission: (moduleId: ModuleId, action: string) => boolean;
+  hasPermission: (section: string, action?: string) => boolean;
 }
 
 const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
@@ -27,36 +25,20 @@ interface DashboardProviderProps {
 export const DashboardProvider = ({ children }: DashboardProviderProps) => {
   const { user: userData } = useUser();
   const user = userData as User | null;
-  const [modules, setModules] = useState<Record<ModuleId, Module>>(MODULES);
 
-  const toggleModule = (moduleId: ModuleId) => {
-    setModules(prev => ({
-      ...prev,
-      [moduleId]: {
-        ...prev[moduleId],
-        enabled: !prev[moduleId].enabled
-      }
-    }));
-  };
-
-  const hasPermission = (moduleId: ModuleId, action: string): boolean => {
+  const hasPermission = (section: string, action: string = 'view'): boolean => {
     if (!user) return false;
-    const moduleConfig = modules[moduleId];
-    if (!moduleConfig?.enabled) return false;
-
-    if (user.role === 'super-admin') return true;
+    if (user.role === 'super-admin' || user.role === 'admin') return true;
 
     const rolePermissions = ROLE_PERMISSIONS[user.role];
-    if (!rolePermissions.modules.includes(moduleId)) return false;
+    if (!rolePermissions || !rolePermissions.sections.includes(section)) return false;
 
     return rolePermissions.actions.includes(action) || rolePermissions.actions.includes('full_access');
   };
 
   return (
     <DashboardContext.Provider value={{
-      modules,
       user,
-      toggleModule,
       hasPermission
     }}>
       {children}
