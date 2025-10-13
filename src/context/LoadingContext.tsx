@@ -86,9 +86,39 @@ export const LoadingProvider = ({ children }: { children: React.ReactNode }) => 
                         {/* Shopping Cart Icon with Animation */}
                         <div className="relative mb-6">
                             <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
-                                <svg className="w-10 h-10 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0h7M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 64 64"
+                                    fill="currentColor"
+                                    className="w-16 h-16 text-white animate-bounce"
+                                >
+                                    {/* Back bag */}
+                                    <g transform="translate(10, 0)">
+                                        <path
+                                            d="M18 20h28a2 2 0 0 1 2 2v26a4 4 0 0 1-4 4H20a4 4 0 0 1-4-4V22a2 2 0 0 1 2-2z"
+                                            opacity="0.4"
+                                        />
+                                        <path
+                                            d="M24 22v-2a8 8 0 0 1 16 0v2h-3v-2a5 5 0 0 0-10 0v2h-3z"
+                                            opacity="0.4"
+                                        />
+                                    </g>
+
+                                    {/* Front bag (slightly right shifted) */}
+                                    <g transform="translate(4, 2)">
+                                        <path
+                                            d="M14 26h28a2 2 0 0 1 2 2v24a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4V28a2 2 0 0 1 2-2z"
+                                        />
+                                        <path
+                                            d="M20 26v-2a6 6 0 0 1 12 0v2h-2v-2a4 4 0 0 0-8 0v2h-2z"
+                                        />
+                                    </g>
                                 </svg>
+
+
+
+
+
                             </div>
                             <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center animate-pulse">
                                 <span className="text-xs font-bold text-white">3</span>
@@ -97,9 +127,9 @@ export const LoadingProvider = ({ children }: { children: React.ReactNode }) => 
 
                         {/* Loading Dots */}
                         <div className="flex space-x-2 mb-6">
-                            <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
-                            <div className="w-3 h-3 bg-blue-600 rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
-                            <div className="w-3 h-3 bg-blue-700 rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>
+                            <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                            <div className="w-3 h-3 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                            <div className="w-3 h-3 bg-blue-700 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                         </div>
 
                         {/* Loading Text */}
