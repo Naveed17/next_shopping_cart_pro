@@ -25,7 +25,7 @@ export default function Header() {
             <div className="w-8 h-8 bg-blue-600/90 backdrop-blur-md rounded-lg flex items-center justify-center border border-blue-500/30">
               <span className="text-white font-bold text-lg">N</span>
             </div>
-            <span className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors">NextShoppingCart</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors">NSC</span>
           </Link>
 
           {/* Search Bar */}
