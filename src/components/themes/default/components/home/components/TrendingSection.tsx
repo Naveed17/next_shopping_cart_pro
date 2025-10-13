@@ -22,7 +22,7 @@ export default function TrendingSection() {
 
   return (
     <Container>
-      <div className="relative bg-gradient-to-br from-blue-50/80 via-blue-100/60 to-blue-200/40 dark:from-blue-900/20 dark:via-blue-800/15 dark:to-blue-700/10 backdrop-blur-xl border border-blue-200/30 dark:border-blue-800/30 rounded-3xl p-8 md:p-12 overflow-hidden">
+      <div className="relative bg-gradient-to-br from-blue-50/80 via-blue-100/60 to-blue-200/40 dark:from-blue-900/20 dark:via-blue-800/15 dark:to-blue-700/10 backdrop-blur-xl border border-blue-200/30 dark:border-blue-800/30 rounded-3xl p-4 py-8 md:py-12  md:p-12 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{

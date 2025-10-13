@@ -18,7 +18,7 @@ export default function Layout({ children, dict }: LayoutProps): React.JSX.Eleme
       </div>
 
       {/* ------------------ IMAGE SECTION ------------------ */}
-      <div className="relative w-full md:w-1/2 min-h-screen overflow-hidden">
+      <div className="relative w-full md:w-1/2 min-h-screen overflow-hidden hidden md:block">
         <Image
           src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80"
           alt="Modern shopping experience"

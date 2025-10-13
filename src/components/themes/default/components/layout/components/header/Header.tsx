@@ -59,8 +59,8 @@ export default function Header() {
                 <div className="h-8 w-8 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
               </div>
             ) : user ? (
-              <div className="hidden md:flex items-center space-x-2">
-                <span className="text-sm text-gray-700 dark:text-gray-300">Hi, {user?.name as string}</span>
+              <div className="flex items-center space-x-2">
+                <span className="text-sm hidden md:inline-block text-gray-700 dark:text-gray-300">Hi, {user?.name as string}</span>
                 <UserDropdown />
               </div>
             ) : (

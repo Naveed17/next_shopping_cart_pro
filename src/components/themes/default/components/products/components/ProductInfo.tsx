@@ -2,12 +2,13 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Star, ShoppingCart, Heart, Share2, Minus, Plus, Check, AlertTriangle, X, Tag, Shield, Truck, RotateCcw } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Star, ShoppingCart, Heart, Share2, Minus, Plus, Check, AlertTriangle, X, Tag, Shield, Truck, RotateCcw, ArrowRight } from 'lucide-react';
 
 import { SetAddToCart } from '@src/lib/redux/cart';
 import { Product } from '@src/@types/common';
 import Button from '@src/components/core/button/button';
-import { useAppDispatch } from '@lib/redux/store';
+import { useAppDispatch, useAppSelector } from '@lib/redux/store';
 
 interface ProductInfoProps {
   product: Product;
@@ -15,9 +16,10 @@ interface ProductInfoProps {
 
 export default function ProductInfo({ product }: ProductInfoProps) {
   const dispatch = useAppDispatch();
+  const cartItems = useAppSelector((state) => state.cart.items);
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
-
+  const router = useRouter()
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
       dispatch(SetAddToCart(product));
@@ -121,7 +123,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           </div>
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex gap-3">
           <Button
             onClick={handleAddToCart}
             disabled={product.stock === 0}
@@ -129,6 +131,15 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           >
             <ShoppingCart className="h-5 w-5 mr-2" />
             Add to Cart
+          </Button>
+          <Button
+            onClick={() => router.push('/cart')}
+            disabled={cartItems.length === 0}
+            className="px-6 py-3 bg-gradient-to-r from-gray-800 to-black hover:from-black hover:to-gray-900 dark:from-orange-500 dark:to-orange-600 dark:hover:from-orange-600 dark:hover:to-orange-700 text-white font-medium disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
+          >
+
+            Go to Cart
+            <ArrowRight className="h-4 w-4 ml-2" />
           </Button>
           <Button
             onClick={() => setIsWishlisted(!isWishlisted)}

@@ -31,7 +31,7 @@ export default function NewsletterSection() {
 
   return (
     <Container>
-      <div className="relative bg-blue-50/30 dark:bg-blue-900/10 backdrop-blur-2xl border border-blue-200/40 dark:border-blue-800/40 rounded-3xl p-8 mb-16 md:p-16 overflow-hidden">
+      <div className="relative bg-blue-50/30 dark:bg-blue-900/10 backdrop-blur-2xl border border-blue-200/40 dark:border-blue-800/40 rounded-3xl p-4 py-8 md:py-16 mb-16 md:p-16 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
@@ -158,7 +158,7 @@ export default function NewsletterSection() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="bg-blue-600/80 backdrop-blur-lg border border-blue-400/30 rounded-3xl p-8 text-white relative overflow-hidden">
+              <div className="bg-blue-600/80 backdrop-blur-lg border border-blue-400/30 rounded-3xl px-4 md:px-8 p-8 text-white relative overflow-hidden">
                 {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-10">
                   <div className="absolute inset-0" style={{

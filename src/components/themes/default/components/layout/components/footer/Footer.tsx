@@ -18,31 +18,31 @@ export default function Footer() {
   };
 
   const quickLinks = [
-    { name: 'Products', href: '/en/products' },
-    { name: 'Vendors', href: '/en/vendors' },
-    { name: 'Categories', href: '/en/categories' },
-    { name: 'Deals', href: '/en/deals' }
+    { name: 'Products', href: '/products' },
+    { name: 'Vendors', href: '/vendors' },
+    { name: 'Categories', href: '/categories' },
+    { name: 'Deals', href: '/deals' }
   ];
 
   const support = [
-    { name: 'Help Center', href: '/en/help' },
-    { name: 'Returns', href: '/en/returns' },
-    { name: 'Shipping Info', href: '/en/shipping' },
-    { name: 'Track Order', href: '/en/track' }
+    { name: 'Help Center', href: '/help' },
+    { name: 'Returns', href: '/returns' },
+    { name: 'Shipping Info', href: '/shipping' },
+    { name: 'Track Order', href: '/track' }
   ];
 
   const company = [
-    { name: 'About Us', href: '/en/about' },
-    { name: 'Careers', href: '/en/careers' },
-    { name: 'Press', href: '/en/press' },
-    { name: 'Blog', href: '/en/blog' }
+    { name: 'About Us', href: '/about' },
+    { name: 'Careers', href: '/careers' },
+    { name: 'Press', href: '/press' },
+    { name: 'Blog', href: '/blog' }
   ];
 
   const legal = [
-    { name: 'Privacy Policy', href: '/en/privacy' },
-    { name: 'Terms of Service', href: '/en/terms' },
-    { name: 'Cookie Policy', href: '/en/cookies' },
-    { name: 'GDPR', href: '/en/gdpr' }
+    { name: 'Privacy Policy', href: '/privacy' },
+    { name: 'Terms of Service', href: '/terms' },
+    { name: 'Cookie Policy', href: '/cookies' },
+    { name: 'GDPR', href: '/gdpr' }
   ];
 
   const socialLinks = [
@@ -105,7 +105,7 @@ export default function Footer() {
               <p className="text-blue-200 mb-4">
                 Get exclusive offers, new product alerts, and shopping tips delivered to your inbox.
               </p>
-              <div className="flex gap-4 text-sm text-blue-300">
+              <div className="flex md:flex-row flex-col gap-4 text-sm text-blue-300">
                 <span className="flex items-center gap-1">
                   <Sparkles className="h-4 w-4" />
                   Exclusive Deals
@@ -121,7 +121,7 @@ export default function Footer() {
               </div>
             </div>
             <div>
-              <form onSubmit={handleNewsletterSubmit} className="flex gap-3">
+              <form onSubmit={handleNewsletterSubmit} className="flex flex-col md:flex-row gap-3">
                 <div className="flex-1 relative">
                   <input
                     type="email"
@@ -136,7 +136,7 @@ export default function Footer() {
                   type="submit"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors flex items-center gap-2"
+                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
                 >
                   <Send className="h-4 w-4" />
                   Subscribe
@@ -213,44 +213,41 @@ export default function Footer() {
 
           </motion.div>
 
-          {/* Quick Links */}
+          {/* Quick Links & Support - Mobile 2 columns */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
+            className="grid grid-cols-2 gap-8 md:contents"
           >
-            <h4 className="text-lg font-bold mb-6 text-white">Quick Links</h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link, index) => (
-                <li key={index}>
-                  <Link href={link.href} className="text-blue-200 dark:text-blue-300 hover:text-white transition-colors text-sm flex items-center group">
-                    <span className="w-1 h-1 bg-blue-400 rounded-full mr-3 group-hover:w-2 transition-all"></span>
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+            <div>
+              <h4 className="text-lg font-bold mb-6 text-white">Quick Links</h4>
+              <ul className="space-y-3">
+                {quickLinks.map((link, index) => (
+                  <li key={index}>
+                    <Link href={link.href} className="text-blue-200 dark:text-blue-300 hover:text-white transition-colors text-sm flex items-center group">
+                      <span className="w-1 h-1 bg-blue-400 rounded-full mr-3 group-hover:w-2 transition-all"></span>
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Support */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            <h4 className="text-lg font-bold mb-6 text-white">Support</h4>
-            <ul className="space-y-3">
-              {support.map((link, index) => (
-                <li key={index}>
-                  <Link href={link.href} className="text-blue-200 dark:text-blue-300 hover:text-white transition-colors text-sm flex items-center group">
-                    <span className="w-1 h-1 bg-blue-400 rounded-full mr-3 group-hover:w-2 transition-all"></span>
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <div>
+              <h4 className="text-lg font-bold mb-6 text-white">Support</h4>
+              <ul className="space-y-3">
+                {support.map((link, index) => (
+                  <li key={index}>
+                    <Link href={link.href} className="text-blue-200 dark:text-blue-300 hover:text-white transition-colors text-sm flex items-center group">
+                      <span className="w-1 h-1 bg-blue-400 rounded-full mr-3 group-hover:w-2 transition-all"></span>
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </motion.div>
 
           {/* Company */}
@@ -301,7 +298,7 @@ export default function Footer() {
         >
           <div className="text-center">
             <h4 className="text-lg font-semibold text-white mb-4">We Accept</h4>
-            <div className="flex justify-center items-center gap-4 flex-wrap">
+            <div className="flex justify-center items-center gap-2 md:gap-4 flex-wrap">
               {paymentMethods.map((method, index) => (
                 <motion.div
                   key={index}

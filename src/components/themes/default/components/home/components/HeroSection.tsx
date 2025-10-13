@@ -22,7 +22,7 @@ export default function HeroSection() {
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides?.length) % slides?.length);
 
   return (
-    <section className="relative h-[700px] rounded-2xl overflow-hidden shadow-2xl m-4 mb-16">
+    <section className="relative min-h-[700px] py-16 md:py-0 rounded-2xl overflow-hidden shadow-2xl m-4 mb-16">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
@@ -33,7 +33,7 @@ export default function HeroSection() {
           className={`absolute inset-0 bg-gradient-to-r ${slides[currentSlide]?.gradient}`}
         >
           <div className="absolute inset-0 bg-black/40" />
-          <div className="absolute right-0 top-0 w-1/2 h-full">
+          <div className="absolute right-0 top-0 md:w-1/2 h-full">
             <Image
               src={slides[currentSlide]?.image}
               alt={slides[currentSlide]?.title}
@@ -116,7 +116,7 @@ export default function HeroSection() {
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 1, duration: 0.6 }}
-                className="flex items-center gap-6 mt-8 text-sm text-white/80"
+                className="flex md:flex-row flex-col md:items-center gap-3 md:gap-6 mt-8 text-sm text-white/80"
               >
                 <div className="flex items-center gap-2">
                   <div className="flex -space-x-1">
@@ -148,14 +148,14 @@ export default function HeroSection() {
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-6 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md transition-all duration-200 border border-white/20 hover:scale-110"
+        className="absolute hidden md:block left-6 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md transition-all duration-200 border border-white/20 hover:scale-110"
       >
         <ChevronLeft className="h-6 w-6 text-white" />
       </button>
 
       <button
         onClick={nextSlide}
-        className="absolute right-6 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md transition-all duration-200 border border-white/20 hover:scale-110"
+        className="absolute hidden md:block right-6 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md transition-all duration-200 border border-white/20 hover:scale-110"
       >
         <ChevronRight className="h-6 w-6 text-white" />
       </button>
