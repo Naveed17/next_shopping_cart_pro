@@ -171,7 +171,7 @@ export default function ProductForm({ product, onSubmit, onBack }: ProductFormPr
                                     value={categoryOptions.find(opt => opt.value === field.value)}
                                     onChange={(option) => field.onChange(option?.value || '')}
                                     placeholder="Select category"
-                                    isInvalid={!!errors.category}
+                                    invalid={!!errors.category}
                                 />
                                 {errors.category && (
                                     <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.category.message}</p>
