@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { useUser } from '@hooks/use-user';
 import UserDropdown from '@src/components/core/UserDropdown';
 import Input from '@src/components/core/input';
+import LocaleSwitcher from '@src/components/core/LocaleSwitcher';
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -43,6 +44,7 @@ export default function Header() {
 
           {/* Right Section */}
           <div className="flex items-center space-x-3">
+            <LocaleSwitcher />
             <ModeSwitcher />
 
             <Link href="/cart" className="relative p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
