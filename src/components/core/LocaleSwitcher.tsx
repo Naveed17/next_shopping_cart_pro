@@ -23,7 +23,7 @@ export default function LocaleSwitcher() {
   const [activeTab, setActiveTab] = useState<'language' | 'currency'>('language');
   const languages = useAppSelector(state => state.appData?.data?.languages) ?? [];
   const [selectedLanguage, setSelectedLanguage] = useState(() =>
-    languages.find((lang: any) => lang.code === locale) || "en"
+    languages?.find((lang: any) => lang.code === locale) || "en"
   );
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
 
@@ -59,7 +59,7 @@ export default function LocaleSwitcher() {
     }
   }
   useEffect(() => {
-    const currentLang = languages.find((lang: any) => lang.code === locale) || languages[0];
+    const currentLang = languages?.find((lang: any) => lang.code === locale) || languages[0];
     setSelectedLanguage(currentLang);
   }, [locale]);
 
@@ -71,7 +71,7 @@ export default function LocaleSwitcher() {
         className="flex items-center space-x-1 px-2 py-1 text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
       >
         <Globe className="h-4 w-4" />
-        <span className="hidden sm:inline">{selectedLanguage.code.toUpperCase()}</span>
+        <span className="hidden sm:inline">{selectedLanguage?.code?.toUpperCase() || "En"}</span>
         <span className="hidden sm:inline">|</span>
         <span className="hidden sm:inline">{selectedCurrency.code}</span>
         <ChevronDown className="h-3 w-3" />
@@ -111,7 +111,7 @@ export default function LocaleSwitcher() {
             <div className="p-2">
               {activeTab === 'language' ? (
                 <div className="space-y-1">
-                  {languages.map((lang: any) => (
+                  {languages?.map((lang: any) => (
                     <button
                       key={lang.code}
                       onClick={() => {
