@@ -21,7 +21,7 @@ export default function LocaleSwitcher() {
   const { locale } = useLocale();
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'language' | 'currency'>('language');
-  const languages = useAppSelector(state => state.appData?.data?.languages);
+  const languages = useAppSelector(state => state.appData?.data?.languages) ?? [];
   const [selectedLanguage, setSelectedLanguage] = useState(() =>
     languages.find((lang: any) => lang.code === locale) || "en"
   );
