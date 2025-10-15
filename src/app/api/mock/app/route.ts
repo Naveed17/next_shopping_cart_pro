@@ -3,14 +3,60 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   try {
     const { language, currency } = await request.json();
-
+    const languages = [
+      { code: "en", name: "English", flag: "🇺🇸" },
+      { code: "ar", name: "العربية", flag: "🇦🇪" },
+      { code: "ch", name: "中文", flag: "🇨🇳" },
+      { code: "fr", name: "Français", flag: "🇫🇷" },
+      { code: "ge", name: "Deutsch", flag: "🇩🇪" },
+      { code: "ru", name: "Русский", flag: "🇷🇺" },
+      { code: "tr", name: "Türkçe", flag: "🇹🇷" },
+    ];
+    const meta = {
+      title: "ShopCart Pro - Premium eCommerce Platform",
+      description:
+        "ShopCart Pro offers a seamless online shopping experience. Explore thousands of products from trusted vendors, enjoy exclusive discounts, and get fast delivery worldwide.",
+      keywords:
+        "ShopCart Pro, online shopping, ecommerce, buy electronics, fashion store, online deals, shopping cart, multi vendor store, next.js ecommerce",
+      author: "ShopCart Pro Team",
+      siteName: "ShopCart Pro",
+      url: process.env.NEXT_PUBLIC_SITE_URL || "https://shopcartpro.com",
+      locale: language === "ar" ? "ar_SA" : "en_US",
+      image: "/logo.png",
+      twitter: {
+        card: "summary_large_image",
+        site: "@shopcartpro",
+        creator: "@shopcartpro",
+        title: "ShopCart Pro - Premium Online Shopping Experience",
+        description:
+          "Discover electronics, fashion, home products & more from top vendors.",
+        image: "/logo.png",
+      },
+      openGraph: {
+        type: "website",
+        title: "ShopCart Pro - Premium eCommerce Platform",
+        description:
+          "ShopCart Pro lets you explore thousands of products from trusted sellers with amazing discounts and offers.",
+        url: process.env.NEXT_PUBLIC_SITE_URL || "https://shopcartpro.com",
+        images: [
+          {
+            url: "/logo.png",
+            width: 1200,
+            height: 630,
+            alt: "ShopCart Pro",
+          },
+        ],
+        siteName: "ShopCart Pro",
+      },
+    };
     const appData = {
       status: true,
+      message: "App data fetched successfully",
       data: {
         site: {
           name: "ShopCart Pro",
           logo: "/logo.png",
-          description: "Your premium shopping destination",
+          ...meta,
           contact: {
             email: "support@shopcart.com",
             phone: "+1-555-0123",
@@ -19,9 +65,10 @@ export async function POST(request: NextRequest) {
         settings: {
           language: language || "en",
           currency: currency || "usd",
-          supportedLanguages: ["en", "ar"],
+          supportedLanguages: languages.map((lang) => lang.code),
           supportedCurrencies: ["usd", "eur", "gbp"],
         },
+        languages,
         features: {
           wishlist: true,
           reviews: true,
@@ -315,7 +362,7 @@ export async function POST(request: NextRequest) {
             name: "Sarah Johnson",
             role: "Verified Customer",
             avatar:
-              "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop",
+              "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop",
             rating: 5,
             text: "Amazing shopping experience! The variety of vendors and quality of products exceeded my expectations. Fast delivery and excellent customer service.",
           },

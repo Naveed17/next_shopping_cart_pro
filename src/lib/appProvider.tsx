@@ -7,8 +7,7 @@ import { buildProvidersTree } from "./buildProvidersTree";
 import { LoadingProvider } from '@src/context/LoadingContext';
 import { QueryClientProvider } from "./react-query";
 import { UserProvider } from "@src/context/user-context";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from '@src/components/core/toast';
 
 export default function AppProvider({ children }: { children?: React.ReactNode }) {
     const ProvidersTree = useMemo(() => buildProvidersTree([
@@ -23,19 +22,9 @@ export default function AppProvider({ children }: { children?: React.ReactNode }
         <>
             <ProvidersTree>
                 {children}
+                <ToastContainer />
             </ProvidersTree>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
+
         </>
     );
 }

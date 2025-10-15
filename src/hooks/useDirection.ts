@@ -26,11 +26,16 @@ function useDirection(): [
     }
   }, [pathname, dispatch]);
 
-  // Always update document direction
+  // Debounced document direction update
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const root = window.document.documentElement;
-    root.setAttribute("dir", direction);
+    const timeoutId = setTimeout(() => {
+      const root = window.document.documentElement;
+      if (root.getAttribute("dir") !== direction) {
+        root.setAttribute("dir", direction);
+      }
+    }, 50);
+    return () => clearTimeout(timeoutId);
   }, [direction]);
 
   const setDirectionHandler = (dir: Direction) => {

@@ -128,6 +128,7 @@ export default function TrendingSection() {
                       src={product.image}
                       alt={product.name}
                       fill
+                      sizes="(max-width: 1024px) 100vw, 33vw"
                       className="object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />

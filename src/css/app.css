@@ -2,6 +2,7 @@
 @import "tailwindcss";
 @import './_input.css';
 @import './_alert.css';
+@import './_toast.css';
 /* Custom variant for dark mode */
 @custom-variant dark (&:where(.dark, .dark *));
 

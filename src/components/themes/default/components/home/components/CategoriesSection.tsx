@@ -56,6 +56,7 @@ export default function CategoriesSection() {
                   src={category?.image}
                   alt={category?.name}
                   fill
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 16vw"
                   className="object-cover group-hover:scale-110 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />

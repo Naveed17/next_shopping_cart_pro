@@ -21,7 +21,7 @@ export const LoadingProvider = ({ children }: { children: React.ReactNode }) => 
     const [loading, setLoading] = useState(false);
     const [showOverlay, setShowOverlay] = useState(false);
     const [fadeClass, setFadeClass] = useState("opacity-0");
-    const { locale } = useLocale()
+    const { locale } = useLocale();
     const pathname = usePathname();
     const dispatch = useAppDispatch();
     useEffect(() => {
@@ -80,12 +80,11 @@ export const LoadingProvider = ({ children }: { children: React.ReactNode }) => 
             {children}
             {showOverlay && (
                 <div
-                    className={`fixed inset-0 bg-gradient-to-br from-blue-50/80 via-white/90 to-purple-50/80 backdrop-blur-md flex items-center justify-center z-50 transition-opacity duration-500 ${fadeClass}`}
+                    className={`fixed inset-0 bg-gradient-to-br from-blue-50/80 via-white/90 to-purple-50/80 dark:from-gray-900/90 dark:via-gray-800/95 dark:to-blue-900/80 backdrop-blur-md flex items-center justify-center z-50 transition-opacity duration-500 ${fadeClass}`}
                 >
-                    <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-10 flex flex-col items-center m-4 max-w-sm w-full">
-                        {/* Shopping Cart Icon with Animation */}
+                    <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 dark:border-gray-700/50 p-10 flex flex-col items-center m-4 max-w-sm w-full">
                         <div className="relative mb-6">
-                            <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+                            <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-2xl flex items-center justify-center shadow-lg">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 64 64"
@@ -120,22 +119,20 @@ export const LoadingProvider = ({ children }: { children: React.ReactNode }) => 
 
 
                             </div>
-                            <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center animate-pulse">
+                            <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-400 dark:bg-blue-500 rounded-full flex items-center justify-center animate-pulse">
                                 <span className="text-xs font-bold text-white">3</span>
                             </div>
                         </div>
 
-                        {/* Loading Dots */}
                         <div className="flex space-x-2 mb-6">
-                            <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                            <div className="w-3 h-3 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                            <div className="w-3 h-3 bg-blue-700 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                            <div className="w-3 h-3 bg-blue-500 dark:bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                            <div className="w-3 h-3 bg-blue-600 dark:bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                            <div className="w-3 h-3 bg-blue-700 dark:bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                         </div>
 
-                        {/* Loading Text */}
                         <div className="text-center">
-                            <h3 className="text-xl font-bold text-gray-800 mb-2">NextShoppingCart</h3>
-                            <p className="text-gray-600 text-sm leading-relaxed">Preparing your shopping experience...</p>
+                            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">NextShoppingCart</h3>
+                            <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Preparing your shopping experience...</p>
                         </div>
                     </div>
                 </div>

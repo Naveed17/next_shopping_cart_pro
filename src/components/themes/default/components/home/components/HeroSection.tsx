@@ -7,7 +7,6 @@ import Button from '@src/components/core/button/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAppSelector } from '@lib/redux/store';
-
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = useAppSelector(state => state.appData.data)?.slides ?? [];
@@ -33,24 +32,26 @@ export default function HeroSection() {
           className={`absolute inset-0 bg-gradient-to-r ${slides[currentSlide]?.gradient}`}
         >
           <div className="absolute inset-0 bg-black/40" />
-          <div className="absolute right-0 top-0 md:w-1/2 h-full">
+          <div className="absolute right-0 rtl:left-0 rtl:right-[unset] top-0 md:w-1/2 h-full">
             <Image
               src={slides[currentSlide]?.image}
               alt={slides[currentSlide]?.title}
               fill
+              priority
+              sizes="50vw"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/20 to-black/60" />
           </div>
 
           {/* Floating Elements */}
-          <div className="absolute top-8 right-8 bg-white/10 backdrop-blur-md rounded-full p-4 animate-bounce">
+          <div className="absolute top-8 ltr:right-8 rtl:left-8 bg-white/10 backdrop-blur-md rounded-full p-4 animate-bounce">
             <ShoppingBag className="h-6 w-6 text-white" />
           </div>
-          <div className="absolute top-32 right-32 bg-yellow-400/20 backdrop-blur-md rounded-full p-3 animate-pulse">
+          <div className="absolute top-32 ltr:right-32 rtl:left-32 bg-yellow-400/20 backdrop-blur-md rounded-full p-3 animate-pulse">
             <Star className="h-5 w-5 text-yellow-300" />
           </div>
-          <div className="absolute bottom-32 right-16 bg-blue-400/20 backdrop-blur-md rounded-full p-3 animate-bounce delay-300">
+          <div className="absolute bottom-32 ltr:right-16 rtl:left-32 bg-blue-400/20 backdrop-blur-md rounded-full p-3 animate-bounce delay-300">
             <Zap className="h-5 w-5 text-blue-300" />
           </div>
 

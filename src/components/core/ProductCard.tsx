@@ -6,7 +6,7 @@ import { Star, ShoppingCart, Heart, Eye, Tag, Zap, Check, AlertTriangle, X } fro
 import { SetAddToCart } from '@src/lib/redux/cart';
 import { Product } from '@src/@types/common';
 import Button from '@src/components/core/button/button';
-import Image from 'next/image';
+import ImageBlur from '@src/utils/blurImage';
 import Link from 'next/link';
 import { useAppDispatch } from '@lib/redux/store';
 
@@ -59,7 +59,7 @@ export default function ProductCard({ product, featured = false, showQuickView =
       <Link href={`/en/products/${product.id}`}>
         {/* Image Container */}
         <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-gray-50/80 to-blue-50/30 dark:from-gray-900/80 dark:to-blue-900/20 backdrop-blur-sm">
-          <Image
+          <ImageBlur
             src={product.image}
             alt={product.name}
             fill

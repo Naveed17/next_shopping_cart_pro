@@ -23,6 +23,7 @@ export default function ProductImageGallery({ images, productName }: ProductImag
           src={images[selectedImage]}
           alt={productName}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover"
         />
       </div>
@@ -37,7 +38,7 @@ export default function ProductImageGallery({ images, productName }: ProductImag
                 : 'border-gray-200 dark:border-gray-700 hover:border-blue-300'
             }`}
           >
-            <Image src={image} alt="" fill className="object-cover" />
+            <Image src={image} alt="" fill sizes="80px" className="object-cover" />
           </button>
         ))}
       </div>
