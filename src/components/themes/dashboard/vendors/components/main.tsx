@@ -3,9 +3,11 @@
 import React, { useState } from 'react';
 import { useDashboard } from '@src/context/dashboardContext';
 import { Table, Column } from '@src/components/themes/dashboard/shared/tables';
+import { DeleteModal } from '@src/components/themes/dashboard/shared/models';
 import { Edit, Trash2, Plus, Store } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import VendorForm from './VendorForm';
+import { toast } from 'react-toastify';
 
 interface Vendor {
     id: string;
@@ -29,6 +31,8 @@ export default function MainVendors() {
     const [loading, setLoading] = useState(false);
     const [view, setView] = useState<'list' | 'form'>('list');
     const [editingVendor, setEditingVendor] = useState<Vendor | undefined>();
+    const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; vendor?: Vendor }>({ isOpen: false });
+    const [isDeleting, setIsDeleting] = useState(false);
 
     if (!hasPermission('vendors', 'view')) {
         return <div>Access denied</div>;
@@ -41,8 +45,25 @@ export default function MainVendors() {
     };
 
     const handleDelete = (vendorId: string) => {
-        if (confirm('Are you sure you want to delete this vendor?')) {
-            setVendors(vendors.filter(v => v.id !== vendorId));
+        const vendor = vendors.find(v => v.id === vendorId);
+        if (vendor) {
+            setDeleteModal({ isOpen: true, vendor });
+        }
+    };
+
+    const confirmDelete = async () => {
+        if (!deleteModal.vendor) return;
+        
+        setIsDeleting(true);
+        try {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            setVendors(vendors.filter(v => v.id !== deleteModal.vendor!.id));
+            toast.success('Vendor deleted successfully');
+            setDeleteModal({ isOpen: false });
+        } catch (error) {
+            toast.error('Failed to delete vendor');
+        } finally {
+            setIsDeleting(false);
         }
     };
 
@@ -53,18 +74,18 @@ export default function MainVendors() {
 
     const handleFormSubmit = async (data: Omit<Vendor, 'id' | 'totalProducts' | 'totalSales' | 'joinedAt'>) => {
         if (editingVendor) {
-            setVendors(vendors.map(v => v.id === editingVendor.id ? { 
-                ...data, 
-                id: editingVendor.id, 
+            setVendors(vendors.map(v => v.id === editingVendor.id ? {
+                ...data,
+                id: editingVendor.id,
                 totalProducts: editingVendor.totalProducts,
                 totalSales: editingVendor.totalSales,
                 joinedAt: editingVendor.joinedAt
             } : v));
         } else {
-            const newVendor = { 
-                ...data, 
-                id: Date.now().toString(), 
-                totalProducts: 0, 
+            const newVendor = {
+                ...data,
+                id: Date.now().toString(),
+                totalProducts: 0,
                 totalSales: 0,
                 joinedAt: new Date().toISOString().split('T')[0]
             };
@@ -157,7 +178,7 @@ export default function MainVendors() {
                     {hasPermission('vendors', 'edit') && (
                         <button
                             onClick={() => handleEdit(record.id)}
-                            className="p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                            className="p-2 text-blue-600 dark:text-gray-100 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
                         >
                             <Edit className="h-4 w-4" />
                         </button>
@@ -223,6 +244,17 @@ export default function MainVendors() {
                     onBack={handleBackToList}
                 />
             )}
+            
+            <DeleteModal
+                isOpen={deleteModal.isOpen}
+                onClose={() => setDeleteModal({ isOpen: false })}
+                onConfirm={confirmDelete}
+                title="Delete Vendor"
+                message="Are you sure you want to delete"
+                itemName={deleteModal.vendor?.name}
+                confirmText="Delete Vendor"
+                isLoading={isDeleting}
+            />
         </AnimatePresence>
     );
 }

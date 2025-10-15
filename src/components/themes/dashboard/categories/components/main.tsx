@@ -3,9 +3,11 @@
 import React, { useState } from 'react';
 import { useDashboard } from '@src/context/dashboardContext';
 import { Table, Column } from '@src/components/themes/dashboard/shared/tables';
+import { DeleteModal } from '@src/components/themes/dashboard/shared/models';
 import { Edit, Trash2, Plus, Grid3X3 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CategoryForm from './CategoryForm';
+import { toast } from 'react-toastify';
 
 interface Category {
     id: string;
@@ -26,6 +28,8 @@ export default function MainCategory() {
     const [loading, setLoading] = useState(false);
     const [view, setView] = useState<'list' | 'form'>('list');
     const [editingCategory, setEditingCategory] = useState<Category | undefined>();
+    const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; category?: Category }>({ isOpen: false });
+    const [isDeleting, setIsDeleting] = useState(false);
 
     if (!hasPermission('categories', 'view')) {
         return <div>Access denied</div>;
@@ -38,8 +42,26 @@ export default function MainCategory() {
     };
 
     const handleDelete = (categoryId: string) => {
-        if (confirm('Are you sure you want to delete this category?')) {
-            setCategories(categories.filter(c => c.id !== categoryId));
+        const category = categories.find(c => c.id === categoryId);
+        if (category) {
+            setDeleteModal({ isOpen: true, category });
+        }
+    };
+
+    const confirmDelete = async () => {
+        if (!deleteModal.category) return;
+        
+        setIsDeleting(true);
+        try {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            setCategories(categories.filter(c => c.id !== deleteModal.category!.id));
+            toast.success('Category deleted successfully');
+            setDeleteModal({ isOpen: false });
+        } catch (error) {
+            toast.error('Failed to delete category');
+        } finally {
+            setIsDeleting(false);
         }
     };
 
@@ -118,7 +140,7 @@ export default function MainCategory() {
                     {hasPermission('categories', 'edit') && (
                         <button
                             onClick={() => handleEdit(record.id)}
-                            className="p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                            className="p-2 text-blue-600 dark:text-gray-100 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
                         >
                             <Edit className="h-4 w-4" />
                         </button>
@@ -184,6 +206,17 @@ export default function MainCategory() {
                     onBack={handleBackToList}
                 />
             )}
+            
+            <DeleteModal
+                isOpen={deleteModal.isOpen}
+                onClose={() => setDeleteModal({ isOpen: false })}
+                onConfirm={confirmDelete}
+                title="Delete Category"
+                message="Are you sure you want to delete"
+                itemName={deleteModal.category?.name}
+                confirmText="Delete Category"
+                isLoading={isDeleting}
+            />
         </AnimatePresence>
     );
 }

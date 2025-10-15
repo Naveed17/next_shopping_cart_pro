@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import Button from '@src/components/core/button/button';
 import Input from '@src/components/core/input';
 import { Select } from '@src/components/core/select';
+import { FileUpload } from '@src/components/core/fileupload';
 import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -15,6 +16,7 @@ const schema = zod.object({
     name: zod.string().min(1, { message: 'Category name is required' }),
     description: zod.string().optional(),
     status: zod.enum(['active', 'inactive']),
+    image: zod.string().optional(),
 });
 
 type Values = zod.infer<typeof schema>;
@@ -25,6 +27,7 @@ interface Category {
     description?: string;
     status: 'active' | 'inactive';
     productCount: number;
+    image?: string;
 }
 
 interface CategoryFormProps {
@@ -40,11 +43,15 @@ const statusOptions = [
 
 export default function CategoryForm({ category, onSubmit, onBack }: CategoryFormProps) {
     const [isPending, setIsPending] = React.useState(false);
+    const [imagePreview, setImagePreview] = React.useState<string | undefined>(category?.image);
+    const [imageFile, setImageFile] = React.useState<File | null>(null);
+    const [imageError, setImageError] = React.useState<string>('');
 
     const defaultValues: Values = {
         name: category?.name || '',
         description: category?.description || '',
         status: category?.status || 'active',
+        image: category?.image || '',
     };
 
     const {
@@ -56,7 +63,36 @@ export default function CategoryForm({ category, onSubmit, onBack }: CategoryFor
 
     React.useEffect(() => {
         reset(defaultValues);
+        setImagePreview(category?.image);
+        setImageFile(null);
+        setImageError('');
     }, [category, reset]);
+
+    const handleFileSelect = (files: File | File[]) => {
+        const file = Array.isArray(files) ? files[0] : files;
+        setImageFile(file);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const result = e.target?.result as string;
+            setImagePreview(result);
+        };
+        reader.readAsDataURL(file);
+        setImageError('');
+    };
+
+    const handleFileRemove = () => {
+        setImageFile(null);
+        setImagePreview(undefined);
+        setImageError('');
+    };
+
+    const formatFileSize = (bytes: number): string => {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    };
 
     const handleFormSubmit = async (values: Values) => {
         setIsPending(true);
@@ -154,6 +190,24 @@ export default function CategoryForm({ category, onSubmit, onBack }: CategoryFor
                             </div>
                         )}
                     />
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            Category Image (Optional)
+                        </label>
+                        <FileUpload
+                            accept=".png,.jpg,.jpeg,.webp"
+                            maxSize={1 * 1024 * 1024}
+                            onFileSelect={handleFileSelect}
+                            onFileRemove={handleFileRemove}
+                            previews={imagePreview ? [imagePreview] : []}
+                            fileNames={imageFile ? [imageFile.name] : []}
+                            fileSizes={imageFile ? [formatFileSize(imageFile.size)] : []}
+                            placeholder="Click to upload category image"
+                            description="PNG/JPG/WEBP format, max 1MB"
+                            error={imageError}
+                        />
+                    </div>
 
                     <div className="flex space-x-3 pt-6">
                         <Button

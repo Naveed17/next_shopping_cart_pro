@@ -3,8 +3,10 @@
 import React, { useState } from 'react';
 import { useDashboard } from '@src/context/dashboardContext';
 import { Table, Column } from '@src/components/themes/dashboard/shared/tables';
-import { Eye, ShoppingCart } from 'lucide-react';
+import { DeleteModal } from '@src/components/themes/dashboard/shared/models';
+import { Eye, ShoppingCart, Trash2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { toast } from 'react-toastify';
 
 interface Order {
     id: string;
@@ -25,6 +27,8 @@ export default function MainOrders() {
         { id: '1004', customerName: 'Alice Brown', customerEmail: 'alice@example.com', total: 199.99, status: 'pending', items: 4, createdAt: '2024-01-12' },
     ]);
     const [loading, setLoading] = useState(false);
+    const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; order?: Order }>({ isOpen: false });
+    const [isDeleting, setIsDeleting] = useState(false);
 
     if (!hasPermission('orders', 'view')) {
         return <div>Access denied</div>;
@@ -32,6 +36,30 @@ export default function MainOrders() {
 
     const handleView = (orderId: string) => {
         console.log('View order:', orderId);
+    };
+
+    const handleDelete = (orderId: string) => {
+        const order = orders.find(o => o.id === orderId);
+        if (order) {
+            setDeleteModal({ isOpen: true, order });
+        }
+    };
+
+    const confirmDelete = async () => {
+        if (!deleteModal.order) return;
+        
+        setIsDeleting(true);
+        try {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            setOrders(orders.filter(o => o.id !== deleteModal.order!.id));
+            toast.success('Order deleted successfully');
+            setDeleteModal({ isOpen: false });
+        } catch (error) {
+            toast.error('Failed to delete order');
+        } finally {
+            setIsDeleting(false);
+        }
     };
 
     const getStatusColor = (status: string) => {
@@ -114,16 +142,25 @@ export default function MainOrders() {
             key: 'actions',
             title: 'Actions',
             align: 'center',
-            width: 80,
+            width: 120,
             render: (_, record) => (
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center space-x-2">
                     <button
                         onClick={() => handleView(record.id)}
-                        className="p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                        className="p-2 text-blue-600 dark:text-gray-100 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
                         title="View order"
                     >
                         <Eye className="h-4 w-4" />
                     </button>
+                    {hasPermission('orders', 'delete') && (
+                        <button
+                            onClick={() => handleDelete(record.id)}
+                            className="p-2 text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                            title="Delete order"
+                        >
+                            <Trash2 className="h-4 w-4" />
+                        </button>
+                    )}
                 </div>
             ),
         },
@@ -154,6 +191,17 @@ export default function MainOrders() {
                     showSizeChanger: true,
                     pageSizeOptions: [5, 10, 20, 50]
                 }}
+            />
+            
+            <DeleteModal
+                isOpen={deleteModal.isOpen}
+                onClose={() => setDeleteModal({ isOpen: false })}
+                onConfirm={confirmDelete}
+                title="Delete Order"
+                message="Are you sure you want to delete order"
+                itemName={`#${deleteModal.order?.id}`}
+                confirmText="Delete Order"
+                isLoading={isDeleting}
             />
         </motion.div>
     );

@@ -11,6 +11,7 @@ import { useUser } from '@hooks/use-user';
 import UserDropdown from '@src/components/core/UserDropdown';
 import Input from '@src/components/core/input';
 import LocaleSwitcher from '@src/components/core/LocaleSwitcher';
+import SearchDropdown from '@src/components/core/SearchDropdown';
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -32,14 +33,7 @@ export default function Header() {
 
           {/* Search Bar */}
           <div className="hidden md:flex flex-1 max-w-lg mx-6">
-            <div className="relative w-full">
-              <Search className="absolute z-10 left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <Input
-                type="text"
-                placeholder="Search products..."
-                className="w-full !pl-10 pr-4 py-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:ring-1 focus:ring-blue-500/30 focus:border-blue-500/50 transition-all duration-200"
-              />
-            </div>
+            <SearchDropdown placeholder="Search products..." />
           </div>
 
           {/* Right Section */}
@@ -93,13 +87,8 @@ export default function Header() {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border-t border-gray-200/50 dark:border-gray-700/50">
           <div className="container mx-auto px-4 py-3">
-            <div className="relative mb-3">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-              <Input
-                type="text"
-                placeholder="Search products..."
-                className="w-full pl-10 pr-4 py-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:ring-1 focus:ring-blue-500/30 focus:border-blue-500/50 transition-all"
-              />
+            <div className="mb-3">
+              <SearchDropdown placeholder="Search products..." />
             </div>
 
             {!user && (

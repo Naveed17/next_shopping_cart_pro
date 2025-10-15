@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import Button from '@src/components/core/button/button';
 import Input from '@src/components/core/input';
 import { Select } from '@src/components/core/select';
+import { FileUpload } from '@src/components/core/fileupload';
 import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -18,6 +19,7 @@ const schema = zod.object({
     stock: zod.number().min(0, { message: 'Stock cannot be negative' }),
     status: zod.enum(['active', 'inactive']),
     description: zod.string().optional(),
+    image: zod.string().optional(),
 });
 
 type Values = zod.infer<typeof schema>;
@@ -30,6 +32,7 @@ interface Product {
     stock: number;
     status: 'active' | 'inactive';
     description?: string;
+    image?: string;
 }
 
 interface ProductFormProps {
@@ -53,6 +56,11 @@ const statusOptions = [
 
 export default function ProductForm({ product, onSubmit, onBack }: ProductFormProps) {
     const [isPending, setIsPending] = React.useState(false);
+    const [imagePreviews, setImagePreviews] = React.useState<string[]>(product?.image ? [product.image] : []);
+    const [imageFiles, setImageFiles] = React.useState<File[]>([]);
+    const [imageNames, setImageNames] = React.useState<string[]>([]);
+    const [imageSizes, setImageSizes] = React.useState<string[]>([]);
+    const [imageError, setImageError] = React.useState<string>('');
 
     const defaultValues: Values = {
         name: product?.name || '',
@@ -61,6 +69,7 @@ export default function ProductForm({ product, onSubmit, onBack }: ProductFormPr
         stock: product?.stock || 0,
         status: product?.status || 'active',
         description: product?.description || '',
+        image: product?.image || '',
     };
 
     const {
@@ -72,7 +81,65 @@ export default function ProductForm({ product, onSubmit, onBack }: ProductFormPr
 
     React.useEffect(() => {
         reset(defaultValues);
+        setImagePreviews(product?.image ? [product.image] : []);
+        setImageFiles([]);
+        setImageNames([]);
+        setImageSizes([]);
+        setImageError('');
     }, [product, reset]);
+
+    const handleFileSelect = (files: File | File[]) => {
+        const fileArray = Array.isArray(files) ? files : [files];
+        const newFiles = [...imageFiles, ...fileArray];
+        const newNames = [...imageNames, ...fileArray.map(f => f.name)];
+        const newSizes = [...imageSizes, ...fileArray.map(f => formatFileSize(f.size))];
+        
+        setImageFiles(newFiles);
+        setImageNames(newNames);
+        setImageSizes(newSizes);
+        
+        // Create previews for new files
+        const newPreviews = [...imagePreviews];
+        fileArray.forEach((file) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const result = e.target?.result as string;
+                newPreviews.push(result);
+                setImagePreviews([...newPreviews]);
+            };
+            reader.readAsDataURL(file);
+        });
+        
+        setImageError('');
+    };
+
+    const handleFileRemove = (index?: number) => {
+        if (index !== undefined) {
+            const newPreviews = imagePreviews.filter((_, i) => i !== index);
+            const newFiles = imageFiles.filter((_, i) => i !== index);
+            const newNames = imageNames.filter((_, i) => i !== index);
+            const newSizes = imageSizes.filter((_, i) => i !== index);
+            
+            setImagePreviews(newPreviews);
+            setImageFiles(newFiles);
+            setImageNames(newNames);
+            setImageSizes(newSizes);
+        } else {
+            setImagePreviews([]);
+            setImageFiles([]);
+            setImageNames([]);
+            setImageSizes([]);
+        }
+        setImageError('');
+    };
+
+    const formatFileSize = (bytes: number): string => {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    };
 
     const handleFormSubmit = async (values: Values) => {
         setIsPending(true);
@@ -237,6 +304,25 @@ export default function ProductForm({ product, onSubmit, onBack }: ProductFormPr
                             </div>
                         )}
                     />
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            Product Images (Optional)
+                        </label>
+                        <FileUpload
+                            accept=".png,.jpg,.jpeg,.webp"
+                            maxSize={2 * 1024 * 1024}
+                            multiple={true}
+                            onFileSelect={handleFileSelect}
+                            onFileRemove={handleFileRemove}
+                            previews={imagePreviews}
+                            fileNames={imageNames}
+                            fileSizes={imageSizes}
+                            placeholder="Click to upload product images"
+                            description="PNG/JPG/WEBP format, max 2MB each"
+                            error={imageError}
+                        />
+                    </div>
 
                     <div className="flex space-x-3 pt-6">
                         <Button

@@ -3,9 +3,11 @@
 import React, { useState } from 'react';
 import { useDashboard } from '@src/context/dashboardContext';
 import { Table, Column } from '@src/components/themes/dashboard/shared/tables';
+import { DeleteModal } from '@src/components/themes/dashboard/shared/models';
 import { Edit, Trash2, Plus, Package } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProductForm from './ProductForm';
+import { toast } from 'react-toastify';
 
 interface Product {
     id: string;
@@ -28,6 +30,8 @@ export default function MainProduct() {
     const [loading, setLoading] = useState(false);
     const [view, setView] = useState<'list' | 'form'>('list');
     const [editingProduct, setEditingProduct] = useState<Product | undefined>();
+    const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; product?: Product }>({ isOpen: false });
+    const [isDeleting, setIsDeleting] = useState(false);
 
     if (!hasPermission('products', 'view')) {
         return <div>Access denied</div>;
@@ -40,8 +44,26 @@ export default function MainProduct() {
     };
 
     const handleDelete = (productId: string) => {
-        if (confirm('Are you sure you want to delete this product?')) {
-            setProducts(products.filter(p => p.id !== productId));
+        const product = products.find(p => p.id === productId);
+        if (product) {
+            setDeleteModal({ isOpen: true, product });
+        }
+    };
+
+    const confirmDelete = async () => {
+        if (!deleteModal.product) return;
+        
+        setIsDeleting(true);
+        try {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            setProducts(products.filter(p => p.id !== deleteModal.product!.id));
+            toast.success('Product deleted successfully');
+            setDeleteModal({ isOpen: false });
+        } catch (error) {
+            toast.error('Failed to delete product');
+        } finally {
+            setIsDeleting(false);
         }
     };
 
@@ -204,6 +226,17 @@ export default function MainProduct() {
                     onBack={handleBackToList}
                 />
             )}
+            
+            <DeleteModal
+                isOpen={deleteModal.isOpen}
+                onClose={() => setDeleteModal({ isOpen: false })}
+                onConfirm={confirmDelete}
+                title="Delete Product"
+                message="Are you sure you want to delete"
+                itemName={deleteModal.product?.name}
+                confirmText="Delete Product"
+                isLoading={isDeleting}
+            />
         </AnimatePresence>
     );
 }

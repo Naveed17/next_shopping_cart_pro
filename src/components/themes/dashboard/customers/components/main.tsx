@@ -3,9 +3,11 @@
 import React, { useState } from 'react';
 import { useDashboard } from '@src/context/dashboardContext';
 import { Table, Column } from '@src/components/themes/dashboard/shared/tables';
+import { DeleteModal } from '@src/components/themes/dashboard/shared/models';
 import { Edit, Trash2, Plus, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CustomerForm from './CustomerForm';
+import { toast } from 'react-toastify';
 
 interface Customer {
     id: string;
@@ -28,6 +30,8 @@ export default function MainCustomers() {
     const [loading, setLoading] = useState(false);
     const [view, setView] = useState<'list' | 'form'>('list');
     const [editingCustomer, setEditingCustomer] = useState<Customer | undefined>();
+    const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; customer?: Customer }>({ isOpen: false });
+    const [isDeleting, setIsDeleting] = useState(false);
 
     if (!hasPermission('customers', 'view')) {
         return <div>Access denied</div>;
@@ -40,8 +44,25 @@ export default function MainCustomers() {
     };
 
     const handleDelete = (customerId: string) => {
-        if (confirm('Are you sure you want to delete this customer?')) {
-            setCustomers(customers.filter(c => c.id !== customerId));
+        const customer = customers.find(c => c.id === customerId);
+        if (customer) {
+            setDeleteModal({ isOpen: true, customer });
+        }
+    };
+
+    const confirmDelete = async () => {
+        if (!deleteModal.customer) return;
+        
+        setIsDeleting(true);
+        try {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            setCustomers(customers.filter(c => c.id !== deleteModal.customer!.id));
+            toast.success('Customer deleted successfully');
+            setDeleteModal({ isOpen: false });
+        } catch (error) {
+            toast.error('Failed to delete customer');
+        } finally {
+            setIsDeleting(false);
         }
     };
 
@@ -52,18 +73,18 @@ export default function MainCustomers() {
 
     const handleFormSubmit = async (data: Omit<Customer, 'id' | 'totalOrders' | 'totalSpent' | 'joinedAt'>) => {
         if (editingCustomer) {
-            setCustomers(customers.map(c => c.id === editingCustomer.id ? { 
-                ...data, 
-                id: editingCustomer.id, 
+            setCustomers(customers.map(c => c.id === editingCustomer.id ? {
+                ...data,
+                id: editingCustomer.id,
                 totalOrders: editingCustomer.totalOrders,
                 totalSpent: editingCustomer.totalSpent,
                 joinedAt: editingCustomer.joinedAt
             } : c));
         } else {
-            const newCustomer = { 
-                ...data, 
-                id: Date.now().toString(), 
-                totalOrders: 0, 
+            const newCustomer = {
+                ...data,
+                id: Date.now().toString(),
+                totalOrders: 0,
                 totalSpent: 0,
                 joinedAt: new Date().toISOString().split('T')[0]
             };
@@ -154,7 +175,7 @@ export default function MainCustomers() {
                     {hasPermission('customers', 'edit') && (
                         <button
                             onClick={() => handleEdit(record.id)}
-                            className="p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                            className="p-2 text-blue-600 dark:text-gray-100 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
                         >
                             <Edit className="h-4 w-4" />
                         </button>
@@ -220,6 +241,17 @@ export default function MainCustomers() {
                     onBack={handleBackToList}
                 />
             )}
+            
+            <DeleteModal
+                isOpen={deleteModal.isOpen}
+                onClose={() => setDeleteModal({ isOpen: false })}
+                onConfirm={confirmDelete}
+                title="Delete Customer"
+                message="Are you sure you want to delete"
+                itemName={deleteModal.customer?.name}
+                confirmText="Delete Customer"
+                isLoading={isDeleting}
+            />
         </AnimatePresence>
     );
 }

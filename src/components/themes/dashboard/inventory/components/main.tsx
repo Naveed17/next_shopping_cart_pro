@@ -42,9 +42,9 @@ export default function MainInventory() {
 
     const handleFormSubmit = async (data: Omit<InventoryItem, 'id' | 'lastUpdated'>) => {
         if (editingItem) {
-            setInventory(inventory.map(i => i.id === editingItem.id ? { 
-                ...data, 
-                id: editingItem.id, 
+            setInventory(inventory.map(i => i.id === editingItem.id ? {
+                ...data,
+                id: editingItem.id,
                 lastUpdated: new Date().toISOString().split('T')[0]
             } : i));
         }
@@ -136,7 +136,7 @@ export default function MainInventory() {
                     {hasPermission('inventory', 'edit') && (
                         <button
                             onClick={() => handleEdit(record.id)}
-                            className="p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                            className="p-2 text-blue-600 dark:text-gray-100 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
                         >
                             <Edit className="h-4 w-4" />
                         </button>

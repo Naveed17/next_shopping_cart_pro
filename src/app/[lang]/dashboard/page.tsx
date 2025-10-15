@@ -13,7 +13,7 @@ const DashboardRedirect = () => {
 
   useEffect(() => {
     if (user?.role) {
-      router.push(`/${lang}/dashboard/${user.role}`);
+      router.push(`/dashboard/${user.role}`);
     }
   }, [user, router, lang]);
   return (
@@ -25,7 +25,7 @@ const DashboardRedirect = () => {
       >
         <Loader2 className="h-8 w-8 animate-spin text-blue-600 mx-auto mb-4" />
         <h2 className="text-xl font-semibold text-gray-900 mb-2">Loading Dashboard</h2>
-        <p className="text-gray-600">Redirecting you to your dashboard...</p>
+        <p className="text-gray-600">Redirecting you to {user?.role} dashboard...</p>
       </motion.div>
     </div>
   );
