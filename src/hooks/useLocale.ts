@@ -17,10 +17,10 @@ const useLocale = () => {
 
   // Find language by code
   const foundLang = languages?.find(
-    (lang: { language_code: string }) => lang.language_code === urlLocale
+    (lang: { code: string }) => lang.code === urlLocale
   );
 
-  const locale = foundLang ? foundLang.language_code : currentLang;
+  const locale = foundLang ? foundLang.code : currentLang;
   useEffect(() => {
     if (locale && locale !== currentLang) {
       dispatch(setLocale(locale));

@@ -30,7 +30,6 @@ export function useChangeLocale() {
     }`;
 
     if (currentPath !== newPath) {
-      setLoading(true);
       router.push(newPath);
     }
   };

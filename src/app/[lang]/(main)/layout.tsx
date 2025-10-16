@@ -1,6 +1,5 @@
 import { Main } from "@components/themes/layout";
 
-
 export default function MainLayout({
   children,
 }: {

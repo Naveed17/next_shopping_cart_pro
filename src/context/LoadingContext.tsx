@@ -24,20 +24,17 @@ export const LoadingProvider = ({ children }: { children: React.ReactNode }) => 
     const { locale } = useLocale();
     const pathname = usePathname();
     const dispatch = useAppDispatch();
-    
+
     useEffect(() => {
-        let isMounted = true;
         const load = async () => {
-            if (!isMounted) return;
             setLoading(true);
             try {
                 await dispatch(setAppData({ language: locale }));
             } finally {
-                if (isMounted) setLoading(false);
+                setLoading(false);
             }
         };
         load();
-        return () => { isMounted = false; };
     }, [dispatch, locale]);
     // Handle fade-in and fade-out
     useEffect(() => {
@@ -62,6 +59,7 @@ export const LoadingProvider = ({ children }: { children: React.ReactNode }) => 
         const handleComplete = () => setLoading(false);
 
         // Use passive listeners for better performance
+        window.addEventListener('beforeunload', handleStart);
         window.addEventListener('popstate', handleComplete, { passive: true });
 
         return () => {

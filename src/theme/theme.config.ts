@@ -1,5 +1,4 @@
 import { THEME_ENUM } from "@src/constants/theme.constant";
-import { Mode } from "@src/@types/theme";
 
 export type ThemeConfig = {
   direction: "ltr" | "rtl";
