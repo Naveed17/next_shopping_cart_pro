@@ -24,16 +24,20 @@ export const LoadingProvider = ({ children }: { children: React.ReactNode }) => 
     const { locale } = useLocale();
     const pathname = usePathname();
     const dispatch = useAppDispatch();
+    
     useEffect(() => {
+        let isMounted = true;
         const load = async () => {
+            if (!isMounted) return;
             setLoading(true);
             try {
                 await dispatch(setAppData({ language: locale }));
             } finally {
-                setLoading(false);
+                if (isMounted) setLoading(false);
             }
         };
         load();
+        return () => { isMounted = false; };
     }, [dispatch, locale]);
     // Handle fade-in and fade-out
     useEffect(() => {
@@ -52,25 +56,15 @@ export const LoadingProvider = ({ children }: { children: React.ReactNode }) => 
         setLoading(false); // Reset loading when route actually changes
     }, [pathname]);
 
-    // Alternative approach: Listen to browser navigation events
+    // Optimized navigation event listeners
     useEffect(() => {
-        const handleStart = () => {
-            setLoading(true);
-        };
+        const handleStart = () => setLoading(true);
+        const handleComplete = () => setLoading(false);
 
-        const handleComplete = () => {
-            setLoading(false);
-        };
-
-        // Listen to popstate for browser back/forward
-        window.addEventListener('beforeunload', handleStart);
-        window.addEventListener('popstate', handleComplete);
-
-        // For programmatic navigation, you'll need to call setLoading manually
-        // or use the custom hook approach below
+        // Use passive listeners for better performance
+        window.addEventListener('popstate', handleComplete, { passive: true });
 
         return () => {
-            window.removeEventListener('beforeunload', handleStart);
             window.removeEventListener('popstate', handleComplete);
         };
     }, []);

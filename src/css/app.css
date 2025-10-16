@@ -3,6 +3,7 @@
 @import './_input.css';
 @import './_alert.css';
 @import './_toast.css';
+@import './performance-fixes.css';
 /* Custom variant for dark mode */
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -202,6 +203,11 @@ body {
 body {
     overscroll-behavior: none;
     overscroll-behavior-y: contain;
+    /* Optimize scrolling performance */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    /* Prevent unnecessary repaints */
+    will-change: auto;
 }
 
 button {

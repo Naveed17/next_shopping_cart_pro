@@ -16,7 +16,6 @@ export default function AppProvider({ children }: { children?: React.ReactNode }
         [UserProvider],
         [ThemeProvider],
         [LoadingProvider],
-
     ]), [])
     return (
         <>
