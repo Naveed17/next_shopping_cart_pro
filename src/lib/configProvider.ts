@@ -16,6 +16,7 @@ export type Config = {
   loading: boolean;
   setLoading: (v: boolean) => void;
   loadAppData: (locale: string) => Promise<void>;
+  direction: "ltr" | "rtl";
 };
 
 // 2️⃣ Default values
@@ -23,6 +24,7 @@ export const defaultConfig: Config = {
   loading: false,
   setLoading: () => {},
   loadAppData: async () => {},
+  direction: "ltr",
 };
 
 export const ConfigContext = createContext<Config>(defaultConfig);
@@ -33,6 +35,7 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(false);
   const { locale } = useLocale();
   const dispatch = useAppDispatch();
+  const direction = useAppSelector((state) => state.root.direction);
 
   // 4️⃣ Define the method you mentioned
   const loadAppData = useCallback(async (): Promise<void> => {
@@ -45,9 +48,9 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
       setLoading(false);
     }
   }, [dispatch, locale]);
-  
+
   const mode = useAppSelector((state) => state.root.mode);
-  
+
   useEffect(() => {
     const root = document.documentElement;
     root.classList.remove("light", "dark");
@@ -64,6 +67,7 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
     loading,
     setLoading,
     loadAppData,
+    direction,
   };
 
   return React.createElement(ConfigContext.Provider, { value }, children);
