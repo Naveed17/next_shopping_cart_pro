@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { getResponsiveSizes } from '@src/utils/imageOptimizer';
 
 interface ProductImageGalleryProps {
   images: string[];
@@ -23,8 +24,10 @@ export default function ProductImageGallery({ images, productName }: ProductImag
           src={images[selectedImage]}
           alt={productName}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes={getResponsiveSizes('gallery')}
           className="object-cover"
+          quality={80}
+          priority={true}
         />
       </div>
       <div className="flex gap-3">
@@ -38,7 +41,7 @@ export default function ProductImageGallery({ images, productName }: ProductImag
                 : 'border-gray-200 dark:border-gray-700 hover:border-blue-300'
             }`}
           >
-            <Image src={image} alt="" fill sizes="80px" className="object-cover" />
+            <Image src={image} alt="" fill sizes={getResponsiveSizes('thumbnail')} className="object-cover" quality={60} loading="lazy" />
           </button>
         ))}
       </div>

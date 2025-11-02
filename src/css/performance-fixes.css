@@ -1,56 +1,23 @@
-/* Performance optimizations for smooth scrolling */
+/* Minimal performance optimizations */
 
-/* Enable hardware acceleration for smooth scrolling */
 html {
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
+  scroll-behavior: auto;
 }
 
 body {
-  /* Prevent layout thrashing */
   will-change: auto;
-  /* Optimize repaints */
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  /* Reduce paint complexity */
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
 
-/* Optimize backdrop blur elements */
-.backdrop-blur-xl,
-.backdrop-blur-2xl,
-.backdrop-blur-md {
-  /* Use GPU acceleration for backdrop filters */
-  will-change: backdrop-filter;
-  /* Contain paint operations */
-  contain: paint;
+/* Reduce image processing load */
+img {
+  image-rendering: auto;
 }
 
-/* Optimize animations */
-.animate-bounce,
-.animate-pulse,
-.animate-spin {
-  /* Use transform instead of changing properties */
-  will-change: transform;
-  /* Enable hardware acceleration */
-  transform: translateZ(0);
-}
-
-/* Optimize fixed/sticky elements */
-.sticky,
-.fixed {
-  /* Promote to composite layer */
-  will-change: transform;
-  /* Enable hardware acceleration */
-  transform: translateZ(0);
-}
-
-/* Optimize gradient backgrounds */
-.bg-gradient-to-r,
-.bg-gradient-to-br {
-  /* Contain paint operations */
-  contain: paint;
-  /* Use GPU for gradients */
-  will-change: background;
+/* Disable heavy animations on low-end devices */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

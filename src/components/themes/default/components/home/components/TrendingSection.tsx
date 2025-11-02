@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { TrendingUp, Eye, Heart, Star, ShoppingCart, Flame } from 'lucide-react';
 import { SetAddToCart } from '@src/lib/redux/cart';
 import { Product } from '@src/@types/common';
@@ -9,7 +8,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@lib/redux/store';
 import Container from '@components/core/container';
-
 
 export default function TrendingSection() {
   const dispatch = useAppDispatch();
@@ -22,61 +20,29 @@ export default function TrendingSection() {
 
   return (
     <Container>
-      <div className="relative bg-gradient-to-br from-blue-50/80 via-blue-100/60 to-blue-200/40 dark:from-blue-900/20 dark:via-blue-800/15 dark:to-blue-700/10 backdrop-blur-xl border border-blue-200/30 dark:border-blue-800/30 rounded-3xl p-4 py-8 md:py-12  md:p-12 overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)',
-            backgroundSize: '32px 32px'
-          }} />
-        </div>
-
-        {/* Floating Elements */}
-        <div className="absolute top-8 right-8 w-16 h-16 bg-blue-400/20 rounded-full animate-pulse" />
-        <div className="absolute bottom-8 left-8 w-12 h-12 bg-blue-500/20 rounded-full animate-bounce" />
-
+      <div className="relative bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-8 overflow-hidden">
         <div className="relative z-10">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center bg-blue-600/20 backdrop-blur-md border border-blue-300/30 dark:border-blue-700/30 text-blue-800 dark:text-blue-200 px-6 py-3 rounded-full mb-6 shadow-lg"
-            >
-              <Flame className="h-5 w-5 mr-2 animate-pulse" />
-              <span className="font-bold text-sm uppercase tracking-wide">Hot Trending</span>
-            </motion.div>
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-full mb-4">
+              <Flame className="h-4 w-4 mr-2" />
+              <span className="font-bold text-sm">Hot Trending</span>
+            </div>
 
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4"
-            >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Trending Now
-            </motion.h2>
+            </h2>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="text-lg text-blue-700 dark:text-blue-300 max-w-2xl mx-auto"
-            >
+            <p className="text-lg text-blue-700 dark:text-blue-300 max-w-2xl mx-auto">
               Discover what's hot right now! These products are flying off the shelves.
-            </motion.p>
+            </p>
           </div>
 
-          {/* Products Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {isLoading ? (
               Array.from({ length: 3 }).map((_, index) => (
                 <div
                   key={index}
-                  className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl overflow-hidden shadow-lg border border-white/50 dark:border-gray-700/50 animate-pulse"
+                  className="relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow border animate-pulse"
                 >
                   <div className="absolute top-4 left-4 z-20 bg-gray-300 dark:bg-gray-600 w-8 h-6 rounded-full" />
                   <div className="absolute top-4 right-4 z-20 bg-gray-300 dark:bg-gray-600 w-16 h-6 rounded-full" />
@@ -103,41 +69,34 @@ export default function TrendingSection() {
               ))
             ) : (
               trendingProducts.map((product, index) => (
-                <motion.div
+                <div
                   key={product.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="group relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/50 dark:border-gray-700/50"
+                  className="group relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow border border-gray-200 dark:border-gray-700"
                 >
-                  {/* Rank Badge */}
-                  <div className="absolute top-4 left-4 z-20 bg-blue-600/90 backdrop-blur-md border border-blue-400/30 text-white px-3 py-1 rounded-full text-sm font-black shadow-lg">
+                  <div className="absolute top-4 left-4 z-20 bg-blue-600 text-white px-2 py-1 rounded-full text-sm font-bold">
                     #{index + 1}
                   </div>
 
-                  {/* Trend Badge */}
-                  <div className="absolute top-4 right-4 z-20 bg-blue-500/80 backdrop-blur-md border border-blue-400/30 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
+                  <div className="absolute top-4 right-4 z-20 bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
                     <TrendingUp className="h-3 w-3" />
                     {product.trend}
                   </div>
 
-                  {/* Image */}
                   <div className="relative aspect-[4/3] overflow-hidden">
                     <Image
                       src={product.image}
                       alt={product.name}
                       fill
                       sizes="(max-width: 1024px) 100vw, 33vw"
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="object-cover"
+                      quality={75}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-                    {/* Quick Actions */}
-                    <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                    <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
                       <Button
                         onClick={() => handleAddToCart(product)}
-                        className="w-full bg-blue-600/90 backdrop-blur-md border border-blue-400/30 text-white hover:bg-blue-700/90 font-semibold"
+                        className="w-full bg-blue-600 text-white hover:bg-blue-700 font-semibold"
                       >
                         <ShoppingCart className="h-4 w-4 mr-2" />
                         Quick Add
@@ -145,10 +104,9 @@ export default function TrendingSection() {
                     </div>
                   </div>
 
-                  {/* Content */}
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30 px-2 py-1 rounded-full">
+                      <span className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-full">
                         {product.vendor.name}
                       </span>
                       <div className="flex items-center text-blue-600 dark:text-blue-400">
@@ -166,7 +124,7 @@ export default function TrendingSection() {
                     </p>
 
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-2xl font-black text-gray-900 dark:text-white">
+                      <span className="text-2xl font-bold text-gray-900 dark:text-white">
                         ${product.price}
                       </span>
                       <span className="text-sm text-blue-600 dark:text-blue-400 font-semibold">
@@ -174,7 +132,6 @@ export default function TrendingSection() {
                       </span>
                     </div>
 
-                    {/* Stats */}
                     <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 pt-4 border-t border-gray-200 dark:border-gray-700">
                       <div className="flex items-center gap-1">
                         <Eye className="h-4 w-4" />
@@ -190,26 +147,19 @@ export default function TrendingSection() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))
             )}
           </div>
 
-          {/* View All Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="text-center mt-12"
-          >
+          <div className="text-center mt-8">
             <Link href="/products">
-              <Button size="lg" className="bg-blue-600/80 backdrop-blur-md border border-blue-400/30 hover:bg-blue-700/80 text-white font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-full">
                 View All Trending Products
                 <TrendingUp className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-          </motion.div>
+          </div>
         </div>
       </div>
     </Container>

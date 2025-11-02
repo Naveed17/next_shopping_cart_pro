@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { getResponsiveSizes } from './imageOptimizer';
 
 export default function ImageBlur({
   src,
@@ -24,8 +25,10 @@ export default function ImageBlur({
         placeholder="blur"
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII"
         {...(fill
-          ? { fill, sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw' }
+          ? { fill, sizes: props.sizes || getResponsiveSizes('card') }
           : { width, height })}
+        quality={props.quality || 75}
+        priority={props.priority || false}
         className={`${className} ${loaded ? 'unblur' : ''}`}
         onLoad={() => setLoaded(true)}
         onError={onError}

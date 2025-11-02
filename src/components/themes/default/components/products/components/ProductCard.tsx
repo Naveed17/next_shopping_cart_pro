@@ -7,6 +7,7 @@ import Button from '@src/components/core/button/button';
 import Card from '@src/components/core/card/card';
 import Image from 'next/image';
 import { useAppDispatch } from '@lib/redux/store';
+import { getResponsiveSizes } from '@src/utils/imageOptimizer';
 
 interface ProductCardProps {
   product: Product;
@@ -27,8 +28,10 @@ export default function ProductCard({ product }: ProductCardProps) {
             src={product.image}
             alt={product.name}
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            sizes={getResponsiveSizes('card')}
             className="object-cover group-hover:scale-110 transition-transform duration-300"
+            quality={75}
+            loading="lazy"
           />
         </div>
 
