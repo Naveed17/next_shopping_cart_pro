@@ -54,7 +54,7 @@ const DefaultLoadingIndicator = ({
 }: DefaultLoadingIndicatorProps) => {
     const { themeColor } = selectProps
     return (
-        <Spinner className={`select-loading-indicatior text-${themeColor}`} />
+        <Spinner />
     )
 }
 
@@ -197,7 +197,7 @@ function Select<
             components={{
                 IndicatorSeparator: () => null,
                 Option: DefaultOption,
-                LoadingIndicator: DefaultLoadingIndicator,
+                LoadingIndicator: <>loading...</>,
                 DropdownIndicator: DefaultDropdownIndicator,
                 ClearIndicator: DefaultClearIndicator,
                 ...components,
