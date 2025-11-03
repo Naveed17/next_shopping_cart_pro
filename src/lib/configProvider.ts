@@ -56,7 +56,10 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
     root.classList.remove("light", "dark");
     root.classList.add(mode);
   }, [mode]);
-
+  useEffect(() => {
+    setLoading(true);
+    return () => setLoading(false);
+  }, [direction]);
   // Auto-load app data when provider mounts or locale changes
   useEffect(() => {
     loadAppData();
