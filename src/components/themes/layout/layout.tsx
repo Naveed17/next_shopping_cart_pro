@@ -17,7 +17,7 @@ const Layout = ({ children }: CommonProps) => {
     const { loading } = useConfig();
     const layout: LayoutType = useAppSelector(layoutType);
 
-    if (!loading) {
+    if (loading) {
         return <Spinner />;
     }
 
