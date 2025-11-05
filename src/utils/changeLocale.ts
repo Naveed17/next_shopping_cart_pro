@@ -1,15 +1,15 @@
 "use client";
 
 import { useRouter, usePathname } from "next/navigation";
-import { useLoading } from "@src/context/LoadingContext";
 import { useEffect, useState } from "react";
 import { locales } from "../../next-intl";
+import { useConfig } from "@lib/configProvider";
 
 export function useChangeLocale() {
   const router = useRouter();
   const pathname = usePathname();
   const [currentPath, setCurrentPath] = useState(pathname);
-  const { setLoading } = useLoading();
+  const { setLoading } = useConfig();
 
   // Keep currentPath updated
   useEffect(() => {
@@ -30,6 +30,7 @@ export function useChangeLocale() {
     }`;
 
     if (currentPath !== newPath) {
+      setLoading(true);
       router.push(newPath);
     }
   };

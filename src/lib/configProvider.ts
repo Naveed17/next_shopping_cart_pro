@@ -32,7 +32,12 @@ ConfigContext.displayName = "ConfigContext";
 
 // 3️⃣ Provider Component
 export function ConfigProvider({ children }: { children: React.ReactNode }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("localeChanging") === "true";
+    }
+    return false;
+  });
   const { locale } = useLocale();
   const dispatch = useAppDispatch();
   const direction = useAppSelector((state) => state.root.direction);
@@ -56,10 +61,7 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
     root.classList.remove("light", "dark");
     root.classList.add(mode);
   }, [mode]);
-  useEffect(() => {
-    setLoading(true);
-    return () => setLoading(false);
-  }, [direction]);
+
   // Auto-load app data when provider mounts or locale changes
   useEffect(() => {
     loadAppData();
