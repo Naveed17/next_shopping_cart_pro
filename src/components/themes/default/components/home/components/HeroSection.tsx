@@ -31,7 +31,7 @@ export default function HeroSection() {
           transition={{ duration: 0.5 }}
           className={`absolute inset-0 bg-gradient-to-r ${slides[currentSlide]?.gradient}`}
         >
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-black/40 pointer-events-none" />
           <div className="absolute right-0 rtl:left-0 rtl:right-[unset] top-0 md:w-1/2 h-full">
             <Image
               src={slides[currentSlide]?.image}
@@ -41,7 +41,7 @@ export default function HeroSection() {
               sizes="50vw"
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/20 to-black/60" />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/20 to-black/60 pointer-events-none" />
           </div>
 
           {/* Floating Elements */}
@@ -55,7 +55,7 @@ export default function HeroSection() {
             <Zap className="h-5 w-5 text-blue-300" />
           </div>
 
-          <div className="relative h-full flex items-center px-8 md:px-16">
+          <div className="relative h-full flex items-center px-8 md:px-16 z-10">
             <div className="max-w-3xl text-white">
               <motion.div
                 initial={{ x: -50, opacity: 0 }}
@@ -137,8 +137,8 @@ export default function HeroSection() {
           </div>
 
           {/* Decorative Grid Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0" style={{
+          <div className="absolute inset-0 opacity-5 pointer-events-none">
+            <div className="absolute inset-0 pointer-events-none" style={{
               backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
               backgroundSize: '40px 40px'
             }} />
