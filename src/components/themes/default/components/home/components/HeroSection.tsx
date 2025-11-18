@@ -33,14 +33,16 @@ export default function HeroSection() {
         >
           <div className="absolute inset-0 bg-black/40 pointer-events-none" />
           <div className="absolute right-0 rtl:left-0 rtl:right-[unset] top-0 md:w-1/2 h-full">
-            <Image
-              src={slides[currentSlide]?.image}
-              alt={slides[currentSlide]?.title}
-              fill
-              priority
-              sizes="50vw"
-              className="object-cover"
-            />
+            {slides[currentSlide]?.image && (
+              <Image
+                src={slides[currentSlide].image}
+                alt={slides[currentSlide]?.title || ''}
+                fill
+                priority
+                sizes="50vw"
+                className="object-cover"
+              />
+            )}
             <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/20 to-black/60 pointer-events-none" />
           </div>
 

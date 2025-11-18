@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Star, Shield, Truck, CreditCard, Send, Award, Users, Globe, Sparkles, Package, Target, Check, Heart } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Send, Sparkles, Package, Target, Check } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import Input from '@src/components/core/input';
@@ -53,19 +53,6 @@ export default function Footer() {
     { icon: Youtube, href: '#', name: 'YouTube' }
   ];
 
-  const features = [
-    { icon: Shield, text: 'Secure Shopping' },
-    { icon: Truck, text: 'Free Shipping' },
-    { icon: CreditCard, text: 'Easy Returns' },
-    { icon: Star, text: 'Top Rated' }
-  ];
-
-  const stats = [
-    { icon: Users, value: '50K+', label: 'Happy Customers' },
-    { icon: Globe, value: '100+', label: 'Countries' },
-    { icon: Award, value: '99.9%', label: 'Uptime' },
-    { icon: Star, value: '4.9/5', label: 'Rating' }
-  ];
 
   const paymentMethods = [
     {
@@ -176,7 +163,7 @@ export default function Footer() {
       <div className="absolute top-12 right-12 w-24 h-24 bg-blue-500/10 backdrop-blur-md rounded-full border border-blue-400/20" />
       <div className="absolute bottom-20 left-16 w-16 h-16 bg-blue-600/10 backdrop-blur-md rounded-full border border-blue-400/20" />
 
-      <div className="relative z-10 container mx-auto px-4 py-16">
+      <div className="relative z-10 container mx-auto px-4 pt-16 pb-6">
         {/* Newsletter Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -244,25 +231,10 @@ export default function Footer() {
           </div>
         </motion.div>
 
-        {/* Stats Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
-        >
-          {stats.map((stat, index) => (
-            <div key={index} className="text-center bg-blue-900/20 backdrop-blur-md rounded-xl border border-blue-700/30 p-6">
-              <stat.icon className="h-8 w-8 text-blue-400 mx-auto mb-3" />
-              <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-              <div className="text-blue-300 text-sm">{stat.label}</div>
-            </div>
-          ))}
-        </motion.div>
+
 
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-16">
           {/* Company Info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -271,34 +243,38 @@ export default function Footer() {
             viewport={{ once: true }}
             className="md:col-span-2 lg:col-span-2"
           >
-            <div className="flex items-center mb-6">
-              <div className="w-10 h-10 bg-blue-600/80 backdrop-blur-md rounded-lg flex items-center justify-center mr-3 border border-blue-400/30">
-                <span className="text-white font-bold text-xl">S</span>
+            <div className="flex items-center mb-8">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4 shadow-lg shadow-blue-500/25">
+                <span className="text-white font-black text-xl">S</span>
               </div>
-              <span className="text-2xl font-bold">ShopCart</span>
+              <span className="text-3xl font-black bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">ShopCart</span>
             </div>
 
-            <p className="text-blue-200 dark:text-blue-300 mb-6 leading-relaxed">
+            <p className="text-blue-100/80 mb-8 leading-relaxed text-base">
               Your trusted multi-vendor marketplace connecting you with quality products from verified sellers worldwide. Shop with confidence and discover amazing deals every day.
             </p>
 
             {/* Contact Info */}
-            <div className="space-y-3 mb-6">
-              <div className="flex items-center text-blue-200 dark:text-blue-300">
-                <Mail className="h-4 w-4 mr-3 text-blue-400" />
-                <span className="text-sm">support@shopcart.com</span>
+            <div className="space-y-4 mb-8">
+              <div className="flex items-center text-blue-100/70 hover:text-white transition-colors group">
+                <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-500/30 transition-colors">
+                  <Mail className="h-4 w-4 text-blue-400" />
+                </div>
+                <span className="text-sm font-medium">support@shopcart.com</span>
               </div>
-              <div className="flex items-center text-blue-200 dark:text-blue-300">
-                <Phone className="h-4 w-4 mr-3 text-blue-400" />
-                <span className="text-sm">+1 (555) 123-4567</span>
+              <div className="flex items-center text-blue-100/70 hover:text-white transition-colors group">
+                <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-500/30 transition-colors">
+                  <Phone className="h-4 w-4 text-blue-400" />
+                </div>
+                <span className="text-sm font-medium">+1 (555) 123-4567</span>
               </div>
-              <div className="flex items-center text-blue-200 dark:text-blue-300">
-                <MapPin className="h-4 w-4 mr-3 text-blue-400" />
-                <span className="text-sm">123 Commerce St, NY 10001</span>
+              <div className="flex items-center text-blue-100/70 hover:text-white transition-colors group">
+                <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-500/30 transition-colors">
+                  <MapPin className="h-4 w-4 text-blue-400" />
+                </div>
+                <span className="text-sm font-medium">123 Commerce St, NY 10001</span>
               </div>
             </div>
-
-
           </motion.div>
 
           {/* Quick Links & Support - Mobile 2 columns */}
@@ -310,13 +286,16 @@ export default function Footer() {
             className="grid grid-cols-2 gap-8 md:contents"
           >
             <div>
-              <h4 className="text-lg font-bold mb-6 text-white">Quick Links</h4>
-              <ul className="space-y-3">
+              <h4 className="text-xl font-black mb-6 text-white relative">
+                Quick Links
+                <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"></div>
+              </h4>
+              <ul className="space-y-4">
                 {quickLinks.map((link, index) => (
                   <li key={index}>
-                    <Link href={link.href} className="text-blue-200 dark:text-blue-300 hover:text-white transition-colors text-sm flex items-center group">
-                      <span className="w-1 h-1 bg-blue-400 rounded-full mr-3 group-hover:w-2 transition-all"></span>
-                      {link.name}
+                    <Link href={link.href} className="text-blue-100/70 hover:text-white transition-all duration-300 text-sm flex items-center group hover:translate-x-1">
+                      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3 group-hover:w-3 group-hover:bg-blue-300 transition-all duration-300"></div>
+                      <span className="font-medium">{link.name}</span>
                     </Link>
                   </li>
                 ))}
@@ -324,13 +303,16 @@ export default function Footer() {
             </div>
 
             <div>
-              <h4 className="text-lg font-bold mb-6 text-white">Support</h4>
-              <ul className="space-y-3">
+              <h4 className="text-xl font-black mb-6 text-white relative">
+                Support
+                <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"></div>
+              </h4>
+              <ul className="space-y-4">
                 {support.map((link, index) => (
                   <li key={index}>
-                    <Link href={link.href} className="text-blue-200 dark:text-blue-300 hover:text-white transition-colors text-sm flex items-center group">
-                      <span className="w-1 h-1 bg-blue-400 rounded-full mr-3 group-hover:w-2 transition-all"></span>
-                      {link.name}
+                    <Link href={link.href} className="text-blue-100/70 hover:text-white transition-all duration-300 text-sm flex items-center group hover:translate-x-1">
+                      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3 group-hover:w-3 group-hover:bg-blue-300 transition-all duration-300"></div>
+                      <span className="font-medium">{link.name}</span>
                     </Link>
                   </li>
                 ))}
@@ -345,13 +327,16 @@ export default function Footer() {
             transition={{ duration: 0.6, delay: 0.5 }}
             viewport={{ once: true }}
           >
-            <h4 className="text-lg font-bold mb-6 text-white">Company</h4>
-            <ul className="space-y-3 mb-8">
+            <h4 className="text-xl font-black mb-6 text-white relative">
+              Company
+              <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"></div>
+            </h4>
+            <ul className="space-y-4 mb-10">
               {company.map((link, index) => (
                 <li key={index}>
-                  <Link href={link.href} className="text-blue-200 dark:text-blue-300 hover:text-white transition-colors text-sm flex items-center group">
-                    <span className="w-1 h-1 bg-blue-400 rounded-full mr-3 group-hover:w-2 transition-all"></span>
-                    {link.name}
+                  <Link href={link.href} className="text-blue-100/70 hover:text-white transition-all duration-300 text-sm flex items-center group hover:translate-x-1">
+                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3 group-hover:w-3 group-hover:bg-blue-300 transition-all duration-300"></div>
+                    <span className="font-medium">{link.name}</span>
                   </Link>
                 </li>
               ))}
@@ -359,74 +344,62 @@ export default function Footer() {
 
             {/* Social Links */}
             <div>
-              <h5 className="text-sm font-semibold mb-4 text-blue-200">Follow Us</h5>
+              <h5 className="text-base font-bold mb-5 text-white">Follow Us</h5>
               <div className="flex space-x-3">
                 {socialLinks.map((social, index) => (
-                  <a
+                  <motion.a
                     key={index}
                     href={social.href}
-                    className="w-10 h-10 bg-blue-600/20 backdrop-blur-md border border-blue-500/30 rounded-lg flex items-center justify-center hover:bg-blue-600/40 transition-all duration-300 group"
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-11 h-11 bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-xl border border-blue-400/30 rounded-xl flex items-center justify-center hover:from-blue-500/40 hover:to-blue-600/40 hover:border-blue-300/50 transition-all duration-300 group shadow-lg shadow-blue-500/10"
                     aria-label={social.name}
                   >
-                    <social.icon className="h-4 w-4 text-blue-400 group-hover:text-white transition-colors" />
-                  </a>
+                    <social.icon className="h-5 w-5 text-blue-300 group-hover:text-white transition-colors duration-300" />
+                  </motion.a>
                 ))}
               </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Payment Methods */}
+        {/* Bottom Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
           viewport={{ once: true }}
-          className="border-t border-blue-800/30 pt-8 mb-8"
+          className="border-t border-gray-800 pt-6 relative after:absolute after:top-0 after:left-0 after:right-0 after:h-px after:bg-gray-600"
         >
-          <div className="text-center">
-            <h4 className="text-lg font-semibold text-white mb-4">We Accept</h4>
-            {/* Mobile: 2 columns, Desktop: 5 columns */}
-            <div className="grid grid-cols-2 md:flex md:justify-center md:items-center gap-2 md:gap-4">
-              {paymentMethods.map((method, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ scale: 1.05, y: -1 }}
-                  className="bg-white/10 backdrop-blur-md border border-blue-400/30 rounded-lg p-1 px-4 md:p-1.5 flex items-center gap-1 min-w-0 md:min-w-[70px] justify-center"
-                >
-                  <div className="text-blue-300 flex-shrink-0">
-                    <method.icon />
-                  </div>
-                  <span className="text-blue-200 text-xs md:text-sm font-medium truncate">{method.name}</span>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Bottom Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          viewport={{ once: true }}
-          className="border-t border-blue-800/30 pt-8"
-        >
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
             {/* Copyright */}
             <div className="text-center lg:text-left">
-              <p className="text-blue-200 dark:text-blue-300 text-sm">
-                © 2025 ShopCart. All rights reserved. Made with <Heart className="h-4 w-4 text-red-400 inline mx-1" /> for shoppers worldwide.
+              <p className="text-blue-100/70 text-sm font-medium">
+                © 2025 ShopCart. All rights reserved.
               </p>
             </div>
 
+            {/* Payment Methods */}
+            <div className="flex items-center gap-2">
+              {paymentMethods.map((method, index) => (
+                <div
+                  key={index}
+                  className="w-16 h-8  border border-white/20 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors"
+                >
+                  <div className="text-blue-300 text-sm">
+                    <method.icon />
+                  </div>
+                </div>
+              ))}
+            </div>
+
             {/* Legal Links */}
-            <div className="flex flex-wrap justify-center gap-6">
+            <div className="flex flex-wrap justify-center gap-4">
               {legal.map((link, index) => (
                 <Link
                   key={index}
                   href={link.href}
-                  className="text-blue-300 hover:text-white text-sm transition-colors"
+                  className="text-blue-200 hover:text-white text-xs transition-colors"
                 >
                   {link.name}
                 </Link>
@@ -434,12 +407,12 @@ export default function Footer() {
             </div>
 
             {/* Trust Badges */}
-            <div className="flex items-center gap-4">
-              <div className="bg-blue-600/20 backdrop-blur-md border border-blue-500/30 rounded-lg px-3 py-2">
-                <span className="text-xs text-blue-200">SSL Secured</span>
+            <div className="flex items-center gap-2">
+              <div className="bg-green-500/20 border border-green-400/30 rounded-md px-2 py-1">
+                <span className="text-xs text-green-200 font-medium">SSL</span>
               </div>
-              <div className="bg-blue-600/20 backdrop-blur-md border border-blue-500/30 rounded-lg px-3 py-2">
-                <span className="text-xs text-blue-200">GDPR Compliant</span>
+              <div className="bg-purple-500/20 border border-purple-400/30 rounded-md px-2 py-1">
+                <span className="text-xs text-purple-200 font-medium">GDPR</span>
               </div>
             </div>
           </div>
