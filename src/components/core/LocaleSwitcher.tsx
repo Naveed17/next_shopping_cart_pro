@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Globe, ChevronDown } from 'lucide-react';
 import { useFloating, autoUpdate, offset, flip, shift, useClick, useDismiss, useRole, useInteractions, FloatingPortal } from '@floating-ui/react';
 import useLocale from '@hooks/useLocale';
@@ -21,7 +21,8 @@ export default function LocaleSwitcher() {
   const { locale } = useLocale();
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'language' | 'currency'>('language');
-  const languages = useAppSelector(state => state.appData?.data?.languages) ?? [];
+  const languagesFromState = useAppSelector(state => state.appData?.data?.languages);
+  const languages = useMemo(() => languagesFromState ?? [], [languagesFromState]);
   const [selectedLanguage, setSelectedLanguage] = useState(() =>
     languages?.find((lang: any) => lang.code === locale) || "en"
   );
@@ -61,7 +62,7 @@ export default function LocaleSwitcher() {
   useEffect(() => {
     const currentLang = languages?.find((lang: any) => lang.code === locale) || languages[0];
     setSelectedLanguage(currentLang);
-  }, [locale]);
+  }, [locale, languages]);
 
   return (
     <>
@@ -80,6 +81,7 @@ export default function LocaleSwitcher() {
       <FloatingPortal>
         {isOpen && (
           <div
+            // eslint-disable-next-line react-hooks/refs
             ref={refs.setFloating}
             style={floatingStyles}
             {...getFloatingProps()}

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm, type ControllerRenderProps } from 'react-hook-form';
 import { z as zod } from 'zod';
@@ -47,12 +47,12 @@ export default function CategoryForm({ category, onSubmit, onBack }: CategoryFor
     const [imageFile, setImageFile] = React.useState<File | null>(null);
     const [imageError, setImageError] = React.useState<string>('');
 
-    const defaultValues: Values = {
+    const defaultValues: Values = useMemo(() => ({
         name: category?.name || '',
         description: category?.description || '',
         status: category?.status || 'active',
         image: category?.image || '',
-    };
+    }), [category]);
 
     const {
         control,
@@ -66,7 +66,7 @@ export default function CategoryForm({ category, onSubmit, onBack }: CategoryFor
         setImagePreview(category?.image);
         setImageFile(null);
         setImageError('');
-    }, [category, reset]);
+    }, [category, reset, defaultValues]);
 
     const handleFileSelect = (files: File | File[]) => {
         const file = Array.isArray(files) ? files[0] : files;

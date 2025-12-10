@@ -33,7 +33,7 @@ export default function ProductTabs({ product }: ProductTabsProps) {
       user: 'Mike R.',
       rating: 5,
       date: '2024-01-08',
-      comment: 'Best purchase I\'ve made this year. The active noise cancellation is a game changer for my daily commute.'
+      comment: 'Best purchase I\u0027ve made this year. The active noise cancellation is a game changer for my daily commute.'
     }
   ];
 
@@ -92,7 +92,7 @@ export default function ProductTabs({ product }: ProductTabsProps) {
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-3">What's in the Box</h4>
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-3">What&apos;s in the Box</h4>
                 <ul className="space-y-2 text-gray-600 dark:text-gray-400">
                   <li>• Wireless Headphones</li>
                   <li>• USB-C Charging Cable</li>

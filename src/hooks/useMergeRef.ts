@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Dispatch, SetStateAction, ForwardedRef } from 'react'
 
 type Ref<T> = Dispatch<SetStateAction<T>> | ForwardedRef<T>

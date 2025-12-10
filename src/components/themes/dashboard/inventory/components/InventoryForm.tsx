@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm, type ControllerRenderProps } from 'react-hook-form';
 import { z as zod } from 'zod';
@@ -41,14 +41,14 @@ interface InventoryFormProps {
 export default function InventoryForm({ item, onSubmit, onBack }: InventoryFormProps) {
     const [isPending, setIsPending] = React.useState(false);
 
-    const defaultValues: Values = {
+    const defaultValues: Values = useMemo(() => ({
         productName: item?.productName || '',
         sku: item?.sku || '',
         currentStock: item?.currentStock || 0,
         minStock: item?.minStock || 0,
         maxStock: item?.maxStock || 0,
         location: item?.location || '',
-    };
+    }), [item]);
 
     const {
         control,
@@ -59,7 +59,7 @@ export default function InventoryForm({ item, onSubmit, onBack }: InventoryFormP
 
     React.useEffect(() => {
         reset(defaultValues);
-    }, [item, reset]);
+    }, [item, reset, defaultValues]);
 
     const handleFormSubmit = async (values: Values) => {
         setIsPending(true);

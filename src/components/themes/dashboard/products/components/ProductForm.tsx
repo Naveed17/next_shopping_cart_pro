@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm, type ControllerRenderProps } from 'react-hook-form';
 import { z as zod } from 'zod';
@@ -62,7 +62,7 @@ export default function ProductForm({ product, onSubmit, onBack }: ProductFormPr
     const [imageSizes, setImageSizes] = React.useState<string[]>([]);
     const [imageError, setImageError] = React.useState<string>('');
 
-    const defaultValues: Values = {
+    const defaultValues: Values = useMemo(() => ({
         name: product?.name || '',
         price: product?.price || 0,
         category: product?.category || '',
@@ -70,7 +70,7 @@ export default function ProductForm({ product, onSubmit, onBack }: ProductFormPr
         status: product?.status || 'active',
         description: product?.description || '',
         image: product?.image || '',
-    };
+    }), [product]);
 
     const {
         control,
@@ -86,7 +86,7 @@ export default function ProductForm({ product, onSubmit, onBack }: ProductFormPr
         setImageNames([]);
         setImageSizes([]);
         setImageError('');
-    }, [product, reset]);
+    }, [product, reset, defaultValues]);
 
     const handleFileSelect = (files: File | File[]) => {
         const fileArray = Array.isArray(files) ? files : [files];

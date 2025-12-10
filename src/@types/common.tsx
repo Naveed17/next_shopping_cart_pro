@@ -7,7 +7,7 @@ export interface CommonProps {
   style?: CSSProperties
 }
 export type WithProps = CommonProps;
-// eslint-disable-next-line @typescript-eslint/no-namespace
+
 export declare namespace TypeAttributes {
   type Size = 'lg' | 'md' | 'sm' | 'xs'
   type Shape = 'round' | 'circle' | 'none'

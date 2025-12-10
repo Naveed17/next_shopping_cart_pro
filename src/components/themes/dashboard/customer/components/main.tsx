@@ -42,7 +42,7 @@ export default function MainCustomer() {
         animate={{ opacity: 1, y: 0 }}
       >
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Welcome back!</h1>
-        <p className="text-gray-600 dark:text-gray-400">Here's what's happening with your orders</p>
+        <p className="text-gray-600 dark:text-gray-400">Here&apos;s what&apos;s happening with your orders</p>
       </motion.div>
 
       {/* Stats Grid */}

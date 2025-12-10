@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { CheckCircle, Package, Truck, ArrowRight, Mail, MapPin, CreditCard } from 'lucide-react';
 import Link from 'next/link';
@@ -36,39 +36,38 @@ interface OrderDetails {
 
 export default function OrderCompletePage() {
   const searchParams = useSearchParams();
-  const orderId = searchParams.get('orderId') || 'ORD-' + Date.now();
-  const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
+  const [orderId] = useState(() => searchParams.get('orderId') || 'ORD-' + Date.now());
   const [showConfetti, setShowConfetti] = useState(true);
   const [windowDimensions, setWindowDimensions] = useState({ width: 0, height: 0 });
 
+  const orderDetails: OrderDetails = useMemo(() => ({
+    id: orderId,
+    total: 299.99,
+    estimatedDelivery: new Date(new Date().getTime() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+    customer: {
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      phone: '+1 (555) 123-4567',
+      address: {
+        street: '123 Main Street',
+        city: 'New York',
+        state: 'NY',
+        zipCode: '10001'
+      }
+    },
+    items: [
+      {
+        id: '1',
+        name: 'Wireless Headphones',
+        price: 299.99,
+        quantity: 1,
+        vendor: 'TechStore Pro',
+        image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&h=100&fit=crop'
+      }
+    ]
+  }), [orderId]);
+
   useEffect(() => {
-    const mockOrder: OrderDetails = {
-      id: orderId,
-      total: 299.99,
-      estimatedDelivery: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString(),
-      customer: {
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        phone: '+1 (555) 123-4567',
-        address: {
-          street: '123 Main Street',
-          city: 'New York',
-          state: 'NY',
-          zipCode: '10001'
-        }
-      },
-      items: [
-        {
-          id: '1',
-          name: 'Wireless Headphones',
-          price: 299.99,
-          quantity: 1,
-          vendor: 'TechStore Pro',
-          image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&h=100&fit=crop'
-        }
-      ]
-    };
-    setOrderDetails(mockOrder);
 
     // Set window dimensions and handle resize
     const updateDimensions = () => {
@@ -91,14 +90,6 @@ export default function OrderCompletePage() {
       window.removeEventListener('resize', updateDimensions);
     };
   }, []);
-
-  if (!orderDetails) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
-      </div>
-    );
-  }
 
   return (
     <div className="overflow-x-hidden">

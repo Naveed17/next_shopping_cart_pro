@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm, type ControllerRenderProps } from 'react-hook-form';
 import { z as zod } from 'zod';
@@ -53,14 +53,14 @@ export default function VendorForm({ vendor, onSubmit, onBack }: VendorFormProps
     const [imageFile, setImageFile] = React.useState<File | null>(null);
     const [imageError, setImageError] = React.useState<string>('');
 
-    const defaultValues: Values = {
+    const defaultValues: Values = useMemo(() => ({
         name: vendor?.name || '',
         email: vendor?.email || '',
         phone: vendor?.phone || '',
         company: vendor?.company || '',
         status: vendor?.status || 'active',
         image: vendor?.image || '',
-    };
+    }), [vendor]);
 
     const {
         control,
@@ -74,7 +74,7 @@ export default function VendorForm({ vendor, onSubmit, onBack }: VendorFormProps
         setImagePreview(vendor?.image);
         setImageFile(null);
         setImageError('');
-    }, [vendor, reset]);
+    }, [vendor, reset, defaultValues]);
 
     const handleFileSelect = (files: File | File[]) => {
         const file = Array.isArray(files) ? files[0] : files;

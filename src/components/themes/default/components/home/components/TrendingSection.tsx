@@ -33,7 +33,7 @@ export default function TrendingSection() {
             </h2>
 
             <p className="text-lg text-blue-700 dark:text-blue-300 max-w-2xl mx-auto">
-              Discover what's hot right now! These products are flying off the shelves.
+              Discover what&apos;s hot right now! These products are flying off the shelves.
             </p>
           </div>
 

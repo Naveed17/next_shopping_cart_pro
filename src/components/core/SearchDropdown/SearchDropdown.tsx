@@ -107,10 +107,11 @@ export default function SearchDropdown({ className = '', placeholder = 'Search p
 
       {isOpen && (
         <div
+          // eslint-disable-next-line react-hooks/refs
           ref={refs.setFloating}
           style={floatingStyles}
           {...getFloatingProps()}
-          className="z-50 w-full  md:min-w-[400px] bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 backdrop-blur-md"
+          className="z-50 w-full md:min-w-[400px] bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 backdrop-blur-md"
         >
           <div className="p-2">
             <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3 py-2 border-b border-gray-100 dark:border-gray-700">

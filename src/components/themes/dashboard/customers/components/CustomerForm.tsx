@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm, type ControllerRenderProps } from 'react-hook-form';
 import { z as zod } from 'zod';
@@ -45,12 +45,12 @@ const statusOptions = [
 export default function CustomerForm({ customer, onSubmit, onBack }: CustomerFormProps) {
     const [isPending, setIsPending] = React.useState(false);
 
-    const defaultValues: Values = {
+    const defaultValues: Values = useMemo(() => ({
         name: customer?.name || '',
         email: customer?.email || '',
         phone: customer?.phone || '',
         status: customer?.status || 'active',
-    };
+    }), [customer]);
 
     const {
         control,
@@ -61,7 +61,7 @@ export default function CustomerForm({ customer, onSubmit, onBack }: CustomerFor
 
     React.useEffect(() => {
         reset(defaultValues);
-    }, [customer, reset]);
+    }, [customer, reset, defaultValues]);
 
     const handleFormSubmit = async (values: Values) => {
         setIsPending(true);

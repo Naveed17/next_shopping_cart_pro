@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import cn from '@src/utils/classNames'
 import ReactSelect from 'react-select'
 import CreatableSelect from 'react-select/creatable'
@@ -68,7 +68,6 @@ export type SelectProps<
     CreatableProps<Option, IsMulti, Group> & {
         invalid?: boolean
         size?: TypeAttributes.ControlSize
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         field?: any
         componentAs?: ReactSelect | CreatableSelect | AsyncSelect
         isSearchable?: boolean // <-- add this line
