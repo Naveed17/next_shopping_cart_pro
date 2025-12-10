@@ -6,7 +6,7 @@ import PersistGateProvider from './persistGateProvider';
 
 
 function StoreProvider({ children }: { children: React.ReactNode }) {
-    const [storeInstance] = useState(() => store);
+    const [storeInstance] = useState<AppStore>(() => store);
 
     return (
         <Provider store={storeInstance}>

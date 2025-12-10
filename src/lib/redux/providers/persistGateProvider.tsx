@@ -6,7 +6,7 @@ import { persistStore } from "redux-persist";
 import { AppStore } from "../store";
 
 function PersistGateProvider({ children, store }: { children: React.ReactNode, store: AppStore }) {
-    const [persistor] = useState(() => persistStore(store));
+    const [persistor] = useState<Persistor>(() => persistStore(store));
 
     return (
         <PersistGate loading={false} persistor={persistor}>

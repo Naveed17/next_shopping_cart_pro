@@ -10,7 +10,6 @@ import { useAppDispatch, useAppSelector } from "@lib/redux/store";
 import { setAppData } from "@lib/redux/appData";
 import useLocale from "@hooks/useLocale";
 
-// 1️⃣ Define the type for your context
 export type Config = {
   controlSize?: "default" | "compact";
   loading: boolean;
@@ -19,7 +18,6 @@ export type Config = {
   direction: "ltr" | "rtl";
 };
 
-// 2️⃣ Default values
 export const defaultConfig: Config = {
   loading: false,
   setLoading: () => {},
@@ -30,7 +28,6 @@ export const defaultConfig: Config = {
 export const ConfigContext = createContext<Config>(defaultConfig);
 ConfigContext.displayName = "ConfigContext";
 
-// 3️⃣ Provider Component
 export function ConfigProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(() => {
     if (typeof window !== "undefined") {
@@ -42,17 +39,19 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
   const dispatch = useAppDispatch();
   const direction = useAppSelector((state) => state.root.direction);
 
-  // 4️⃣ Define the method you mentioned
-  const loadAppData = useCallback(async (requestedLocale?: string): Promise<void> => {
-    setLoading(true);
-    try {
-      await dispatch(setAppData({ language: requestedLocale ?? locale }));
-    } catch (err) {
-      console.error("Failed to load app data:", err);
-    } finally {
-      setLoading(false);
-    }
-  }, [dispatch, locale]);
+  const loadAppData = useCallback(
+    async (requestedLocale?: string): Promise<void> => {
+      setLoading(true);
+      try {
+        await dispatch(setAppData({ language: requestedLocale ?? locale }));
+      } catch (err) {
+        console.error("Failed to load app data:", err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [dispatch, locale]
+  );
 
   const mode = useAppSelector((state) => state.root.mode);
 
@@ -62,12 +61,10 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
     root.classList.add(mode);
   }, [mode]);
 
-  // Auto-load app data when provider mounts or locale changes
   useEffect(() => {
     loadAppData();
   }, [loadAppData]);
 
-  // 5️⃣ Final context value
   const value: Config = {
     loading,
     setLoading,
@@ -78,7 +75,6 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
   return React.createElement(ConfigContext.Provider, { value }, children);
 }
 
-// 6️⃣ Hook for easy use
 export function useConfig() {
   return useContext(ConfigContext);
 }
