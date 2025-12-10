@@ -43,7 +43,6 @@ const Table = <T extends Record<string, any>>({
 }: TableProps<T>) => {
   const [sortBy, setSortBy] = React.useState<string>(defaultSort?.key || '');
   const [sortOrder, setSortOrder] = React.useState<'asc' | 'desc'>(defaultSort?.order || 'asc');
-  const [sortedData, setSortedData] = React.useState<T[]>(data);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageSize, setPageSize] = React.useState(pagination?.pageSize || 10);
   const getRowKey = (record: T, index: number): string => {
@@ -57,9 +56,13 @@ const Table = <T extends Record<string, any>>({
     const newOrder = sortBy === columnKey && sortOrder === 'asc' ? 'desc' : 'asc';
     setSortBy(columnKey);
     setSortOrder(newOrder);
+  };
 
-    const column = columns.find(col => col.key === columnKey);
-    const sortKey = column?.sortKey || column?.dataIndex || columnKey;
+  const sortedData = React.useMemo(() => {
+    if (!sortBy) return data;
+
+    const column = columns.find(col => col.key === sortBy);
+    const sortKey = column?.sortKey || column?.dataIndex || sortBy;
 
     const sorted = [...data].sort((a, b) => {
       let aValue: unknown;
@@ -81,31 +84,33 @@ const Table = <T extends Record<string, any>>({
 
       // String comparison
       if (typeof aValue === 'string' && typeof bValue === 'string') {
-        return newOrder === 'asc'
+        return sortOrder === 'asc'
           ? aValue.toLowerCase().localeCompare(bValue.toLowerCase())
           : bValue.toLowerCase().localeCompare(aValue.toLowerCase());
       }
 
       // Numeric comparison
-      if (newOrder === 'asc') {
+      if (sortOrder === 'asc') {
         return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
       } else {
         return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
       }
     });
 
-    setSortedData(sorted);
-  };
+    return sorted;
+  }, [columns, data, sortBy, sortOrder]);
 
   React.useEffect(() => {
-    setSortedData(data);
     setCurrentPage(1);
   }, [data]);
 
   const totalPages = Math.ceil(sortedData.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
-  const paginatedData = pagination ? sortedData.slice(startIndex, endIndex) : sortedData;
+  const paginatedData = React.useMemo(
+    () => (pagination ? sortedData.slice(startIndex, endIndex) : sortedData),
+    [sortedData, pagination, startIndex, endIndex],
+  );
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);

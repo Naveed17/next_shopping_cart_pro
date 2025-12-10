@@ -7,36 +7,55 @@ import Button from '@src/components/core/button/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAppSelector } from '@lib/redux/store';
+
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slides = useAppSelector(state => state.appData.data)?.slides ?? [];
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides?.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
+  const slides = useAppSelector((state) => state.appData.data)?.slides ?? [];
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides?.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides?.length) % slides?.length);
+  const hasSlides = slides.length > 0;
+  const safeCurrentIndex = hasSlides ? currentSlide % slides.length : 0;
+  const activeSlide = hasSlides ? slides[safeCurrentIndex] : undefined;
+
+  useEffect(() => {
+    if (!hasSlides) {
+      setCurrentSlide(0);
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [hasSlides, slides.length]);
+
+  const nextSlide = () => {
+    if (!hasSlides) return;
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    if (!hasSlides) return;
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
 
   return (
     <section className="relative min-h-[700px] py-16 md:py-0 rounded-2xl overflow-hidden shadow-2xl m-4 mb-16">
       <AnimatePresence mode="wait">
         <motion.div
-          key={currentSlide}
+          key={safeCurrentIndex}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className={`absolute inset-0 bg-gradient-to-r ${slides[currentSlide]?.gradient}`}
+          className={`absolute inset-0 bg-gradient-to-r ${activeSlide?.gradient ?? ''}`}
         >
           <div className="absolute inset-0 bg-black/40 pointer-events-none" />
           <div className="absolute right-0 rtl:left-0 rtl:right-[unset] top-0 md:w-1/2 h-full">
-            {slides[currentSlide]?.image && (
+            {activeSlide?.image && (
               <Image
-                src={slides[currentSlide].image}
-                alt={slides[currentSlide]?.title || ''}
+                src={activeSlide.image}
+                alt={activeSlide?.title || ''}
                 fill
                 priority
                 sizes="50vw"
@@ -65,9 +84,9 @@ export default function HeroSection() {
                 transition={{ delay: 0.1, duration: 0.6 }}
                 className="inline-flex items-center bg-white/10 backdrop-blur-md rounded-full px-4 py-2 mb-4 border border-white/20"
               >
-                <span className="text-sm font-medium text-yellow-300 mr-2">{slides[currentSlide]?.badge}</span>
+                <span className="text-sm font-medium text-yellow-300 mr-2">{activeSlide?.badge}</span>
                 <span className="text-sm text-white/80">•</span>
-                <span className="text-sm text-white/80 ml-2">{slides[currentSlide]?.offer}</span>
+                <span className="text-sm text-white/80 ml-2">{activeSlide?.offer}</span>
               </motion.div>
               <motion.h1
                 initial={{ y: 50, opacity: 0 }}
@@ -75,7 +94,7 @@ export default function HeroSection() {
                 transition={{ delay: 0.2, duration: 0.8 }}
                 className="text-6xl md:text-8xl text-white font-black mb-4 leading-tight"
               >
-                {slides[currentSlide]?.title}
+                {activeSlide?.title}
               </motion.h1>
 
               <motion.span
@@ -84,7 +103,7 @@ export default function HeroSection() {
                 transition={{ delay: 0.4, duration: 0.8 }}
                 className="block text-4xl md:text-6xl font-black text-yellow-300 mb-6 leading-tight"
               >
-                {slides[currentSlide]?.subtitle}
+                {activeSlide?.subtitle}
               </motion.span>
 
               <motion.p
@@ -93,7 +112,7 @@ export default function HeroSection() {
                 transition={{ delay: 0.6, duration: 0.8 }}
                 className="text-xl md:text-2xl mb-8 text-blue-100 max-w-xl"
               >
-                {slides[currentSlide]?.description}
+                {activeSlide?.description}
               </motion.p>
 
               <motion.div
@@ -104,7 +123,7 @@ export default function HeroSection() {
               >
                 <Link href="/products">
                   <Button size="lg" className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold hover:from-yellow-500 hover:to-yellow-600 transform hover:scale-105 transition-all duration-200 shadow-lg">
-                    {slides[currentSlide]?.cta} →
+                    {activeSlide?.cta} →
                   </Button>
                 </Link>
                 <Link href="/vendors">
@@ -123,7 +142,7 @@ export default function HeroSection() {
               >
                 <div className="flex items-center gap-2">
                   <div className="flex -space-x-1">
-                    {[1, 2, 3, 4].map(i => (
+                    {[1, 2, 3, 4].map((i) => (
                       <div key={i} className="w-6 h-6 rounded-full bg-white/20 border border-white/30" />
                     ))}
                   </div>
@@ -140,10 +159,13 @@ export default function HeroSection() {
 
           {/* Decorative Grid Pattern */}
           <div className="absolute inset-0 opacity-5 pointer-events-none">
-            <div className="absolute inset-0 pointer-events-none" style={{
-              backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
-              backgroundSize: '40px 40px'
-            }} />
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
+                backgroundSize: '40px 40px',
+              }}
+            />
           </div>
         </motion.div>
       </AnimatePresence>
@@ -153,7 +175,7 @@ export default function HeroSection() {
         onClick={prevSlide}
         className="absolute hidden md:block left-6 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md transition-all duration-200 border border-white/20 hover:scale-110"
       >
-        <ChevronLeft className="h-6 w-6 text-white" />
+        <ChevronLeft className="h-6 w-6 text:white" />
       </button>
 
       <button
@@ -169,10 +191,9 @@ export default function HeroSection() {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`h-2 rounded-full transition-all duration-300 ${index === currentSlide
-              ? 'bg-white w-8'
-              : 'bg-white/50 w-2 hover:bg-white/70'
-              }`}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              index === safeCurrentIndex ? 'bg-white w-8' : 'bg-white/50 w-2 hover:bg-white/70'
+            }`}
           />
         ))}
       </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import ProductCard from '@src/components/core/ProductCard';
 import { Grid3X3, LayoutGrid, Filter, ChevronDown } from 'lucide-react';
 import Card from '@src/components/core/card/card';
@@ -8,16 +8,14 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from '@src/actions';
 import { Product } from '@src/@types/common';
 import Select from '@src/components/core/select';
-// Mock data - replace with API call
-
 
 const getSortLabel = (value: string) => {
   const labels: Record<string, string> = {
-    'name': 'Sort by Name',
+    name: 'Sort by Name',
     'price-low': 'Price: Low to High',
     'price-high': 'Price: High to Low',
-    'rating': 'Highest Rated',
-    'newest': 'Newest First'
+    rating: 'Highest Rated',
+    newest: 'Newest First',
   };
   return labels[value] || 'Sort by Name';
 };
@@ -27,14 +25,43 @@ export default function ProductGrid() {
   const [gridCols, setGridCols] = useState<2 | 3 | 4>(3);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
-  const { data: products, isLoading: loading
-  } = useQuery({
+  const {
+    data: products = [],
+    isLoading: loading,
+    isError,
+    error,
+    refetch,
+    isFetching,
+  } = useQuery<Product[], Error>({
     queryKey: ['products'],
-    select: (data) => data.products,
-    queryFn: () => fetchProducts({})
+    queryFn: async () => {
+      const result: any = await fetchProducts({});
+      if (result?.error) {
+        throw new Error(result.error);
+      }
+      return result?.products ?? [];
+    },
   });
 
-  if (loading) {
+  const sortedProducts = useMemo(() => {
+    const items = [...products];
+
+    switch (sortBy) {
+      case 'price-low':
+        return items.sort((a, b) => a.price - b.price);
+      case 'price-high':
+        return items.sort((a, b) => b.price - a.price);
+      case 'rating':
+        return items.sort((a, b) => b.rating - a.rating);
+      case 'newest':
+        return items.sort((a, b) => Number(b.id) - Number(a.id));
+      case 'name':
+      default:
+        return items.sort((a, b) => a.name.localeCompare(b.name));
+    }
+  }, [products, sortBy]);
+
+  if (loading || isFetching) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {[...Array(8)].map((_, i) => (
@@ -48,10 +75,29 @@ export default function ProductGrid() {
     );
   }
 
+  if (isError) {
+    return (
+      <Card className="p-6">
+        <div className="flex flex-col items-center justify-center space-y-4 text-center">
+          <p className="text-sm text-red-600 dark:text-red-400">
+            {(error && error.message) || 'Failed to load products.'}
+          </p>
+          <button
+            type="button"
+            onClick={() => refetch()}
+            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+          >
+            Try again
+          </button>
+        </div>
+      </Card>
+    );
+  }
+
   const gridClasses: Record<2 | 3 | 4, string> = {
     2: 'grid-cols-1 md:grid-cols-2',
     3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
-    4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
+    4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
   };
 
   return (
@@ -62,7 +108,7 @@ export default function ProductGrid() {
           {/* Header Row */}
           <div className="flex items-center justify-between">
             <span className="text-sm text-gray-600 dark:text-gray-400">
-              {products.length} products
+              {sortedProducts.length} products
             </span>
             
             {/* Mobile Filter Button */}
@@ -148,9 +194,15 @@ export default function ProductGrid() {
 
       {/* Products Grid */}
       <div className={`grid ${gridClasses[gridCols]} gap-6`}>
-        {products.map((product: Product) => (
-          <ProductCard key={product.id} product={product} showQuickView={true} />
-        ))}
+        {sortedProducts.length === 0 ? (
+          <div className="col-span-full text-center text-sm text-gray-500 dark:text-gray-400">
+            No products found.
+          </div>
+        ) : (
+          sortedProducts.map((product: Product) => (
+            <ProductCard key={product.id} product={product} showQuickView={true} />
+          ))
+        )}
       </div>
     </div>
   );

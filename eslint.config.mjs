@@ -1,13 +1,4 @@
-import { FlatCompat } from '@eslint/eslintrc';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+import * as next from 'eslint-config-next';
 
 export default [
   {
@@ -19,6 +10,5 @@ export default [
       'next-env.d.ts',
     ],
   },
-  ...compat.extends('next/core-web-vitals'),
-  ...compat.extends('next/typescript'),
+  ...(next.default ?? next),
 ];

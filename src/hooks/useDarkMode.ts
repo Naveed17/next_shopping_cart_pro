@@ -19,7 +19,7 @@ function useDarkMode(): [
     dispatch(setMode(mode));
   };
   useEffect(() => {
-    if (window === undefined) {
+    if (typeof window === "undefined") {
       return;
     }
     const root = window.document.documentElement;

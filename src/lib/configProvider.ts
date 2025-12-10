@@ -15,7 +15,7 @@ export type Config = {
   controlSize?: "default" | "compact";
   loading: boolean;
   setLoading: (v: boolean) => void;
-  loadAppData: (locale: string) => Promise<void>;
+  loadAppData: (locale?: string) => Promise<void>;
   direction: "ltr" | "rtl";
 };
 
@@ -43,10 +43,10 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
   const direction = useAppSelector((state) => state.root.direction);
 
   // 4️⃣ Define the method you mentioned
-  const loadAppData = useCallback(async (): Promise<void> => {
+  const loadAppData = useCallback(async (requestedLocale?: string): Promise<void> => {
     setLoading(true);
     try {
-      await dispatch(setAppData({ language: locale }));
+      await dispatch(setAppData({ language: requestedLocale ?? locale }));
     } catch (err) {
       console.error("Failed to load app data:", err);
     } finally {
