@@ -18,7 +18,6 @@ export default function HeroSection() {
 
   useEffect(() => {
     if (!hasSlides) {
-      setCurrentSlide(0);
       return;
     }
 
@@ -175,7 +174,7 @@ export default function HeroSection() {
         onClick={prevSlide}
         className="absolute hidden md:block left-6 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md transition-all duration-200 border border-white/20 hover:scale-110"
       >
-        <ChevronLeft className="h-6 w-6 text:white" />
+        <ChevronLeft className="h-6 w-6 text-white" />
       </button>
 
       <button

@@ -119,6 +119,7 @@ const Input = (props: InputProps) => {
     }
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         getAffixSize()
     }, [prefix, suffix])
 
