@@ -169,7 +169,13 @@ export default async function RootLayout({
 
   return (
     <html lang={lang} dir={isArabic ? 'rtl' : 'ltr'}>
-      <head>
+      <body
+        className={
+          isArabic
+            ? notoKufiArabic.className
+            : FontUrSource_Sans_3.className
+        }
+      >
         {schemaData && (
           <Script
             id="schema-org"
@@ -180,14 +186,6 @@ export default async function RootLayout({
             }}
           />
         )}
-      </head>
-      <body
-        className={
-          isArabic
-            ? notoKufiArabic.className
-            : FontUrSource_Sans_3.className
-        }
-      >
         <AppProvider>{children}</AppProvider>
       </body>
     </html>
