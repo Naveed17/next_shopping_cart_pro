@@ -163,7 +163,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
       site: "@ShopCartPro",
     },
     verification: {
-      google: "your-google-site-verification-code",
+      google: "Uht5KEUhm7MosWB1FXdBCIWjYyIGCsyS-1QBTsw7XXk",
       yandex: "your-yandex-verification-code",
       yahoo: "your-yahoo-verification-code",
     },
@@ -174,7 +174,6 @@ export const generateMetadata = async (): Promise<Metadata> => {
     },
   };
 };
-
 
 export default async function RootLayout({
   children,
