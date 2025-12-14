@@ -26,7 +26,6 @@ export async function generateStaticParams() {
 }
 export const generateMetadata = async (): Promise<Metadata> => {
   const { data }: any = await fetchAppData({ language: 'en', currency: 'usd' })
-
   const meta = data?.site
   const settings = data?.settings
   const featuredProducts = data?.featuredProducts || []
@@ -170,13 +169,7 @@ export default async function RootLayout({
 
   return (
     <html lang={lang} dir={isArabic ? 'rtl' : 'ltr'}>
-      <body
-        className={
-          isArabic
-            ? notoKufiArabic.className
-            : FontUrSource_Sans_3.className
-        }
-      >
+      <head>
         {schemaData && (
           <Script
             id="schema-org"
@@ -187,6 +180,14 @@ export default async function RootLayout({
             }}
           />
         )}
+      </head>
+      <body
+        className={
+          isArabic
+            ? notoKufiArabic.className
+            : FontUrSource_Sans_3.className
+        }
+      >
         <AppProvider>{children}</AppProvider>
       </body>
     </html>
