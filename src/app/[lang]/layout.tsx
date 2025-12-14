@@ -57,13 +57,53 @@ export const generateMetadata = async ({ params }: { params: Promise<{ lang: str
   ].join(', ')
 
   return {
-    title: `${meta.name} — Premium eCommerce Platform`,
+    metadataBase: new URL(baseUrl),
+    alternates: {
+      canonical: '/',
+      languages: {
+        'en-US': '/en',
+        'ar-SA': '/ar',
+      },
+    },
+    title: {
+      default: `${meta.name} — Premium eCommerce Platform`,
+      template: `%s | ${meta.name}`,
+    },
     description: meta.description,
+    keywords: dynamicKeywords,
+    icons: {
+      icon: meta.logo || '/logo.png',
+      apple: meta.logo || '/apple-touch-icon.png',
+    },
     openGraph: {
       title: meta.name,
       description: meta.description,
-      images: [{ url: `${baseUrl}${meta.logo}` }],
+      url: baseUrl,
+      siteName: meta.name,
+      images: [
+        {
+          url: `${baseUrl}${meta.logo}`,
+          width: 1200,
+          height: 630,
+        },
+      ],
+      locale: settings.language === 'ar' ? 'ar_SA' : 'en_US',
+      type: 'website',
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: meta.name,
+      description: meta.description,
+      images: [`${baseUrl}${meta.logo}`],
+    },
+    verification: {
+      google: 'Uht5KEUhm7MosWB1FXdBCIWjYyIGCsyS-1QBTsw7XXk',
+    },
+    robots:
+      'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    applicationName: meta.name,
+    publisher: meta.name,
+    generator: 'Next.js',
   }
 }
 
