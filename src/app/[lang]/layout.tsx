@@ -6,6 +6,8 @@ import AppProvider from '@lib/appProvider'
 import { Metadata } from 'next'
 import { fetchAppData } from '@src/actions'
 import Script from 'next/script'
+
+// Fonts
 const sourceSans3 = Source_Sans_3({
   weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
   subsets: ['latin'],
@@ -24,12 +26,12 @@ export async function generateStaticParams() {
   return locales.map((locale) => ({ lang: locale }))
 }
 
-export const generateMetadata = async ({ params }: { params: { lang: string } }): Promise<Metadata> => {
-  const { lang } = params
+export const generateMetadata = async ({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> => {
+  const { lang } = await params
   const { data }: any = await fetchAppData({ language: lang, currency: 'usd' })
   const meta = data?.site
   const settings = data?.settings
-  const featuredProducts = data?.featuredProducts || [];
+  const featuredProducts = data?.featuredProducts || []
   const categories = data?.categories || []
 
   if (!meta) {
@@ -109,16 +111,16 @@ export const generateMetadata = async ({ params }: { params: { lang: string } })
   }
 }
 
-
 export default async function RootLayout({
   children,
   params,
 }: {
   children: React.ReactNode
-  params: { lang: string } // Fix: params is an object with lang
+  params: Promise<{ lang: string }>
 }) {
-  const { lang } = params
+  const { lang } = await params
   const isArabic = lang === 'ar'
+
   const { data }: any = await fetchAppData({ language: lang, currency: 'usd' })
   const meta = data?.site
   const settings = data?.settings
@@ -173,7 +175,10 @@ export default async function RootLayout({
       dir={isArabic ? 'rtl' : 'ltr'}
       className={isArabic ? notoKufiArabic.variable : sourceSans3.variable}
     >
-
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charSet="utf-8" />
+      </head>
       <body className={isArabic ? notoKufiArabic.className : sourceSans3.className}>
         {schemaData && (
           <Script
@@ -186,6 +191,7 @@ export default async function RootLayout({
           />
         )}
         <AppProvider>{children}</AppProvider>
+
       </body>
     </html>
   )
