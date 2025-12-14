@@ -8,18 +8,19 @@ import { fetchAppData } from '@src/actions'
 import Script from 'next/script'
 
 // Fonts
-const FontUrSource_Sans_3 = Source_Sans_3({
+const sourceSans3 = Source_Sans_3({
   weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
   subsets: ['latin'],
   display: 'swap',
+  variable: '--font-source-sans',
 })
 
 const notoKufiArabic = Noto_Kufi_Arabic({
   weight: ['400', '700'],
   subsets: ['arabic'],
   display: 'swap',
+  variable: '--font-noto-kufi-arabic',
 })
-
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ lang: locale }))
@@ -40,9 +41,7 @@ export const generateMetadata = async ({ params }: { params: Promise<{ lang: str
     }
   }
 
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    'https://next-shopping-cart-pro.vercel.app'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://next-shopping-cart-pro.vercel.app'
 
   const dynamicKeywords = [
     meta.name,
@@ -87,7 +86,7 @@ export const generateMetadata = async ({ params }: { params: Promise<{ lang: str
           height: 630,
         },
       ],
-      locale: settings.language === 'ar' ? 'ar_SA' : 'en_US',
+      locale: settings?.language === 'ar' ? 'ar_SA' : 'en_US',
       type: 'website',
     },
     twitter: {
@@ -99,15 +98,18 @@ export const generateMetadata = async ({ params }: { params: Promise<{ lang: str
     verification: {
       google: 'Uht5KEUhm7MosWB1FXdBCIWjYyIGCsyS-1QBTsw7XXk',
     },
-    robots:
-      'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    robots: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
     applicationName: meta.name,
     publisher: meta.name,
     generator: 'Next.js',
   }
 }
-
-
 
 export default async function RootLayout({
   children,
@@ -124,17 +126,14 @@ export default async function RootLayout({
   const settings = data?.settings
   const featuredProducts = data?.featuredProducts || []
 
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    'https://next-shopping-cart-pro.vercel.app'
-
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://next-shopping-cart-pro.vercel.app'
 
   const schemaData = meta && {
     '@context': 'https://schema.org',
     '@graph': [
       {
         '@type': 'Organization',
-        name: meta.siteName,
+        name: meta.siteName || meta.name,
         url: baseUrl,
         logo: `${baseUrl}${meta.logo}`,
         contactPoint: {
@@ -162,7 +161,7 @@ export default async function RootLayout({
         offers: {
           '@type': 'Offer',
           price: p.price,
-          priceCurrency: settings.currency.toUpperCase(),
+          priceCurrency: settings?.currency?.toUpperCase() || 'USD',
           availability: p.stock > 0 ? 'InStock' : 'OutOfStock',
           url: `${baseUrl}/product/${p.id}`,
         },
@@ -171,25 +170,69 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={lang} dir={isArabic ? 'rtl' : 'ltr'}>
-      <body
-        className={
-          isArabic
-            ? notoKufiArabic.className
-            : FontUrSource_Sans_3.className
-        }
-      >
+    <html
+      lang={lang}
+      dir={isArabic ? 'rtl' : 'ltr'}
+      className={isArabic ? notoKufiArabic.variable : sourceSans3.variable}
+    >
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charSet="utf-8" />
+      </head>
+      <body className={isArabic ? notoKufiArabic.className : sourceSans3.className}>
         {schemaData && (
           <Script
             id="schema-org"
             type="application/ld+json"
-            strategy="beforeInteractive"
+            strategy="afterInteractive" // Changed from beforeInteractive
             dangerouslySetInnerHTML={{
               __html: JSON.stringify(schemaData),
             }}
           />
         )}
         <AppProvider>{children}</AppProvider>
+
+        {process.env.NODE_ENV === 'development' && (
+          <Script id="remove-duplicate-meta" strategy="afterInteractive">
+            {`
+              (function() {
+                // Remove duplicate title tags
+                const titles = document.querySelectorAll('title');
+                if (titles.length > 1) {
+                  for (let i = 1; i < titles.length; i++) {
+                    titles[i].remove();
+                  }
+                }
+                
+                // Remove duplicate meta tags
+                const seen = new Set();
+                const metas = document.querySelectorAll('meta[name], meta[property]');
+                metas.forEach(meta => {
+                  const key = meta.getAttribute('name') || meta.getAttribute('property');
+                  if (key && seen.has(key)) {
+                    meta.remove();
+                  } else if (key) {
+                    seen.add(key);
+                  }
+                });
+                
+                // Remove duplicate link tags
+                const seenLinks = new Set();
+                const links = document.querySelectorAll('link[rel]');
+                links.forEach(link => {
+                  const rel = link.getAttribute('rel');
+                  const href = link.getAttribute('href');
+                  const key = rel + (href ? ':' + href : '');
+                  if (key && seenLinks.has(key)) {
+                    link.remove();
+                  } else if (key) {
+                    seenLinks.add(key);
+                  }
+                });
+              })();
+            `}
+          </Script>
+        )}
       </body>
     </html>
   )
