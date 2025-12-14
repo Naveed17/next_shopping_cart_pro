@@ -3,194 +3,192 @@ import { locales } from '../../../next-intl'
 import '@src/css/app.css'
 import { Noto_Kufi_Arabic, Source_Sans_3 } from 'next/font/google'
 import AppProvider from '@lib/appProvider'
-import { Metadata } from 'next/types'
+import { Metadata } from 'next'
 import { fetchAppData } from '@src/actions'
+import Script from 'next/script'
 
-
-
-// Load English font
+// Fonts
 const FontUrSource_Sans_3 = Source_Sans_3({
   weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
   subsets: ['latin'],
   display: 'swap',
 })
+
 const notoKufiArabic = Noto_Kufi_Arabic({
-  weight: ['400', '700'], // only supported weights
+  weight: ['400', '700'],
   subsets: ['arabic'],
   display: 'swap',
 })
+
+
 export async function generateStaticParams() {
   return locales.map((locale) => ({ lang: locale }))
 }
-
 export const generateMetadata = async (): Promise<Metadata> => {
-  const { data }: any = await fetchAppData({ language: "en", currency: "usd" });
-  const meta_data = data?.site;
-  const settings = data?.settings;
-  const featuredProducts = data?.featuredProducts || [];
-  const categories = data?.categories || [];
+  const { data }: any = await fetchAppData({ language: 'en', currency: 'usd' })
 
-  if (!meta_data) {
+  const meta = data?.site
+  const settings = data?.settings
+  const featuredProducts = data?.featuredProducts || []
+  const categories = data?.categories || []
+
+  if (!meta) {
     return {
-      title: "404 | ShopCart Pro",
-      description: "Page not found.",
-    };
+      title: '404 | ShopCart Pro',
+      description: 'Page not found',
+    }
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://shopcartpro.com";
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    'https://next-shopping-cart-pro.vercel.app'
 
-  // ✅ Create dynamic keywords based on categories and top products
   const dynamicKeywords = [
-    meta_data.name,
-    "eCommerce",
-    "online shopping",
-    "buy online",
-    "multi-vendor marketplace",
-    "fashion store",
-    "electronics deals",
-    ...categories.map((cat: any) => cat.name.toLowerCase()),
+    meta.name,
+    'eCommerce',
+    'online shopping',
+    'buy online',
+    'multi-vendor marketplace',
+    'fashion store',
+    'electronics deals',
+    ...categories.map((c: any) => c.name.toLowerCase()),
     ...featuredProducts.map((p: any) => p.name.toLowerCase()),
-  ].join(", ");
-
-  // ✅ Generate structured data for SEO (Product + Organization + WebSite)
-  const schemaData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        name: meta_data.siteName,
-        url: baseUrl,
-        logo: `${baseUrl}${meta_data.logo}`,
-        sameAs: [
-          "https://www.facebook.com/shopcartpro",
-          "https://www.instagram.com/shopcartpro",
-          "https://twitter.com/shopcartpro",
-        ],
-        contactPoint: {
-          "@type": "ContactPoint",
-          email: meta_data.contact.email,
-          telephone: meta_data.contact.phone,
-          contactType: "customer service",
-        },
-      },
-      {
-        "@type": "WebSite",
-        name: meta_data.name,
-        url: baseUrl,
-        potentialAction: {
-          "@type": "SearchAction",
-          target: `${baseUrl}/search?q={search_term_string}`,
-          "query-input": "required name=search_term_string",
-        },
-      },
-      ...featuredProducts.slice(0, 3).map((product: any) => ({
-        "@type": "Product",
-        name: product.name,
-        description: product.description,
-        image: product.image,
-        brand: product.vendor?.name || "ShopCart Vendor",
-        offers: {
-          "@type": "Offer",
-          priceCurrency: settings.currency.toUpperCase(),
-          price: product.price,
-          availability: product.stock > 0 ? "InStock" : "OutOfStock",
-          url: `${baseUrl}/product/${product.id}`,
-        },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: product.rating,
-          reviewCount: product.reviews,
-        },
-      })),
-    ],
-  };
+  ].join(', ')
 
   return {
     metadataBase: new URL(baseUrl),
     alternates: {
-      canonical: "/",
+      canonical: '/',
       languages: {
-        "en-US": "/en",
-        "ar-SA": "/ar",
+        'en-US': '/en',
+        'ar-SA': '/ar',
       },
     },
-    icons: {
-      icon: meta_data.logo || "/logo.png",
-      shortcut: meta_data.logo || "/logo.png",
-      apple: meta_data.logo || "/apple-touch-icon.png",
-    },
     title: {
-      default: `${meta_data.name} — Premium eCommerce Platform`,
-      template: `%s | ${meta_data.name}`,
+      default: `${meta.name} — Premium eCommerce Platform`,
+      template: `%s | ${meta.name}`,
     },
-    description:
-      meta_data.description ||
-      "ShopCart Pro — Your premium eCommerce platform offering electronics, fashion, home, and more with fast shipping and secure checkout.",
+    description: meta.description,
     keywords: dynamicKeywords,
-    authors: [{ name: `${meta_data.name} Team` }],
-    robots:
-      "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
-    applicationName: meta_data.name,
-    creator: meta_data.name,
-    publisher: meta_data.name,
-    generator: "Next.js",
-    referrer: "origin-when-cross-origin",
+    icons: {
+      icon: meta.logo || '/logo.png',
+      apple: meta.logo || '/apple-touch-icon.png',
+    },
     openGraph: {
-      title: `${meta_data.name} — Premium Online Shopping`,
-      description:
-        meta_data.description ||
-        "Discover thousands of products from top vendors. Fast shipping, secure checkout, and exclusive offers.",
+      title: meta.name,
+      description: meta.description,
       url: baseUrl,
-      siteName: meta_data.name,
+      siteName: meta.name,
       images: [
         {
-          url: `${baseUrl}${meta_data.logo}`,
+          url: `${baseUrl}${meta.logo}`,
           width: 1200,
           height: 630,
-          alt: `${meta_data.name} - Online Shopping Platform`,
         },
       ],
-      locale: settings.language === "ar" ? "ar_SA" : "en_US",
-      type: "website",
+      locale: settings.language === 'ar' ? 'ar_SA' : 'en_US',
+      type: 'website',
     },
     twitter: {
-      card: "summary_large_image",
-      title: `${meta_data.name} — Shop Smarter Online`,
-      description:
-        "Shop the latest products and deals from top vendors. Fast checkout, secure payments, and worldwide delivery.",
-      images: [`${baseUrl}${meta_data.logo}`],
-      creator: "@ShopCartPro",
-      site: "@ShopCartPro",
+      card: 'summary_large_image',
+      title: meta.name,
+      description: meta.description,
+      images: [`${baseUrl}${meta.logo}`],
     },
     verification: {
-      google: "Uht5KEUhm7MosWB1FXdBCIWjYyIGCsyS-1QBTsw7XXk",
-      yandex: "your-yandex-verification-code",
-      yahoo: "your-yahoo-verification-code",
+      google: 'Uht5KEUhm7MosWB1FXdBCIWjYyIGCsyS-1QBTsw7XXk',
     },
-    category: "Shopping",
-    classification: "E-commerce & Retail",
-    other: {
-      "script:ld+json": JSON.stringify(schemaData),
-    },
-  };
-};
+    robots:
+      'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    applicationName: meta.name,
+    publisher: meta.name,
+    generator: 'Next.js',
+  }
+}
+
 
 export default async function RootLayout({
   children,
   params,
 }: {
   children: React.ReactNode
-  params: Promise<{ lang: string }>
+  params: Promise<{ lang: 'en' | 'ar' }>
 }) {
-  const { lang } = await params as { lang: 'en' | 'ar' }
-
+  const { lang } = await params
   const isArabic = lang === 'ar'
-  const fontClass = isArabic ? notoKufiArabic.className : FontUrSource_Sans_3.className
 
+  const { data }: any = await fetchAppData({ language: lang, currency: 'usd' })
+  const meta = data?.site
+  const settings = data?.settings
+  const featuredProducts = data?.featuredProducts || []
+
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    'https://next-shopping-cart-pro.vercel.app'
+
+
+  const schemaData = meta && {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        name: meta.siteName,
+        url: baseUrl,
+        logo: `${baseUrl}${meta.logo}`,
+        contactPoint: {
+          '@type': 'ContactPoint',
+          email: meta.contact?.email,
+          telephone: meta.contact?.phone,
+          contactType: 'customer service',
+        },
+      },
+      {
+        '@type': 'WebSite',
+        name: meta.name,
+        url: baseUrl,
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: `${baseUrl}/search?q={search_term_string}`,
+          'query-input': 'required name=search_term_string',
+        },
+      },
+      ...featuredProducts.slice(0, 3).map((p: any) => ({
+        '@type': 'Product',
+        name: p.name,
+        image: p.image,
+        description: p.description,
+        offers: {
+          '@type': 'Offer',
+          price: p.price,
+          priceCurrency: settings.currency.toUpperCase(),
+          availability: p.stock > 0 ? 'InStock' : 'OutOfStock',
+          url: `${baseUrl}/product/${p.id}`,
+        },
+      })),
+    ],
+  }
 
   return (
     <html lang={lang} dir={isArabic ? 'rtl' : 'ltr'}>
-      <body className={`${fontClass}`}>
+      <head>
+        {schemaData && (
+          <Script
+            id="schema-org"
+            type="application/ld+json"
+            strategy="beforeInteractive"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(schemaData),
+            }}
+          />
+        )}
+      </head>
+      <body
+        className={
+          isArabic
+            ? notoKufiArabic.className
+            : FontUrSource_Sans_3.className
+        }
+      >
         <AppProvider>{children}</AppProvider>
       </body>
     </html>
