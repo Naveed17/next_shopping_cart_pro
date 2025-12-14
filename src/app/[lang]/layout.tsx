@@ -192,9 +192,9 @@ export default async function RootLayout({
         )}
         <AppProvider>{children}</AppProvider>
 
-        {process.env.NODE_ENV === 'development' && (
-          <Script id="remove-duplicate-meta" strategy="afterInteractive">
-            {`
+
+        <Script id="remove-duplicate-meta" strategy="afterInteractive">
+          {`
               (function() {
                 // Remove duplicate title tags
                 const titles = document.querySelectorAll('title');
@@ -231,8 +231,8 @@ export default async function RootLayout({
                 });
               })();
             `}
-          </Script>
-        )}
+        </Script>
+
       </body>
     </html>
   )
