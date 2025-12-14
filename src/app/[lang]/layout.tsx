@@ -6,8 +6,6 @@ import AppProvider from '@lib/appProvider'
 import { Metadata } from 'next'
 import { fetchAppData } from '@src/actions'
 import Script from 'next/script'
-
-// Fonts
 const sourceSans3 = Source_Sans_3({
   weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
   subsets: ['latin'],
@@ -26,12 +24,12 @@ export async function generateStaticParams() {
   return locales.map((locale) => ({ lang: locale }))
 }
 
-export const generateMetadata = async ({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> => {
-  const { lang } = await params
+export const generateMetadata = async ({ params }: { params: { lang: string } }): Promise<Metadata> => {
+  const { lang } = params
   const { data }: any = await fetchAppData({ language: lang, currency: 'usd' })
   const meta = data?.site
   const settings = data?.settings
-  const featuredProducts = data?.featuredProducts || []
+  const featuredProducts = data?.featuredProducts || [];
   const categories = data?.categories || []
 
   if (!meta) {
@@ -111,16 +109,16 @@ export const generateMetadata = async ({ params }: { params: Promise<{ lang: str
   }
 }
 
+
 export default async function RootLayout({
   children,
   params,
 }: {
   children: React.ReactNode
-  params: Promise<{ lang: string }>
+  params: { lang: string } // Fix: params is an object with lang
 }) {
-  const { lang } = await params
+  const { lang } = params
   const isArabic = lang === 'ar'
-
   const { data }: any = await fetchAppData({ language: lang, currency: 'usd' })
   const meta = data?.site
   const settings = data?.settings
@@ -175,64 +173,19 @@ export default async function RootLayout({
       dir={isArabic ? 'rtl' : 'ltr'}
       className={isArabic ? notoKufiArabic.variable : sourceSans3.variable}
     >
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta charSet="utf-8" />
-      </head>
+
       <body className={isArabic ? notoKufiArabic.className : sourceSans3.className}>
         {schemaData && (
           <Script
             id="schema-org"
             type="application/ld+json"
-            strategy="afterInteractive" // Changed from beforeInteractive
+            strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: JSON.stringify(schemaData),
             }}
           />
         )}
         <AppProvider>{children}</AppProvider>
-
-
-        <Script id="remove-duplicate-meta" strategy="afterInteractive">
-          {`
-              (function() {
-                // Remove duplicate title tags
-                const titles = document.querySelectorAll('title');
-                if (titles.length > 1) {
-                  for (let i = 1; i < titles.length; i++) {
-                    titles[i].remove();
-                  }
-                }
-                
-                // Remove duplicate meta tags
-                const seen = new Set();
-                const metas = document.querySelectorAll('meta[name], meta[property]');
-                metas.forEach(meta => {
-                  const key = meta.getAttribute('name') || meta.getAttribute('property');
-                  if (key && seen.has(key)) {
-                    meta.remove();
-                  } else if (key) {
-                    seen.add(key);
-                  }
-                });
-                
-                // Remove duplicate link tags
-                const seenLinks = new Set();
-                const links = document.querySelectorAll('link[rel]');
-                links.forEach(link => {
-                  const rel = link.getAttribute('rel');
-                  const href = link.getAttribute('href');
-                  const key = rel + (href ? ':' + href : '');
-                  if (key && seenLinks.has(key)) {
-                    link.remove();
-                  } else if (key) {
-                    seenLinks.add(key);
-                  }
-                });
-              })();
-            `}
-        </Script>
-
       </body>
     </html>
   )
