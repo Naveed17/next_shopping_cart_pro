@@ -24,8 +24,9 @@ const notoKufiArabic = Noto_Kufi_Arabic({
 export async function generateStaticParams() {
   return locales.map((locale) => ({ lang: locale }))
 }
-export const generateMetadata = async (): Promise<Metadata> => {
-  const { data }: any = await fetchAppData({ language: 'en', currency: 'usd' })
+export const generateMetadata = async ({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> => {
+  const { lang } = await params
+  const { data }: any = await fetchAppData({ language: lang, currency: 'usd' })
   const meta = data?.site
   const settings = data?.settings
   const featuredProducts = data?.featuredProducts || []
