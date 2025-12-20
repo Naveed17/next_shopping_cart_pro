@@ -25,7 +25,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 group">
-            <Image src='/logo.png' alt="logo" width={110} height={30} className="dark:invert" />
+            <Image src='/logo.png' alt="logo" width={110} height={30} className="invert dark:invert-0" />
           </Link>
 
           {/* Search Bar */}
