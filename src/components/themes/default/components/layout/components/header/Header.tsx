@@ -1,6 +1,6 @@
 'use client';
 
-import { ShoppingCart, User, Search, Menu, X, Bell, Heart } from 'lucide-react';
+import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/lib/redux/store';
 import ModeSwitcher from '@src/components/core/modeSwitcher';
@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useUser } from '@hooks/use-user';
 import UserDropdown from '@src/components/core/UserDropdown';
-import Input from '@src/components/core/input';
+import Image from 'next/image';
 import LocaleSwitcher from '@src/components/core/LocaleSwitcher';
 import SearchDropdown from '@src/components/core/SearchDropdown';
 export default function Header() {
@@ -25,10 +25,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 group">
-            <div className="w-8 h-8 bg-blue-600/90 backdrop-blur-md rounded-lg flex items-center justify-center border border-blue-500/30">
-              <span className="text-white font-bold text-lg">N</span>
-            </div>
-            <span className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors">NSC</span>
+            <Image src='/logo.png' alt="logo" width={110} height={30} />
           </Link>
 
           {/* Search Bar */}

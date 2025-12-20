@@ -4,7 +4,7 @@ import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Send, Spark
 import Link from 'next/link';
 import { useState } from 'react';
 import Input from '@src/components/core/input';
-
+import Image from 'next/image';
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -243,12 +243,10 @@ export default function Footer() {
             viewport={{ once: true }}
             className="md:col-span-2 lg:col-span-2"
           >
-            <div className="flex items-center mb-8">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4 shadow-lg shadow-blue-500/25">
-                <span className="text-white font-black text-xl">S</span>
-              </div>
-              <span className="text-3xl font-black bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">ShopCart</span>
-            </div>
+            {/* Logo */}
+            <Link href="/" className="flex items-center justify-start mb-3 max-w-40">
+              <Image src='/logo.png' alt="logo" width={160} height={30} />
+            </Link>
 
             <p className="text-blue-100/80 mb-8 leading-relaxed text-base">
               Your trusted multi-vendor marketplace connecting you with quality products from verified sellers worldwide. Shop with confidence and discover amazing deals every day.
