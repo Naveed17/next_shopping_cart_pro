@@ -172,14 +172,14 @@ export default function HeroSection() {
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute hidden md:block left-6 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md transition-all duration-200 border border-white/20 hover:scale-110"
+        className="absolute z-99 hidden md:block left-6 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md transition-all duration-200 border border-white/20 hover:scale-110"
       >
         <ChevronLeft className="h-6 w-6 text-white" />
       </button>
 
       <button
         onClick={nextSlide}
-        className="absolute hidden md:block right-6 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md transition-all duration-200 border border-white/20 hover:scale-110"
+        className="absolute z-99 hidden md:block right-6 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md transition-all duration-200 border border-white/20 hover:scale-110"
       >
         <ChevronRight className="h-6 w-6 text-white" />
       </button>
@@ -190,9 +190,8 @@ export default function HeroSection() {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              index === safeCurrentIndex ? 'bg-white w-8' : 'bg-white/50 w-2 hover:bg-white/70'
-            }`}
+            className={`h-2 rounded-full transition-all duration-300 ${index === safeCurrentIndex ? 'bg-white w-8' : 'bg-white/50 w-2 hover:bg-white/70'
+              }`}
           />
         ))}
       </div>
