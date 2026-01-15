@@ -14,15 +14,8 @@ export default async function proxy(request: NextRequest) {
   });
 
   // Run intl middleware and get its response
-  const response = intlMiddleware(request);
-  // =========>> Set the domain cookie on the response
-  response.cookies.set("domain", hostname, {
-    path: "/",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-    secure: process.env.NODE_ENV === "production",
-    httpOnly: false,
-  });
-  return response;
+return intlMiddleware(request);
+
 }
 
 export const config = {

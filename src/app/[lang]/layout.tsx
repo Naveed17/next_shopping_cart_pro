@@ -170,6 +170,7 @@ export default async function RootLayout({
   }
 
   return (
+
     <html
       lang={lang}
       dir={isArabic ? 'rtl' : 'ltr'}
@@ -194,5 +195,6 @@ export default async function RootLayout({
 
       </body>
     </html>
+
   )
 }
