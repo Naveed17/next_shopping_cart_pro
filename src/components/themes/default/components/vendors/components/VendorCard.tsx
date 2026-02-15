@@ -5,12 +5,14 @@ import { Vendor } from '@src/@types/common';
 import Button from '@src/components/core/button/button';
 import Card from '@src/components/core/card/card';
 import Link from 'next/link';
+import useLocale from '@hooks/useLocale';
 
 interface VendorCardProps {
   vendor: Vendor;
 }
 
 export default function VendorCard({ vendor }: VendorCardProps) {
+  const { locale } = useLocale();
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
       {/* Vendor Header */}
@@ -34,8 +36,8 @@ export default function VendorCard({ vendor }: VendorCardProps) {
               <Star
                 key={i}
                 className={`h-4 w-4 ${i < Math.floor(vendor.rating)
-                    ? 'text-yellow-400 fill-current'
-                    : 'text-gray-300 dark:text-gray-600'
+                  ? 'text-yellow-400 fill-current'
+                  : 'text-gray-300 dark:text-gray-600'
                   }`}
               />
             ))}
@@ -56,7 +58,7 @@ export default function VendorCard({ vendor }: VendorCardProps) {
 
       {/* Actions */}
       <div className="px-6 pb-6 space-y-3">
-        <Link href={`/en/vendors/${vendor.id}`} className="block">
+        <Link href={`/${locale}/vendors/${vendor.id}`} className="block">
           <Button className="w-full">
             View Products
           </Button>

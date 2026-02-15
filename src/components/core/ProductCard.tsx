@@ -9,6 +9,7 @@ import ImageBlur from '@src/utils/blurImage';
 import Link from 'next/link';
 import { useAppDispatch } from '@lib/redux/store';
 import { getResponsiveSizes } from '@src/utils/imageOptimizer';
+import useLocale from '@hooks/useLocale';
 
 interface ProductCardProps {
   product: Product;
@@ -21,7 +22,7 @@ export default function ProductCard({ product, featured = false, showQuickView =
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const dispatch = useAppDispatch();
-
+  const { locale } = useLocale();
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -45,7 +46,7 @@ export default function ProductCard({ product, featured = false, showQuickView =
       onMouseEnter={() => setShowQuickActions(true)}
       onMouseLeave={() => setShowQuickActions(false)}
     >
-      <Link href={`/en/products/${product.id}`}>
+      <Link href={`/${locale}/products/${product.id}`}>
         <div className="relative aspect-square overflow-hidden bg-gray-100 dark:bg-gray-800">
           <ImageBlur
             src={product.image}
@@ -97,11 +98,10 @@ export default function ProductCard({ product, featured = false, showQuickView =
             <div className="relative">
               <Button
                 onClick={handleAddToCart}
-                className={`w-full transition-colors ${
-                  isAddingToCart 
-                    ? 'bg-green-600 text-white hover:bg-green-700' 
+                className={`w-full transition-colors ${isAddingToCart
+                    ? 'bg-green-600 text-white hover:bg-green-700'
                     : 'bg-blue-600 text-white hover:bg-blue-700'
-                }`}
+                  }`}
                 size="sm"
                 disabled={isAddingToCart}
               >
@@ -198,11 +198,10 @@ export default function ProductCard({ product, featured = false, showQuickView =
               <Button
                 onClick={handleAddToCart}
                 disabled={product.stock === 0 || isAddingToCart}
-                className={`w-full font-semibold transition-colors ${
-                  isAddingToCart
+                className={`w-full font-semibold transition-colors ${isAddingToCart
                     ? 'bg-green-600 hover:bg-green-700'
                     : 'bg-blue-600 hover:bg-blue-700'
-                }`}
+                  }`}
               >
                 {isAddingToCart ? (
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2 animate-spin" />
