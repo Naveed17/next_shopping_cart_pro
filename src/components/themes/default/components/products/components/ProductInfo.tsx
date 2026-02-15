@@ -9,12 +9,14 @@ import { SetAddToCart } from '@src/lib/redux/cart';
 import { Product } from '@src/@types/common';
 import Button from '@src/components/core/button/button';
 import { useAppDispatch, useAppSelector } from '@lib/redux/store';
+import useLocale from '@hooks/useLocale';
 
 interface ProductInfoProps {
   product: Product;
 }
 
 export default function ProductInfo({ product }: ProductInfoProps) {
+  const { locale } = useLocale();
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.items);
   const [quantity, setQuantity] = useState(1);
@@ -133,7 +135,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             Add to Cart
           </Button>
           <Button
-            onClick={() => router.push('/cart')}
+            onClick={() => router.push(`/${locale}/cart`)}
             disabled={cartItems.length === 0}
             className="px-6 py-3 bg-gradient-to-r from-gray-800 to-black hover:from-black hover:to-gray-900 dark:from-orange-500 dark:to-orange-600 dark:hover:from-orange-600 dark:hover:to-orange-700 text-white font-medium disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
           >

@@ -245,7 +245,7 @@ export default function Footer() {
           >
             {/* Logo */}
             <Link href="/" className="flex items-center justify-start mb-3 max-w-40">
-              <Image src='/logo.png' alt="logo" width={160} height={30} />
+              <Image src='/logo.png' alt="logo" width={160} height={30} className="dark:invert" />
             </Link>
 
             <p className="text-blue-100/80 mb-8 leading-relaxed text-base">

@@ -5,8 +5,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useAppSelector } from '@lib/redux/store';
 import Container from '@components/core/container';
+import useLocale from '@hooks/useLocale';
 
 export default function CategoriesSection() {
+  const { locale } = useLocale();
   const appData = useAppSelector((state) => state.appData.data);
   const categories = appData?.categories ?? [];
   const isLoading = !appData || categories.length === 0;
@@ -48,7 +50,7 @@ export default function CategoriesSection() {
           categories.map((category: any) => (
             <Link
               key={category?.id}
-              href={`/products?category=${category?.name}`}
+              href={`/${locale}/products?category=${category?.name}`}
               className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
             >
               <div className="aspect-square relative">

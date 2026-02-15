@@ -7,8 +7,10 @@ import Button from '@src/components/core/button/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAppSelector } from '@lib/redux/store';
+import useLocale from '@hooks/useLocale';
 
 export default function HeroSection() {
+  const { locale } = useLocale();
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = useAppSelector((state) => state.appData.data)?.slides ?? [];
 
@@ -120,12 +122,12 @@ export default function HeroSection() {
                 transition={{ delay: 0.8, duration: 0.8 }}
                 className="flex flex-col sm:flex-row gap-4"
               >
-                <Link href="/products">
+                <Link href={`/${locale}/products`}>
                   <Button size="lg" className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold hover:from-yellow-500 hover:to-yellow-600 transform hover:scale-105 transition-all duration-200 shadow-lg">
                     {activeSlide?.cta} →
                   </Button>
                 </Link>
-                <Link href="/vendors">
+                <Link href={`/${locale}/vendors`}>
                   <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-black font-semibold backdrop-blur-sm bg-white/10">
                     Browse Vendors
                   </Button>

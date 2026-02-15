@@ -8,8 +8,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@lib/redux/store';
 import Container from '@components/core/container';
+import useLocale from '@hooks/useLocale';
 
 export default function TrendingSection() {
+  const { locale } = useLocale();
   const dispatch = useAppDispatch();
   const appData = useAppSelector((state) => state.appData.data);
   const trendingProducts: Product[] = appData?.trendingProducts ?? [];
@@ -153,7 +155,7 @@ export default function TrendingSection() {
           </div>
 
           <div className="text-center mt-8">
-            <Link href="/products">
+            <Link href={`/${locale}/products`}>
               <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-full">
                 View All Trending Products
                 <TrendingUp className="ml-2 h-5 w-5" />

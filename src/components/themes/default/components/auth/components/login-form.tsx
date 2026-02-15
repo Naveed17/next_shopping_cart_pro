@@ -13,6 +13,7 @@ import Link from 'next/link';
 import { paths } from '@src/paths';
 import { authClient } from '@src/lib/auth/client';
 import { useUser } from '@src/hooks/use-user';
+import useLocale from '@hooks/useLocale';
 
 const schema = zod.object({
     email: zod.string().min(1, { message: 'Email is required' }).email(),
@@ -24,6 +25,7 @@ type Values = zod.infer<typeof schema>;
 const defaultValues = { email: 'demo@example.com', password: 'password' } satisfies Values;
 
 export default function LoginForm() {
+    const { locale } = useLocale();
     const router = useRouter();
     const { checkSession } = useUser();
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
@@ -65,7 +67,7 @@ export default function LoginForm() {
                     </h2>
                     <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
                         Or{' '}
-                        <Link href="/auth/signup" className="font-medium text-primary-600 dark:text-gray-100 hover:text-primary-500">
+                        <Link href={`/${locale}/auth/signup`} className="font-medium text-primary-600 dark:text-gray-100 hover:text-primary-500">
                             create a new account
                         </Link>
                     </p>

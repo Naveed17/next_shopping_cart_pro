@@ -5,8 +5,10 @@ import Button from '@src/components/core/button/button';
 import Link from 'next/link';
 import { Shield, Package, CreditCard, RotateCcw } from 'lucide-react';
 import { motion } from 'framer-motion';
+import useLocale from '@hooks/useLocale';
 
 export default function CartSummary() {
+  const { locale } = useLocale();
   const { items, total } = useAppSelector((state: RootState) => state.cart);
 
   const shipping = total > 50 ? 0 : 9.99;
@@ -61,13 +63,13 @@ export default function CartSummary() {
       )}
 
       <div className="space-y-3">
-        <Link href="/checkout" className="block">
+        <Link href={`/${locale}/checkout`} className="block">
           <Button className="w-full" size="lg" variant="primary">
             Proceed to Checkout
           </Button>
         </Link>
 
-        <Link href="/products" className="block">
+        <Link href={`/${locale}/products`} className="block">
           <Button variant="outline" className="w-full">
             Continue Shopping
           </Button>

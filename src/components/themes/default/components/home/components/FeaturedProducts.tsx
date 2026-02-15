@@ -6,9 +6,11 @@ import ProductCard from '@src/components/core/ProductCard';
 import Link from 'next/link';
 import { useAppSelector } from '@lib/redux/store';
 import Container from '@components/core/container';
+import useLocale from '@hooks/useLocale';
 
 
 export default function FeaturedProducts() {
+  const { locale } = useLocale();
   const appData = useAppSelector((state) => state.appData.data);
   const products: Product[] = appData?.featuredProducts ?? [];
   const isLoading = !appData || products?.length === 0;
@@ -40,7 +42,7 @@ export default function FeaturedProducts() {
           </p>
         </div>
         <Link
-          href="/products"
+          href={`/${locale}/products`}
           className="flex items-center text-primary-600 hover:text-primary-700 font-medium"
         >
           View All <ArrowRight className="ml-1 h-4 w-4" />

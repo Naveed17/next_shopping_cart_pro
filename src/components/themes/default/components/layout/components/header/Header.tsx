@@ -12,7 +12,10 @@ import UserDropdown from '@src/components/core/UserDropdown';
 import Image from 'next/image';
 import LocaleSwitcher from '@src/components/core/LocaleSwitcher';
 import SearchDropdown from '@src/components/core/SearchDropdown';
+import useLocale from '@hooks/useLocale';
+
 export default function Header() {
+  const { locale } = useLocale();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const { user, isLoading } = useUser();
@@ -24,7 +27,7 @@ export default function Header() {
       <div className="relative container mx-auto px-4">
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 group">
+          <Link href={`/${locale}`} className="flex items-center space-x-2 group">
             <Image src='/logo.png' alt="logo" width={110} height={30} className="invert dark:invert-0" />
           </Link>
 
@@ -38,7 +41,7 @@ export default function Header() {
             <LocaleSwitcher />
             <ModeSwitcher />
 
-            <Link href="/cart" className="relative p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+            <Link href={`/${locale}/cart`} className="relative p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
               <ShoppingCart className="h-5 w-5" />
               {cartItems.length > 0 && (
                 <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
@@ -59,10 +62,10 @@ export default function Header() {
               </div>
             ) : (
               <div className="hidden md:flex items-center space-x-2">
-                <Link href="/auth/login">
+                <Link href={`/${locale}/auth/login`}>
                   <Button variant="ghost" size="sm">Login</Button>
                 </Link>
-                <Link href="/auth/signup">
+                <Link href={`/${locale}/auth/signup`}>
                   <Button size="sm" className="bg-blue-600 hover:bg-blue-700">Sign Up</Button>
                 </Link>
               </div>
@@ -90,10 +93,10 @@ export default function Header() {
 
             {!user && (
               <div className="flex space-x-2">
-                <Link href="/auth/login" className="flex-1">
+                <Link href={`/${locale}/auth/login`} className="flex-1">
                   <Button variant="ghost" className="w-full">Login</Button>
                 </Link>
-                <Link href="/auth/signup" className="flex-1">
+                <Link href={`/${locale}/auth/signup`} className="flex-1">
                   <Button className="w-full bg-blue-600 hover:bg-blue-700">Sign Up</Button>
                 </Link>
               </div>

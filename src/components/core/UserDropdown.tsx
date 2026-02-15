@@ -9,8 +9,10 @@ import { useRouter } from 'next/navigation';
 import { useUser } from '@hooks/use-user';
 import { authClient } from '@src/lib/auth/client';
 import { toast } from 'react-toastify';
+import useLocale from '@hooks/useLocale';
 
 export default function UserDropdown() {
+  const { locale } = useLocale();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const { user, checkSession } = useUser();
@@ -77,7 +79,7 @@ export default function UserDropdown() {
 
             <div className="py-1">
               <Link
-                href="/dashboard"
+                href={`/${locale}/dashboard`}
                 className="flex items-center px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 onClick={() => setIsOpen(false)}
               >
@@ -86,7 +88,7 @@ export default function UserDropdown() {
               </Link>
 
               <Link
-                href="/dashboard/profile"
+                href={`/${locale}/dashboard/profile`}
                 className="flex items-center px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 onClick={() => setIsOpen(false)}
               >

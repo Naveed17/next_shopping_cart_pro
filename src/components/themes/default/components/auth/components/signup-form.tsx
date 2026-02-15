@@ -12,6 +12,7 @@ import Input from '@src/components/core/input';
 import Link from 'next/link';
 import { paths } from '@src/paths';
 import { useUser } from '@src/hooks/use-user';
+import useLocale from '@hooks/useLocale';
 
 const schema = zod.object({
     name: zod.string().min(1, { message: 'Name is required' }),
@@ -28,6 +29,7 @@ type Values = zod.infer<typeof schema>;
 const defaultValues = { name: '', email: '', password: '', confirmPassword: '' } satisfies Values;
 
 export default function SignupForm() {
+    const { locale } = useLocale();
     const router = useRouter();
     const { checkSession } = useUser();
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
@@ -52,7 +54,7 @@ export default function SignupForm() {
 
                 await checkSession?.();
                 toast.success('Account created successfully');
-                router.push(paths.home);
+                router.push(`/${locale}`);
             } catch (error) {
                 setError('root', { type: 'server', message: 'Failed to create account' });
             } finally {
