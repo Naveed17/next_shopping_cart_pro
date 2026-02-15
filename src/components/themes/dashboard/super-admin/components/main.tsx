@@ -146,7 +146,7 @@ export default function MainSuperAdmin() {
                 dx={-10}
               />
               <Tooltip 
-                formatter={(value, name) => [name === 'revenue' ? `$${value.toLocaleString()}` : value.toLocaleString(), name === 'revenue' ? 'Revenue' : 'Users']} 
+                formatter={(value, name) => [name === 'revenue' ? `$${(value as number).toLocaleString()}` : (value as number).toLocaleString(), name === 'revenue' ? 'Revenue' : 'Users']} 
                 contentStyle={{ 
                   backgroundColor: 'rgba(255, 255, 255, 0.95)', 
                   border: 'none',
@@ -230,7 +230,7 @@ export default function MainSuperAdmin() {
                 width={50}
               />
               <Tooltip 
-                formatter={(value) => [`${value}%`, 'Usage']} 
+                formatter={(value) => [`${value as number}%`, 'Usage']} 
                 contentStyle={{ 
                   backgroundColor: 'rgba(255, 255, 255, 0.95)', 
                   border: 'none',
