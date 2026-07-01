@@ -1,11 +1,7 @@
 /* Minimal performance optimizations */
 
-html {
-  scroll-behavior: auto;
-}
-
-body {
-  will-change: auto;
+img {
+  image-rendering: auto;
 }
 
 /* Reduce image processing load */
