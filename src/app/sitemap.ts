@@ -43,7 +43,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: new Date(),
         changeFrequency: "weekly" as const,
         priority: 0.8,
-      }))
+      })),
     )
     .flat() as MetadataRoute.Sitemap;
 
@@ -77,12 +77,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const allRoutes = [...mainRoutes, ...supportRoutes];
   const sitemap = [
-    ...allRoutes.map((route): MetadataRoute.Sitemap[number] => ({
+    ...(allRoutes.map((route): MetadataRoute.Sitemap[number] => ({
       url: `${baseUrl}${route.url}`,
       lastModified,
       changeFrequency: route.changeFrequency,
       priority: route.priority,
-    })),
+    })) as MetadataRoute.Sitemap[number][]),
     ...categoryPages,
   ];
   return sitemap;
