@@ -161,7 +161,11 @@
 
 
 /* Base styles */
-html,
+html {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -201,9 +205,12 @@ body {
 }
 
 body {
+    overscroll-behavior: none;
     overscroll-behavior-y: contain;
+    /* Optimize scrolling performance */
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+    /* Prevent unnecessary repaints */
     will-change: auto;
 }
 
@@ -312,9 +319,7 @@ button {
     }
 }
 
-.clip-half {
-    clip-path: inset(0 50% 0 0);
-}
+
 
 @layer utilities {
     @keyframes slide-in-from-right {
@@ -352,4 +357,7 @@ button {
     .bg-primary-custom:hover {
         background-color: rgb(var(--color-primary-700));
     }
+
+
+
 }
