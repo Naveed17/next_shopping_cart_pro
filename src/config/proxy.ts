@@ -1,5 +1,5 @@
 import createMiddleware from "next-intl/middleware";
-import { locales, defaultLocale } from "../next-intl";
+import { locales, defaultLocale } from "../../next-intl";
 import type { NextRequest } from "next/server";
 import { updateSession } from "@src/lib/auth/session";
 

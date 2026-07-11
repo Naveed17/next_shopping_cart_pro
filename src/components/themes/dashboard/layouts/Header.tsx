@@ -1,14 +1,14 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
 import { Bell, Search, Menu, LogOut, User, ChevronDown, X, Home } from 'lucide-react';
-import { useDashboard } from '@src/context/dashboardContext';
+import { useDashboard } from '@src/components/providers/dashboardContext';
 import { useUser } from '@hooks/use-user';
 import { useParams, useRouter } from 'next/navigation';
-import Drawer from '@components/core/drawer/drawer';
+import Drawer from '@components/ui/drawer/drawer';
 import Link from 'next/link';
 import { LayoutDashboard, Package, ShoppingCart, Store, Users, Settings, BarChart3 } from 'lucide-react';
-import Container from '@components/core/container';
-import ModeSwitcher from '@src/components/core/modeSwitcher';
+import Container from '@components/ui/container';
+import ModeSwitcher from '@src/components/ui/modeSwitcher';
 
 const Header = () => {
   const { user, hasPermission } = useDashboard();

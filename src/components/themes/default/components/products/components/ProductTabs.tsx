@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Star, Check, ChevronDown, ChevronUp, User, Calendar } from 'lucide-react';
-import { Product } from '@src/@types/common';
+import { Product } from '@src/types/common';
 
 interface ProductTabsProps {
   product: Product;

@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { Star } from 'lucide-react';
-import Card from '@src/components/core/card/card';
-import Button from '@src/components/core/button/button';
+import Card from '@src/components/ui/card/card';
+import Button from '@src/components/ui/button/button';
 
 const categories = [
   'Electronics',

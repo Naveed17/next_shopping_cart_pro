@@ -5,9 +5,9 @@ import { useAppDispatch, useAppSelector } from '@src/lib/redux/store';
 import { CheckoutForm, OrderSummary } from '@components/themes/default';
 import { ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
-import Button from '@src/components/core/button/button';
+import Button from '@src/components/ui/button/button';
 import { SetClearCart } from '@lib/redux/cart';
-import Container from '@components/core/container';
+import Container from '@components/ui/container';
 
 export default function CheckoutPage() {
   const { items } = useAppSelector((state) => state.cart);

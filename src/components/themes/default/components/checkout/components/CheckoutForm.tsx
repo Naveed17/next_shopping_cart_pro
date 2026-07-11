@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { CreditCard, MapPin, User, Mail, Phone } from 'lucide-react';
-import Button from '@src/components/core/button/button';
-import Card from '@src/components/core/card/card';
-import Input from '@src/components/core/input';
+import Button from '@src/components/ui/button/button';
+import Card from '@src/components/ui/card/card';
+import Input from '@src/components/ui/input';
 
 interface CheckoutFormProps {
   onOrderComplete: () => void;

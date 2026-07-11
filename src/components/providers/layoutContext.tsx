@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
-import { LayoutType } from "@src/@types/theme";
-import { CommonProps } from "@src/@types/common";
+import { LayoutType } from "@src/types/theme";
+import { CommonProps } from "@src/types/common";
 
 export interface LayoutContextProps {
   type: LayoutType;

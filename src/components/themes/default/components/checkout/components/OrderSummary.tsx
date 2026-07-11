@@ -3,7 +3,7 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/lib/redux/store';
 import { Lock } from 'lucide-react';
-import Card from '@src/components/core/card/card';
+import Card from '@src/components/ui/card/card';
 import Image from 'next/image';
 
 export default function OrderSummary() {

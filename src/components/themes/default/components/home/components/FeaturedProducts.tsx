@@ -1,11 +1,11 @@
 'use client';
 
 import { ArrowRight } from 'lucide-react';
-import { Product } from '@src/@types/common';
-import ProductCard from '@src/components/core/ProductCard';
+import { Product } from '@src/types/common';
+import ProductCard from '@src/components/ui/ProductCard';
 import Link from 'next/link';
 import { useAppSelector } from '@lib/redux/store';
-import Container from '@components/core/container';
+import Container from '@components/ui/container';
 import useLocale from '@hooks/useLocale';
 
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { RootState, useAppSelector } from '@src/lib/redux/store';
-import Button from '@src/components/core/button/button';
+import Button from '@src/components/ui/button/button';
 import Link from 'next/link';
 import { Shield, Package, CreditCard, RotateCcw } from 'lucide-react';
 import { motion } from 'framer-motion';

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
-import { fetchAppData } from "@src/actions";
+import { fetchAppData } from "@src/services";
 
 export const setAppData = createAsyncThunk(
   "websiteContent/fetchWebContent",

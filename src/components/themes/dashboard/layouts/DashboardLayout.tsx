@@ -1,5 +1,5 @@
 import React from 'react';
-import { DashboardProvider } from '@src/context/dashboardContext';
+import { DashboardProvider } from '@src/components/providers/dashboardContext';
 import Sidebar from './Sidebar';
 import Header from './Header';
 

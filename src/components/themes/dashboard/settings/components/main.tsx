@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useDashboard } from '@src/context/dashboardContext';
+import { useDashboard } from '@src/components/providers/dashboardContext';
 import { motion } from 'framer-motion';
 import { Settings, Save } from 'lucide-react';
-import Button from '@src/components/core/button/button';
-import Input from '@src/components/core/input';
-import { Select } from '@src/components/core/select';
+import Button from '@src/components/ui/button/button';
+import Input from '@src/components/ui/input';
+import { Select } from '@src/components/ui/select';
 import { toast } from 'react-toastify';
 
 export default function MainSettings() {

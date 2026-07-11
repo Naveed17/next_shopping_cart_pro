@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Gift, Zap, Shield, Bell, Users, Star } from 'lucide-react';
-import Button from '@src/components/core/button/button';
-import Container from '@components/core/container';
-import Input from '@src/components/core/input';
+import Button from '@src/components/ui/button/button';
+import Container from '@components/ui/container';
+import Input from '@src/components/ui/input';
 
 export default function NewsletterSection() {
   const [email, setEmail] = useState('');

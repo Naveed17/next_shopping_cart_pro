@@ -1,9 +1,9 @@
 'use client';
 
 import { Star, MapPin, Mail } from 'lucide-react';
-import { Vendor } from '@src/@types/common';
-import Button from '@src/components/core/button/button';
-import Card from '@src/components/core/card/card';
+import { Vendor } from '@src/types/common';
+import Button from '@src/components/ui/button/button';
+import Card from '@src/components/ui/card/card';
 import Link from 'next/link';
 import useLocale from '@hooks/useLocale';
 

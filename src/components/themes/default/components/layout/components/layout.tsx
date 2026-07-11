@@ -1,5 +1,5 @@
-import type { CommonProps } from "@src/@types/common";
-import LayoutBase from "@src/context/layoutContext";
+import type { CommonProps } from "@src/types/common";
+import LayoutBase from "@src/components/providers/layoutContext";
 import { LAYOUT_DEFAULT } from "@src/constants/theme.constant";
 import { Footer, Header } from "@src/components/themes/default";
 

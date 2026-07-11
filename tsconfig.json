@@ -38,11 +38,14 @@
       "@types/*": [
         "src/types/*"
       ],
-      "@interfaces/*": [
-        "src/interfaces/*"
+      "@config/*": [
+        "src/config/*"
       ],
-      "@theme/*": [
-        "src/theme/*"
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@store/*": [
+        "src/store/*"
       ],
       "@redux/*": [
         "src/lib/redux/*"
@@ -50,8 +53,17 @@
       "@hooks/*": [
         "src/hooks/*"
       ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@constants/*": [
+        "src/constants/*"
+      ],
       "@styles/*": [
         "src/styles/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
       ],
       "@src/*": [
         "src/*"
@@ -59,7 +71,6 @@
     },
     "typeRoots": [
       "./node_modules/@types",
-      "./src/@types",
       "./src/types"
     ]
   },

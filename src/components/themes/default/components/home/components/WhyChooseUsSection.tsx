@@ -1,6 +1,6 @@
 'use client';
 
-import Container from '@components/core/container';
+import Container from '@components/ui/container';
 import { motion } from 'framer-motion';
 import { Shield, Truck, CreditCard, Headphones, Award, Globe } from 'lucide-react';
 

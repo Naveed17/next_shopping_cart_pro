@@ -1,4 +1,4 @@
-import { getDictionary } from '@src/get-dictionary'
+import { getDictionary } from '@src/lib/get-dictionary'
 import React from 'react'
 import { AuthLayout } from '@components/themes/default/components/auth'
 import { GuestGuard } from '@lib/auth/guest-guard'

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { THEME_ENUM } from "@src/constants/theme.constant";
-import type { Mode } from "@src/@types/theme";
+import type { Mode } from "@src/types/theme";
 import { useAppSelector, useAppDispatch } from "@lib/redux/store";
 import { setMode } from "@lib/redux/base";
 

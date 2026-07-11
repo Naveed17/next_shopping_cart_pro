@@ -2,12 +2,12 @@
 
 import { TrendingUp, Eye, Heart, Star, ShoppingCart, Flame } from 'lucide-react';
 import { SetAddToCart } from '@src/lib/redux/cart';
-import { Product } from '@src/@types/common';
-import Button from '@src/components/core/button/button';
+import { Product } from '@src/types/common';
+import Button from '@src/components/ui/button/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@lib/redux/store';
-import Container from '@components/core/container';
+import Container from '@components/ui/container';
 import useLocale from '@hooks/useLocale';
 
 export default function TrendingSection() {

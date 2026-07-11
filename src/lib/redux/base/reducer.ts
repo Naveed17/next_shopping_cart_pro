@@ -7,7 +7,7 @@ import {
   setMode,
   setLayoutType,
 } from "./actions";
-import { LayoutType } from "@src/@types/theme";
+import { LayoutType } from "@src/types/theme";
 
 // 2. Destination interface is used here to type the destination property in the State interface
 interface State {

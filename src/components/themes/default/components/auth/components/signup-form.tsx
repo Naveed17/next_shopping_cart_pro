@@ -6,11 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm, type ControllerRenderProps } from 'react-hook-form';
 import { z as zod } from 'zod';
 import { toast } from 'react-toastify';
-import Button from '@src/components/core/button/button';
-import Card from '@src/components/core/card/card';
-import Input from '@src/components/core/input';
+import Button from '@src/components/ui/button/button';
+import Card from '@src/components/ui/card/card';
+import Input from '@src/components/ui/input';
 import Link from 'next/link';
-import { paths } from '@src/paths';
+import { paths } from '@src/config/paths';
 import { useUser } from '@src/hooks/use-user';
 import useLocale from '@hooks/useLocale';
 

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Send, Sparkles, Package, Target, Check } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
-import Input from '@src/components/core/input';
+import Input from '@src/components/ui/input';
 import Image from 'next/image';
 export default function Footer() {
   const [email, setEmail] = useState('');

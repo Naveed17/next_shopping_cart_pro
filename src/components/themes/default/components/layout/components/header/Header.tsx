@@ -3,15 +3,15 @@
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/lib/redux/store';
-import ModeSwitcher from '@src/components/core/modeSwitcher';
-import Button from '@src/components/core/button/button';
+import ModeSwitcher from '@src/components/ui/modeSwitcher';
+import Button from '@src/components/ui/button/button';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useUser } from '@hooks/use-user';
-import UserDropdown from '@src/components/core/UserDropdown';
+import UserDropdown from '@src/components/ui/UserDropdown';
 import Image from 'next/image';
-import LocaleSwitcher from '@src/components/core/LocaleSwitcher';
-import SearchDropdown from '@src/components/core/SearchDropdown';
+import LocaleSwitcher from '@src/components/ui/LocaleSwitcher';
+import SearchDropdown from '@src/components/ui/SearchDropdown';
 import useLocale from '@hooks/useLocale';
 
 export default function Header() {

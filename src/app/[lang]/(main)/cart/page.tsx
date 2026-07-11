@@ -3,10 +3,10 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/lib/redux/store';
 import { CartItem, CartSummary } from '@components/themes/default';
-import Button from '@src/components/core/button/button';
+import Button from '@src/components/ui/button/button';
 import Link from 'next/link';
 import { ShoppingBag } from 'lucide-react';
-import Container from '@components/core/container';
+import Container from '@components/ui/container';
 
 export default function CartPage() {
   const { items } = useSelector((state: RootState) => state.cart);

@@ -15,7 +15,7 @@ import {
   User,
   Home
 } from 'lucide-react';
-import { useDashboard } from '@src/context/dashboardContext';
+import { useDashboard } from '@src/components/providers/dashboardContext';
 import { UserRole } from '@src/types/dashboard';
 
 const Sidebar = () => {

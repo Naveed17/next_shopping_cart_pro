@@ -1,6 +1,6 @@
 
 import { LoginForm } from '@src/components/themes/default/components/auth'
-import { getDictionary } from '@src/get-dictionary'
+import { getDictionary } from '@src/lib/get-dictionary'
 import React from 'react'
 import { Metadata } from 'next/types'
 export const metadata = { title: `Auth | Login` } satisfies Metadata;

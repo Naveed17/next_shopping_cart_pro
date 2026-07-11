@@ -2,7 +2,7 @@ import classNames from '@src/utils/classNames'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useForm, FormItemContextProvider } from './context'
 import { CONTROL_SIZES, LAYOUT } from '@src/utils/constants'
-import type { CommonProps, TypeAttributes } from '@src/@types/common'
+import type { CommonProps, TypeAttributes } from '@src/types/common'
 import type { ReactNode, Ref } from 'react'
 
 export interface FormItemProps extends CommonProps {

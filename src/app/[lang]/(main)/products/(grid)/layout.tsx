@@ -1,4 +1,4 @@
-import Container from '@components/core/container';
+import Container from '@components/ui/container';
 import { ProductFilters } from '@components/themes/default';
 import React from 'react';
 export default function ProductsLayout({ children }: { children: React.ReactNode }) {

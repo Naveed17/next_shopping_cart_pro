@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation';
 import { Star, ShoppingCart, Heart, Share2, Minus, Plus, Check, AlertTriangle, X, Tag, Shield, Truck, RotateCcw, ArrowRight } from 'lucide-react';
 
 import { SetAddToCart } from '@src/lib/redux/cart';
-import { Product } from '@src/@types/common';
-import Button from '@src/components/core/button/button';
+import { Product } from '@src/types/common';
+import Button from '@src/components/ui/button/button';
 import { useAppDispatch, useAppSelector } from '@lib/redux/store';
 import useLocale from '@hooks/useLocale';
 

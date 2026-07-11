@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { locales } from '../../../next-intl'
-import '@src/css/app.css'
+import '@src/styles/app.css'
 import { Noto_Kufi_Arabic, Source_Sans_3 } from 'next/font/google'
 import AppProvider from '@lib/appProvider'
 import { Metadata } from 'next'
-import { fetchAppData } from '@src/actions'
+import { fetchAppData } from '@src/services'
 import Script from 'next/script'
 
 // Fonts

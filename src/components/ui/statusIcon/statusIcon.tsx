@@ -1,5 +1,5 @@
 
-import type { TypeAttributes, CommonProps } from '@src/@types/common'
+import type { TypeAttributes, CommonProps } from '@src/types/common'
 import type { ReactNode, JSX } from 'react'
 import { CheckCircle, Info, AlertTriangle, XCircle } from 'lucide-react'
 

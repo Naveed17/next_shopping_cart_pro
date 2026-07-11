@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { Star, ShoppingCart, Heart, Eye, Tag, Zap, Check, AlertTriangle, X } from 'lucide-react';
 import { SetAddToCart } from '@src/lib/redux/cart';
-import { Product } from '@src/@types/common';
-import Button from '@src/components/core/button/button';
+import { Product } from '@src/types/common';
+import Button from '@src/components/ui/button/button';
 import ImageBlur from '@src/utils/blurImage';
 import Link from 'next/link';
 import { useAppDispatch } from '@lib/redux/store';

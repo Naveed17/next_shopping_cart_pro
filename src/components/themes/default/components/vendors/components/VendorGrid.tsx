@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import VendorCard from './VendorCard';
-import { Vendor } from '@src/@types/common';
+import { Vendor } from '@src/types/common';
 
 // Mock data - replace with API call
 const mockVendors: Vendor[] = [

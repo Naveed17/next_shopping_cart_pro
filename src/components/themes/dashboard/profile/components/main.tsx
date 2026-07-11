@@ -5,13 +5,13 @@ import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { useDashboard } from '@src/context/dashboardContext';
+import { useDashboard } from '@src/components/providers/dashboardContext';
 import { motion } from 'framer-motion';
 import { User, Mail, Phone, MapPin, Save, X } from 'lucide-react';
 import { toast } from 'react-toastify';
-import Button from '@src/components/core/button/button';
-import Input from '@src/components/core/input';
-import { FileUpload } from '@src/components/core/fileupload';
+import Button from '@src/components/ui/button/button';
+import Input from '@src/components/ui/input';
+import { FileUpload } from '@src/components/ui/fileupload';
 
 const profileSchema = z.object({
     name: z.string().min(2, 'Name must be at least 2 characters').max(50, 'Name must be less than 50 characters'),

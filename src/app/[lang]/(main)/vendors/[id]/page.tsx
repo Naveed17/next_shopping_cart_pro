@@ -3,12 +3,12 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { Star, Mail, Calendar } from 'lucide-react';
-import { Vendor, Product } from '@src/@types/common';
+import { Vendor, Product } from '@src/types/common';
 import { ProductCard } from '@components/themes/default';
-import Button from '@src/components/core/button/button';
-import Card from '@src/components/core/card/card';
+import Button from '@src/components/ui/button/button';
+import Card from '@src/components/ui/card/card';
 import Image from 'next/image';
-import Container from '@components/core/container';
+import Container from '@components/ui/container';
 
 const mockVendor: Vendor = {
   id: '1',

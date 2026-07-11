@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Star, ShoppingCart } from 'lucide-react';
 import { useFloating, autoUpdate, offset, flip, shift, useDismiss, useRole, useInteractions } from '@floating-ui/react';
-import Input from '@src/components/core/input';
+import Input from '@src/components/ui/input';
 import Image from 'next/image';
 import { useDebounce } from '@src/hooks/useDebounce';
 

@@ -1,13 +1,13 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import ProductCard from '@src/components/core/ProductCard';
+import ProductCard from '@src/components/ui/ProductCard';
 import { Grid3X3, LayoutGrid, Filter, ChevronDown } from 'lucide-react';
-import Card from '@src/components/core/card/card';
+import Card from '@src/components/ui/card/card';
 import { useQuery } from '@tanstack/react-query';
-import { fetchProducts } from '@src/actions';
-import { Product } from '@src/@types/common';
-import Select from '@src/components/core/select';
+import { fetchProducts } from '@src/services';
+import { Product } from '@src/types/common';
+import Select from '@src/components/ui/select';
 
 const getSortLabel = (value: string) => {
   const labels: Record<string, string> = {

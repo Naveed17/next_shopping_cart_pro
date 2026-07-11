@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Star, ShoppingBag, Zap } from 'lucide-react';
-import Button from '@src/components/core/button/button';
+import Button from '@src/components/ui/button/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAppSelector } from '@lib/redux/store';

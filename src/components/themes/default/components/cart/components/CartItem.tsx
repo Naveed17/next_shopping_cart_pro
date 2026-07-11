@@ -2,8 +2,8 @@
 
 import { Minus, Plus, Trash2, Heart, Star } from 'lucide-react';
 import { SetUpdateQuantity, SetRemoveFromCart } from '@src/lib/redux/cart';
-import { CartItem as CartItemType } from '@src/@types/common';
-import Button from '@src/components/core/button/button';
+import { CartItem as CartItemType } from '@src/types/common';
+import Button from '@src/components/ui/button/button';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useAppDispatch } from '@lib/redux/store';

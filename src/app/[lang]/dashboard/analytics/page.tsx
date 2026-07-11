@@ -3,7 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { BarChart3, TrendingUp, Users, DollarSign, ShoppingCart, Eye } from 'lucide-react';
 import { RoleGuard } from '@src/lib/auth/role-guard';
-import Card from '@src/components/core/card/card';
+import Card from '@src/components/ui/card/card';
 
 const AnalyticsPage = () => {
   const stats = [

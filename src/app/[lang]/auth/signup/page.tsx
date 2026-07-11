@@ -1,5 +1,5 @@
 import { SignupForm } from '@src/components/themes/default/components/auth'
-import { getDictionary } from '@src/get-dictionary'
+import { getDictionary } from '@src/lib/get-dictionary'
 import { Metadata } from 'next/types'
 import React from 'react'
 export const metadata = { title: `Auth | Signup` } satisfies Metadata;

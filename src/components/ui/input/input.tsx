@@ -4,7 +4,7 @@ import { useConfig } from '@lib/configProvider'
 import { useForm, useFormItem } from '../form/context'
 import { CONTROL_SIZES } from '@src/utils/constants'
 import isNil from 'lodash/isNil'
-import type { CommonProps, TypeAttributes } from '@src/@types/common'
+import type { CommonProps, TypeAttributes } from '@src/types/common'
 import type {
     InputHTMLAttributes,
     ElementType,

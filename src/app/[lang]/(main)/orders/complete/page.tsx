@@ -4,8 +4,8 @@ import { useEffect, useState, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { CheckCircle, Package, Truck, ArrowRight, Mail, MapPin, CreditCard } from 'lucide-react';
 import Link from 'next/link';
-import Card from '@src/components/core/card/card';
-import Button from '@src/components/core/button/button';
+import Card from '@src/components/ui/card/card';
+import Button from '@src/components/ui/button/button';
 import Image from 'next/image';
 import Confetti from 'react-confetti';
 

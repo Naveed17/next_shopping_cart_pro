@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useDashboard } from '@src/context/dashboardContext';
+import { useDashboard } from '@src/components/providers/dashboardContext';
 import { Table, Column } from '@src/components/themes/dashboard/shared/tables';
 import { DeleteModal } from '@src/components/themes/dashboard/shared/models';
 import { Edit, Trash2, Plus, Grid3X3 } from 'lucide-react';

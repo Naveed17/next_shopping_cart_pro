@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext } from "react";
-import type { TypeAttributes } from "@src/@types/common";
+import type { TypeAttributes } from "@src/types/common";
 
 export type FormContextProps = {
   size?: TypeAttributes.ControlSize;

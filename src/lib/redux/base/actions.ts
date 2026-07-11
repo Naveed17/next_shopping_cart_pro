@@ -1,5 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
-import { LayoutType, Theme } from "@src/@types/theme";
+import { LayoutType, Theme } from "@src/types/theme";
 
 type ModeType = Theme;
 export const setMode = createAction<ModeType["mode"]>("SET_MODE");

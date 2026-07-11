@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAppSelector } from '@lib/redux/store';
-import Container from '@components/core/container';
+import Container from '@components/ui/container';
 import useLocale from '@hooks/useLocale';
 
 export default function CategoriesSection() {

@@ -2,7 +2,7 @@ import { FormContextProvider, FormContextConsumer } from './context'
 import classNames from 'classnames'
 import { SIZES, LAYOUT } from '@src/utils/constants'
 import type { FormContextProps } from './context'
-import type { CommonProps, TypeAttributes } from '@src/@types/common'
+import type { CommonProps, TypeAttributes } from '@src/types/common'
 
 export interface FormContainerProps extends CommonProps {
     size?: TypeAttributes.ControlSize

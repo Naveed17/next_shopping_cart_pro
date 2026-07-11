@@ -1,4 +1,4 @@
-import Container from '@components/core/container';
+import Container from '@components/ui/container';
 import { VendorGrid } from '@components/themes/default';
 
 export default function VendorsPage() {

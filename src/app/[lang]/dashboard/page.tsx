@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { useDashboard } from '@src/context/dashboardContext';
+import { useDashboard } from '@src/components/providers/dashboardContext';
 import { motion } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
 

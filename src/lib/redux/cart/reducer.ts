@@ -5,7 +5,7 @@ import {
   SetUpdateQuantity,
   SetClearCart,
 } from "./actions";
-import { CartItem, Product } from "@src/@types/common";
+import { CartItem, Product } from "@src/types/common";
 interface CartState {
   items: CartItem[];
   total: number;

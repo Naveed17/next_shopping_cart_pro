@@ -5,10 +5,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm, type ControllerRenderProps } from 'react-hook-form';
 import { z as zod } from 'zod';
 import { toast } from 'react-toastify';
-import Button from '@src/components/core/button/button';
-import Input from '@src/components/core/input';
-import { Select } from '@src/components/core/select';
-import { FileUpload } from '@src/components/core/fileupload';
+import Button from '@src/components/ui/button/button';
+import Input from '@src/components/ui/input';
+import { Select } from '@src/components/ui/select';
+import { FileUpload } from '@src/components/ui/fileupload';
 import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 

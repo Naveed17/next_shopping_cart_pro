@@ -1,5 +1,5 @@
 import "server-only";
-import type { Locale } from "../next-intl";
+import type { Locale } from "../../next-intl";
 
 const dictionaries = {
   en: () =>

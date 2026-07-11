@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import type { Direction } from "@src/@types/theme";
+import type { Direction } from "@src/types/theme";
 import { useAppDispatch, useAppSelector } from "@lib/redux/store";
 import { setDirection as setDirectionAction } from "@lib/redux/base";
 

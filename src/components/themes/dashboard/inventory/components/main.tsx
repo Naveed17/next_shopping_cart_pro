@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useDashboard } from '@src/context/dashboardContext';
+import { useDashboard } from '@src/components/providers/dashboardContext';
 import { Table, Column } from '@src/components/themes/dashboard/shared/tables';
 import { Edit, Archive, AlertTriangle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';

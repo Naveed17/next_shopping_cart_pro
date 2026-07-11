@@ -1,6 +1,6 @@
 'use client';
 
-import Container from '@components/core/container';
+import Container from '@components/ui/container';
 import { useAppSelector } from '@lib/redux/store';
 import { motion } from 'framer-motion';
 import { Users, ShoppingBag, Star, TrendingUp, Package, Award, Heart, Zap } from 'lucide-react';

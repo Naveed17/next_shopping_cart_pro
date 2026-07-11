@@ -1,4 +1,4 @@
-import { Product } from '@src/@types/common';
+import { Product } from '@src/types/common';
 import { ProductImageGallery, ProductTabs, ProductInfo, RelatedProducts } from '@components/themes/default';
 
 

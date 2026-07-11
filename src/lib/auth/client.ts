@@ -5,7 +5,7 @@ import {
   signIn,
   signOut,
   forget_password,
-} from "@src/actions";
+} from "@src/services";
 export interface SignInWithPasswordParams {
   email: string;
   password: string;
